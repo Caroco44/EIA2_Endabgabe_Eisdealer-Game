@@ -36,10 +36,34 @@ namespace Endabgabe_Eisdealer {
     //Create Customers
     customers.push(new Customer(500, 250, "green"));
 
+    window.addEventListener("keydown", changeMood);
 
     window.setInterval(function (): void {
       animation();
     }, 24)
+  }
+
+
+  // Draw Background
+  function drawBackground(): void {
+
+    let gradient: CanvasGradient = crc2.createLinearGradient(0, 0, 0, crc2.canvas.height);
+    gradient.addColorStop(0, "lightblue");
+    gradient.addColorStop(1, "lightpink");
+
+    crc2.fillStyle = gradient;
+    crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
+  }
+
+  // Change Mood
+  function changeMood(_event: KeyboardEvent) {
+    if (_event.code == "Space") {
+      for (let moveable of customers) {
+        if (moveable instanceof Customer) {
+          moveable.changeMood()
+        }
+      }
+    }
   }
 
   // Animation
@@ -54,17 +78,6 @@ namespace Endabgabe_Eisdealer {
     for (let customer of customers) {
       customer.move();
     }
-  }
-
-  // Draw Background
-  function drawBackground(): void {
-
-    let gradient: CanvasGradient = crc2.createLinearGradient(0, 0, 0, crc2.canvas.height);
-    gradient.addColorStop(0, "lightblue");
-    gradient.addColorStop(1, "lightpink");
-
-    crc2.fillStyle = gradient;
-    crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
   }
 
 }

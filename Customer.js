@@ -45,7 +45,8 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.closePath();
             Endabgabe_Eisdealer.crc2.restore();
         }
-        mood() {
+        // Change Mood
+        changeMood() {
             Endabgabe_Eisdealer.crc2.save();
             Endabgabe_Eisdealer.crc2.beginPath();
             // Draw the face
@@ -68,7 +69,7 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.beginPath();
             Endabgabe_Eisdealer.crc2.strokeStyle = 'black';
             Endabgabe_Eisdealer.crc2.lineWidth = 5;
-            Endabgabe_Eisdealer.crc2.arc(0, 0, 8, 0, Math.PI, false);
+            Endabgabe_Eisdealer.crc2.arc(0, 20, 30, Math.PI, 2 * Math.PI, false);
             Endabgabe_Eisdealer.crc2.stroke();
             Endabgabe_Eisdealer.crc2.closePath();
             Endabgabe_Eisdealer.crc2.restore();

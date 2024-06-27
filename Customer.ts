@@ -55,7 +55,9 @@ namespace Endabgabe_Eisdealer {
       crc2.restore();
   }
 
-  public mood(): void {
+
+  // Change Mood
+  public changeMood(): void {
     crc2.save();
     crc2.beginPath();
 
@@ -82,7 +84,7 @@ namespace Endabgabe_Eisdealer {
     crc2.beginPath();
     crc2.strokeStyle = 'black';
     crc2.lineWidth = 5;
-    crc2.arc(0, 0, 8, 0, Math.PI, false);
+    crc2.arc(0, 20, 30, Math.PI, 2 * Math.PI, false);
     crc2.stroke();
     crc2.closePath();
 

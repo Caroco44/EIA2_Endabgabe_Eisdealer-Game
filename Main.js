@@ -24,9 +24,28 @@ var Endabgabe_Eisdealer;
         // sortiment.push(new IceCream(1200, 320, "lightblue"));
         //Create Customers
         customers.push(new Endabgabe_Eisdealer.Customer(500, 250, "green"));
+        window.addEventListener("keydown", changeMood);
         window.setInterval(function () {
             animation();
         }, 24);
+    }
+    // Draw Background
+    function drawBackground() {
+        let gradient = Endabgabe_Eisdealer.crc2.createLinearGradient(0, 0, 0, Endabgabe_Eisdealer.crc2.canvas.height);
+        gradient.addColorStop(0, "lightblue");
+        gradient.addColorStop(1, "lightpink");
+        Endabgabe_Eisdealer.crc2.fillStyle = gradient;
+        Endabgabe_Eisdealer.crc2.fillRect(0, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
+    }
+    // Change Mood
+    function changeMood(_event) {
+        if (_event.code == "Space") {
+            for (let moveable of customers) {
+                if (moveable instanceof Endabgabe_Eisdealer.Customer) {
+                    moveable.changeMood();
+                }
+            }
+        }
     }
     // Animation
     function animation() {
@@ -38,14 +57,6 @@ var Endabgabe_Eisdealer;
         for (let customer of customers) {
             customer.move();
         }
-    }
-    // Draw Background
-    function drawBackground() {
-        let gradient = Endabgabe_Eisdealer.crc2.createLinearGradient(0, 0, 0, Endabgabe_Eisdealer.crc2.canvas.height);
-        gradient.addColorStop(0, "lightblue");
-        gradient.addColorStop(1, "lightpink");
-        Endabgabe_Eisdealer.crc2.fillStyle = gradient;
-        Endabgabe_Eisdealer.crc2.fillRect(0, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
     }
 })(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
 //# sourceMappingURL=Main.js.map
