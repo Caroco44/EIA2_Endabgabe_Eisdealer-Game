@@ -4,10 +4,9 @@ namespace Endabgabe_Eisdealer {
 
     constructor(_positionX: number, _positionY: number, _color: string) {
       super(_positionX, _positionY, _color)
-      this.state = "swim";
     }
 
-    public moveSwim(): void {
+    public move(): void {
       if (this.state == "swim") {
       //this.positionX -= 2
       this.positionX = this.positionX - 2;
@@ -17,24 +16,6 @@ namespace Endabgabe_Eisdealer {
       this.draw();
     }
   }
-
-    public moveEat(): void {
-      if (this.state == "eat") {
-      
-      // Ente soll sich auf Brot zubewegen
-      console.log("moveEat ausgelöst")
-
-      this.draw();
-    }
-  }
-
-    public changeColor(): void {
-      if (this.color == "purple") {
-        this.color = "yellow"
-      } else {
-        this.color = "purple"
-      }
-    }
 
     public draw(): void {
       crc2.save();

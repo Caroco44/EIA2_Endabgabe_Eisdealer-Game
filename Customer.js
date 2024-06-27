@@ -5,30 +5,14 @@ var Endabgabe_Eisdealer;
         state;
         constructor(_positionX, _positionY, _color) {
             super(_positionX, _positionY, _color);
-            this.state = "swim";
         }
-        moveSwim() {
+        move() {
             if (this.state == "swim") {
                 //this.positionX -= 2
                 this.positionX = this.positionX - 2;
                 if (this.positionX < 580)
                     this.positionX = 580;
                 this.draw();
-            }
-        }
-        moveEat() {
-            if (this.state == "eat") {
-                // Ente soll sich auf Brot zubewegen
-                console.log("moveEat ausgelöst");
-                this.draw();
-            }
-        }
-        changeColor() {
-            if (this.color == "purple") {
-                this.color = "yellow";
-            }
-            else {
-                this.color = "purple";
             }
         }
         draw() {
