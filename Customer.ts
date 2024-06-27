@@ -1,5 +1,5 @@
 namespace Endabgabe_Eisdealer {
-  export class Customer extends Moveable {
+  export class Customer extends Food {
     public state: string;
 
     constructor(_positionX: number, _positionY: number, _color: string) {

@@ -12,7 +12,7 @@ namespace Endabgabe_Eisdealer {
 
 
   // Array der Moveables
-  let moveables: Moveable[] = [];
+  let moveables: Food[] = [];
 
   // Array des Essens
   let food: Bread[] = [];
@@ -41,19 +41,9 @@ namespace Endabgabe_Eisdealer {
     moveables.push(new Customer(1000, 420, "yellow"));
     moveables.push(new Customer(1200, 320, "lightblue"));
 
-    moveables.push(new Insect(1000, 100, "purple"));
-    moveables.push(new Insect(700, 150, "purple"));
-    moveables.push(new Insect(600, 80, "purple"));
-    moveables.push(new Insect(500, 200, "purple"));
-    moveables.push(new Insect(200, 150, "purple"));
-
-    moveables.push(new Cloud(10, 80, "white"));
-    moveables.push(new Cloud(300, 100, "white"));
-    moveables.push(new Cloud(600, 80, "white"));
-
 
     canvas.addEventListener("pointerdown", createObject);
-    window.addEventListener("keydown", changeColor);
+    // window.addEventListener("keydown", changeColor);
 
     window.setInterval(function (): void {
       animation();
@@ -68,7 +58,6 @@ namespace Endabgabe_Eisdealer {
     for (let moveable of moveables) {
       if (moveable instanceof Customer) {
         if (moveable.positionX < clickX && clickX < moveable.positionX + 100 && moveable.positionY < clickY && clickY < moveable.positionY + 100) {
-          moveables.push(new BabyDuck(clickX, clickY + 40, "pink"));
           isDuckClicked = true;
         }
       }
@@ -84,15 +73,15 @@ namespace Endabgabe_Eisdealer {
   }
 
   // Change Color
-  function changeColor(_event: KeyboardEvent) {
-    if (_event.code == "Space") {
-      for (let moveable of moveables) {
-        if (moveable instanceof Customer || moveable instanceof BabyDuck) {
-          moveable.changeColor()
-        }
-      }
-    }
-  }
+  // function changeColor(_event: KeyboardEvent) {
+  //   if (_event.code == "Space") {
+  //     for (let moveable of moveables) {
+  //       if (moveable instanceof Customer) {
+  //         moveable.changeColor()
+  //       }
+  //     }
+  //   }
+  // }
 
   // Draw Background
   function drawBackground(): void {

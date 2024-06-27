@@ -1,6 +1,6 @@
 namespace Endabgabe_Eisdealer {
 
-export abstract class Moveable {
+export abstract class Food {
 
   public positionX: number;
   public positionY: number;

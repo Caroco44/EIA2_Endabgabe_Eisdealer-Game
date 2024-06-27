@@ -1,6 +1,6 @@
 "use strict";
-var L09_Ententeich;
-(function (L09_Ententeich) {
+var Endabgabe_Eisdealer;
+(function (Endabgabe_Eisdealer) {
     class Bread {
         positionX;
         positionY;
@@ -11,16 +11,16 @@ var L09_Ententeich;
             this.color = _color;
         }
         draw() {
-            L09_Ententeich.crc2.save();
-            L09_Ententeich.crc2.beginPath();
-            L09_Ententeich.crc2.translate(this.positionX, this.positionY);
-            L09_Ententeich.crc2.fillStyle = this.color;
-            L09_Ententeich.crc2.ellipse(0, 0, 5, 4, 0, 0, 2 * Math.PI);
-            L09_Ententeich.crc2.fill();
-            L09_Ententeich.crc2.closePath();
-            L09_Ententeich.crc2.restore();
+            Endabgabe_Eisdealer.crc2.save();
+            Endabgabe_Eisdealer.crc2.beginPath();
+            Endabgabe_Eisdealer.crc2.translate(this.positionX, this.positionY);
+            Endabgabe_Eisdealer.crc2.fillStyle = this.color;
+            Endabgabe_Eisdealer.crc2.ellipse(0, 0, 5, 4, 0, 0, 2 * Math.PI);
+            Endabgabe_Eisdealer.crc2.fill();
+            Endabgabe_Eisdealer.crc2.closePath();
+            Endabgabe_Eisdealer.crc2.restore();
         }
     }
-    L09_Ententeich.Bread = Bread;
-})(L09_Ententeich || (L09_Ententeich = {}));
+    Endabgabe_Eisdealer.Bread = Bread;
+})(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
 //# sourceMappingURL=Bread.js.map
