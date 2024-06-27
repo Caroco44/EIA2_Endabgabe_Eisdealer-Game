@@ -1,19 +1,21 @@
 "use strict";
 var Endabgabe_Eisdealer;
 (function (Endabgabe_Eisdealer) {
-    class Customer extends Endabgabe_Eisdealer.Food {
-        state;
+    class Customer {
+        positionX;
+        positionY;
+        color;
         constructor(_positionX, _positionY, _color) {
-            super(_positionX, _positionY, _color);
+            this.positionX = _positionX;
+            this.positionY = _positionY;
+            this.color = _color;
         }
         move() {
-            if (this.state == "swim") {
-                //this.positionX -= 2
-                this.positionX = this.positionX - 2;
-                if (this.positionX < 580)
-                    this.positionX = 580;
-                this.draw();
-            }
+            //this.positionX -= 2
+            this.positionX = this.positionX - 2;
+            if (this.positionX < 580)
+                this.positionX = 580;
+            this.draw();
         }
         draw() {
             Endabgabe_Eisdealer.crc2.save();

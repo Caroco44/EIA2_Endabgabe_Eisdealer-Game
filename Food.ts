@@ -4,7 +4,12 @@ export abstract class Food {
 
   public positionX: number;
   public positionY: number;
-  protected color: string;
+  public color: string;
+
+  // zusätzliche Eigenschaften
+  public state: string;
+  public price: number;
+  public name: string;
 
   constructor(_positionX: number, _positionY: number, _color: string) {
     this.positionX = _positionX;

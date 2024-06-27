@@ -1,13 +1,17 @@
 namespace Endabgabe_Eisdealer {
-  export class Customer extends Food {
-    public state: string;
+  export class Customer {
+
+    public positionX: number;
+    public positionY: number;
+    public color: string;
 
     constructor(_positionX: number, _positionY: number, _color: string) {
-      super(_positionX, _positionY, _color)
+      this.positionX = _positionX;
+      this.positionY = _positionY;
+      this.color = _color;
     }
 
     public move(): void {
-      if (this.state == "swim") {
       //this.positionX -= 2
       this.positionX = this.positionX - 2;
 
@@ -15,7 +19,7 @@ namespace Endabgabe_Eisdealer {
 
       this.draw();
     }
-  }
+
 
     public draw(): void {
       crc2.save();

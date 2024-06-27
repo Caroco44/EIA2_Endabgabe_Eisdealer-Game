@@ -10,8 +10,9 @@ namespace Endabgabe_Eisdealer {
   let imgData: ImageData;
 
 
-  // Array of Ice Cream
-  let moveables: Food[] = [];
+  // Arrays
+  let sortiment: Food[] = [];
+  let customers: Customer[] = [];
 
 
   function handleLoad(_event: Event): void {
@@ -27,21 +28,31 @@ namespace Endabgabe_Eisdealer {
 
     imgData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
 
-    moveables.push(new Customer(1000, 420, "yellow"));
-    moveables.push(new Customer(1200, 320, "lightblue"));
+
+    // Create Ingredients of Sortiment
+    // sortiment.push(new IceCream(1000, 420, "yellow"));
+    // sortiment.push(new IceCream(1200, 320, "lightblue"));
+
+    //Create Customers
+    customers.push(new Customer(500, 250, "red"));
+
 
     window.setInterval(function (): void {
       animation();
     }, 24)
   }
 
-  // Animate the Moveables
+  // Animation
   function animation(): void {
     drawBackground();
     crc2.putImageData(imgData, 0, 0);
 
-    for (let moveable of moveables) {
-      moveable.move();
+    for (let food of sortiment) {
+      food.move();
+    }
+
+    for (let customer of customers) {
+      customer.move();
     }
   }
 
