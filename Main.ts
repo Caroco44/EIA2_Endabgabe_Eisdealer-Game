@@ -1,4 +1,4 @@
-namespace L09_Ententeich {
+namespace Endabgabe_Eisdealer {
   export interface Vector {
     x: number;
     y: number;

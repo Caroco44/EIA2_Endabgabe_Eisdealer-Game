@@ -1,4 +1,4 @@
-namespace L09_Ententeich {
+namespace Endabgabe_Eisdealer {
   export class Duck extends Moveable {
     public state: string;
 

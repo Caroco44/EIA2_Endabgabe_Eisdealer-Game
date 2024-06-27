@@ -1,4 +1,4 @@
-namespace L09_Ententeich {
+namespace Endabgabe_Eisdealer {
   export class Insect extends Moveable{
 
     constructor(_positionX: number, _positionY: number, _color: string) {
