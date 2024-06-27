@@ -38,8 +38,8 @@ namespace Endabgabe_Eisdealer {
 
     imgData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
 
-    moveables.push(new Duck(1000, 420, "yellow"));
-    moveables.push(new Duck(1200, 320, "lightblue"));
+    moveables.push(new Customer(1000, 420, "yellow"));
+    moveables.push(new Customer(1200, 320, "lightblue"));
 
     moveables.push(new Insect(1000, 100, "purple"));
     moveables.push(new Insect(700, 150, "purple"));
@@ -66,7 +66,7 @@ namespace Endabgabe_Eisdealer {
     let clickX: number = _event.clientX;
     let clickY: number = _event.clientY;
     for (let moveable of moveables) {
-      if (moveable instanceof Duck) {
+      if (moveable instanceof Customer) {
         if (moveable.positionX < clickX && clickX < moveable.positionX + 100 && moveable.positionY < clickY && clickY < moveable.positionY + 100) {
           moveables.push(new BabyDuck(clickX, clickY + 40, "pink"));
           isDuckClicked = true;
@@ -76,7 +76,7 @@ namespace Endabgabe_Eisdealer {
     if (isDuckClicked == false) {
       food.push(new Bread(clickX, clickY, "brown"))
       for (let moveable of moveables) {
-        if (moveable instanceof Duck) {
+        if (moveable instanceof Customer) {
           moveable.state = "eat";
         }
       }
@@ -87,7 +87,7 @@ namespace Endabgabe_Eisdealer {
   function changeColor(_event: KeyboardEvent) {
     if (_event.code == "Space") {
       for (let moveable of moveables) {
-        if (moveable instanceof Duck || moveable instanceof BabyDuck) {
+        if (moveable instanceof Customer || moveable instanceof BabyDuck) {
           moveable.changeColor()
         }
       }
