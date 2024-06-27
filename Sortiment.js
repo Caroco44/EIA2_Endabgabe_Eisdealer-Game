@@ -20,4 +20,4 @@ var Endabgabe_Eisdealer;
     }
     Endabgabe_Eisdealer.Food = Food;
 })(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
-//# sourceMappingURL=Food.js.map
+//# sourceMappingURL=Sortiment.js.map

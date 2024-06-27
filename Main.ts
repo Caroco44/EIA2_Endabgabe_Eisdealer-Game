@@ -29,12 +29,12 @@ namespace Endabgabe_Eisdealer {
     imgData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
 
 
-    // Create Ingredients of Sortiment
+    // Create Ingredients of Food
     // sortiment.push(new IceCream(1000, 420, "yellow"));
     // sortiment.push(new IceCream(1200, 320, "lightblue"));
 
     //Create Customers
-    customers.push(new Customer(500, 250, "red"));
+    customers.push(new Customer(500, 250, "green"));
 
 
     window.setInterval(function (): void {
