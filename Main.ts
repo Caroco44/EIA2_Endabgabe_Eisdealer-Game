@@ -61,16 +61,14 @@ namespace Endabgabe_Eisdealer {
     crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
   }
 
-  // Change Mood
-  function changeMood(_event: KeyboardEvent) {
-    if (_event.code == "Space") {
-      for (let moveable of customers) {
-        if (moveable instanceof Customer) {
-          moveable.changeMood()
-        }
-      }
+// Change Mood
+function changeMood(_event: KeyboardEvent): void {
+  if (_event.code === "Space") {
+    for (let customer of customers) {
+      customer.changeMood();
     }
   }
+}
 
   // Animation
   function animation(): void {

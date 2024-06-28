@@ -44,11 +44,9 @@ var Endabgabe_Eisdealer;
     }
     // Change Mood
     function changeMood(_event) {
-        if (_event.code == "Space") {
-            for (let moveable of customers) {
-                if (moveable instanceof Endabgabe_Eisdealer.Customer) {
-                    moveable.changeMood();
-                }
+        if (_event.code === "Space") {
+            for (let customer of customers) {
+                customer.changeMood();
             }
         }
     }

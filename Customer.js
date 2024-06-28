@@ -5,15 +5,27 @@ var Endabgabe_Eisdealer;
         positionX;
         positionY;
         color;
+        mood;
+        state;
         constructor(_positionX, _positionY, _color) {
             this.positionX = _positionX;
             this.positionY = _positionY;
             this.color = _color;
+            this.mood = "happy";
+            this.state = "waiting";
         }
         move() {
-            //this.positionX -= 2
-            // this.positionX = this.positionX - 2;
-            // if (this.positionX < 580) this.positionX = 580;
+            if (this.state == "waiting") {
+                // move to certain area and wait
+                // this.positionX = 100 + Math.random() * (500 - 100);
+                // this.positionY = 900 + Math.random() * (1000 - 900);
+            }
+            else if (this.state == "coming") {
+                // move to free table
+            }
+            else if (this.state == "leaving") {
+                // leave the screen and switch back to waiting
+            }
             this.draw();
         }
         draw() {
@@ -21,7 +33,12 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.beginPath();
             // Draw the face
             Endabgabe_Eisdealer.crc2.translate(this.positionX, this.positionY);
-            Endabgabe_Eisdealer.crc2.fillStyle = this.color;
+            if (this.mood == "happy") {
+                Endabgabe_Eisdealer.crc2.fillStyle = this.color;
+            }
+            else if (this.mood == "sad") {
+                Endabgabe_Eisdealer.crc2.fillStyle = "red";
+            }
             Endabgabe_Eisdealer.crc2.arc(0, 0, 40, 0, 2 * Math.PI);
             Endabgabe_Eisdealer.crc2.fill();
             Endabgabe_Eisdealer.crc2.closePath();
@@ -35,43 +52,28 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.arc(15, -15, 4, 0, 2 * Math.PI);
             Endabgabe_Eisdealer.crc2.fill();
             Endabgabe_Eisdealer.crc2.closePath();
-            // Draw the mouth
+            // Draw the mouth based on mood
             Endabgabe_Eisdealer.crc2.beginPath();
             Endabgabe_Eisdealer.crc2.strokeStyle = 'black';
             Endabgabe_Eisdealer.crc2.lineWidth = 5;
-            Endabgabe_Eisdealer.crc2.arc(0, 0, 8, 0, Math.PI, false);
+            if (this.mood == "happy") {
+                Endabgabe_Eisdealer.crc2.arc(0, 0, 8, 0, Math.PI, false);
+            }
+            else if (this.mood == "sad") {
+                Endabgabe_Eisdealer.crc2.arc(0, 8, 8, Math.PI, 2 * Math.PI, false);
+            }
             Endabgabe_Eisdealer.crc2.stroke();
             Endabgabe_Eisdealer.crc2.closePath();
             Endabgabe_Eisdealer.crc2.restore();
         }
-        // Change Mood
+        // Toggle between moods
         changeMood() {
-            Endabgabe_Eisdealer.crc2.save();
-            Endabgabe_Eisdealer.crc2.beginPath();
-            // Draw the face
-            Endabgabe_Eisdealer.crc2.translate(this.positionX, this.positionY);
-            Endabgabe_Eisdealer.crc2.fillStyle = this.color;
-            Endabgabe_Eisdealer.crc2.arc(0, 0, 50, 0, 2 * Math.PI);
-            Endabgabe_Eisdealer.crc2.fill();
-            Endabgabe_Eisdealer.crc2.closePath();
-            // Draw the pupils
-            Endabgabe_Eisdealer.crc2.beginPath();
-            Endabgabe_Eisdealer.crc2.fillStyle = 'black';
-            Endabgabe_Eisdealer.crc2.arc(-20, -10, 4, 0, 2 * Math.PI);
-            Endabgabe_Eisdealer.crc2.fill();
-            Endabgabe_Eisdealer.crc2.closePath();
-            Endabgabe_Eisdealer.crc2.beginPath();
-            Endabgabe_Eisdealer.crc2.arc(15, -15, 4, 0, 2 * Math.PI);
-            Endabgabe_Eisdealer.crc2.fill();
-            Endabgabe_Eisdealer.crc2.closePath();
-            // Draw the mouth
-            Endabgabe_Eisdealer.crc2.beginPath();
-            Endabgabe_Eisdealer.crc2.strokeStyle = 'black';
-            Endabgabe_Eisdealer.crc2.lineWidth = 5;
-            Endabgabe_Eisdealer.crc2.arc(0, 20, 15, Math.PI, 2 * Math.PI, false);
-            Endabgabe_Eisdealer.crc2.stroke();
-            Endabgabe_Eisdealer.crc2.closePath();
-            Endabgabe_Eisdealer.crc2.restore();
+            if (this.mood == "happy") {
+                this.mood = "sad";
+            }
+            else {
+                this.mood = "happy";
+            }
         }
     }
     Endabgabe_Eisdealer.Customer = Customer;
