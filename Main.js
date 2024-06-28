@@ -20,10 +20,9 @@ var Endabgabe_Eisdealer;
         canvas.height = window.innerHeight;
         drawBackground();
         imgData = Endabgabe_Eisdealer.crc2.getImageData(0, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
-        // Create Ingredients of Food
-        // sortiment.push(new IceCream(1000, 420, "yellow"));
-        // sortiment.push(new IceCream(1200, 320, "lightblue"));
-        //Create Objects
+        sortiment.push(new Endabgabe_Eisdealer.IceCream(1100, 400, "yellow"));
+        sortiment.push(new Endabgabe_Eisdealer.Sauce(1000, 400, "purple"));
+        sortiment.push(new Endabgabe_Eisdealer.Sauce(1050, 400, "red"));
         customers.push(new Endabgabe_Eisdealer.Customer(200, 400, "green"));
         tables.push(new Endabgabe_Eisdealer.Table(450, 80));
         tables.push(new Endabgabe_Eisdealer.Table(750, 200));

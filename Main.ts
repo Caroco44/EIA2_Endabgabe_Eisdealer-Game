@@ -11,7 +11,7 @@ namespace Endabgabe_Eisdealer {
 
 
   // Arrays
-  let sortiment: Food[] = [];
+  let sortiment: Sortiment[] = [];
   let customers: Customer[] = [];
   let tables: Table[] = [];
 
@@ -30,11 +30,10 @@ namespace Endabgabe_Eisdealer {
     imgData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
 
 
-    // Create Ingredients of Food
-    // sortiment.push(new IceCream(1000, 420, "yellow"));
-    // sortiment.push(new IceCream(1200, 320, "lightblue"));
+    sortiment.push(new IceCream(1100, 400, "yellow"));
+    sortiment.push(new Sauce(1000, 400, "purple"));
+    sortiment.push(new Sauce(1050, 400, "red"));
 
-    //Create Objects
     customers.push(new Customer(200, 400, "green"));
 
     tables.push(new Table(450, 80));
@@ -61,14 +60,14 @@ namespace Endabgabe_Eisdealer {
     crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
   }
 
-// Change Mood
-function changeMood(_event: KeyboardEvent): void {
-  if (_event.code === "Space") {
-    for (let customer of customers) {
-      customer.changeMood();
+  // Change Mood
+  function changeMood(_event: KeyboardEvent): void {
+    if (_event.code === "Space") {
+      for (let customer of customers) {
+        customer.changeMood();
+      }
     }
   }
-}
 
   // Animation
   function animation(): void {

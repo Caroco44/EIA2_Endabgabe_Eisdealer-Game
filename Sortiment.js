@@ -1,7 +1,7 @@
 "use strict";
 var Endabgabe_Eisdealer;
 (function (Endabgabe_Eisdealer) {
-    class Food {
+    class Sortiment {
         positionX;
         positionY;
         color;
@@ -18,6 +18,6 @@ var Endabgabe_Eisdealer;
         move() { }
         draw() { }
     }
-    Endabgabe_Eisdealer.Food = Food;
+    Endabgabe_Eisdealer.Sortiment = Sortiment;
 })(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
 //# sourceMappingURL=Sortiment.js.map
