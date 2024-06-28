@@ -13,6 +13,7 @@ namespace Endabgabe_Eisdealer {
   // Arrays
   let sortiment: Food[] = [];
   let customers: Customer[] = [];
+  let tables: Table[] = [];
 
 
   function handleLoad(_event: Event): void {
@@ -33,8 +34,13 @@ namespace Endabgabe_Eisdealer {
     // sortiment.push(new IceCream(1000, 420, "yellow"));
     // sortiment.push(new IceCream(1200, 320, "lightblue"));
 
-    //Create Customers
-    customers.push(new Customer(500, 250, "green"));
+    //Create Objects
+    customers.push(new Customer(200, 400, "green"));
+
+    tables.push(new Table(450, 80));
+    tables.push(new Table(750, 200));
+    tables.push(new Table(450, 290));
+    tables.push(new Table(650, 440));
 
     window.addEventListener("keydown", changeMood);
 
@@ -77,6 +83,10 @@ namespace Endabgabe_Eisdealer {
 
     for (let customer of customers) {
       customer.move();
+    }
+
+    for (let table of tables) {
+      table.draw();
     }
   }
 

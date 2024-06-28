@@ -10,6 +10,7 @@ var Endabgabe_Eisdealer;
     // Arrays
     let sortiment = [];
     let customers = [];
+    let tables = [];
     function handleLoad(_event) {
         let canvas = document.querySelector("canvas");
         if (!canvas)
@@ -22,8 +23,12 @@ var Endabgabe_Eisdealer;
         // Create Ingredients of Food
         // sortiment.push(new IceCream(1000, 420, "yellow"));
         // sortiment.push(new IceCream(1200, 320, "lightblue"));
-        //Create Customers
-        customers.push(new Endabgabe_Eisdealer.Customer(500, 250, "green"));
+        //Create Objects
+        customers.push(new Endabgabe_Eisdealer.Customer(200, 400, "green"));
+        tables.push(new Endabgabe_Eisdealer.Table(450, 80));
+        tables.push(new Endabgabe_Eisdealer.Table(750, 200));
+        tables.push(new Endabgabe_Eisdealer.Table(450, 290));
+        tables.push(new Endabgabe_Eisdealer.Table(650, 440));
         window.addEventListener("keydown", changeMood);
         window.setInterval(function () {
             animation();
@@ -56,6 +61,9 @@ var Endabgabe_Eisdealer;
         }
         for (let customer of customers) {
             customer.move();
+        }
+        for (let table of tables) {
+            table.draw();
         }
     }
 })(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
