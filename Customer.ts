@@ -21,7 +21,7 @@ namespace Endabgabe_Eisdealer {
       if (this.state == "waiting") {
         // move to certain area and wait
         // this.positionX = 100 + Math.random() * (500 - 100);
-        // this.positionY = 900 + Math.random() * (1000 - 900);
+        // this.positionY = 500 + Math.random() * (900 - 500);
       } else if (this.state == "coming") {
         // move to free table
       } else if (this.state == "leaving") {
