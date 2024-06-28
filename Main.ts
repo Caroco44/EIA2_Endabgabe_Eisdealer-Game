@@ -32,7 +32,7 @@ namespace Endabgabe_Eisdealer {
 
     sortiment.push(new IceCream(1100, 400, "yellow"));
     sortiment.push(new Sauce(1000, 400, "purple"));
-    sortiment.push(new Sauce(1050, 400, "red"));
+    sortiment.push(new Sprinkles(1050, 400, "red"));
 
     customers.push(new Customer(200, 400, "green"));
 
@@ -62,7 +62,7 @@ namespace Endabgabe_Eisdealer {
 
   // Change Mood
   function changeMood(_event: KeyboardEvent): void {
-    if (_event.code === "Space") {
+    if (_event.code == "Space") {
       for (let customer of customers) {
         customer.changeMood();
       }

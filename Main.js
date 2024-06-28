@@ -22,7 +22,7 @@ var Endabgabe_Eisdealer;
         imgData = Endabgabe_Eisdealer.crc2.getImageData(0, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
         sortiment.push(new Endabgabe_Eisdealer.IceCream(1100, 400, "yellow"));
         sortiment.push(new Endabgabe_Eisdealer.Sauce(1000, 400, "purple"));
-        sortiment.push(new Endabgabe_Eisdealer.Sauce(1050, 400, "red"));
+        sortiment.push(new Endabgabe_Eisdealer.Sprinkles(1050, 400, "red"));
         customers.push(new Endabgabe_Eisdealer.Customer(200, 400, "green"));
         tables.push(new Endabgabe_Eisdealer.Table(450, 80));
         tables.push(new Endabgabe_Eisdealer.Table(750, 200));
@@ -43,7 +43,7 @@ var Endabgabe_Eisdealer;
     }
     // Change Mood
     function changeMood(_event) {
-        if (_event.code === "Space") {
+        if (_event.code == "Space") {
             for (let customer of customers) {
                 customer.changeMood();
             }
