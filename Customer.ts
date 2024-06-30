@@ -1,12 +1,13 @@
 namespace Endabgabe_Eisdealer {
   export class Customer {
-
     public positionX: number;
     public positionY: number;
     public color: string;
 
     public mood: "happy" | "sad";
-    public state: "waiting" | "coming" | "leaving";
+    public state: "waiting" | "coming" | "ordering" | "leaving";
+    public targetPositionX: number | undefined;
+    public targetPositionY: number | undefined;
 
     constructor(_positionX: number, _positionY: number, _color: string) {
       this.positionX = _positionX;
@@ -14,18 +15,24 @@ namespace Endabgabe_Eisdealer {
       this.color = _color;
       this.mood = "happy";
       this.state = "waiting";
+      this.targetPositionX = undefined;
+      this.targetPositionY = undefined;
     }
 
     public move(): void {
+      if (this.state == "coming" && this.targetPositionX !== undefined && this.targetPositionY !== undefined) {
+        // Move towards the target table
+        let dx = this.targetPositionX - this.positionX;
+        let dy = this.targetPositionY - this.positionY;
+        let distance = Math.sqrt(dx * dx + dy * dy);
 
-      if (this.state == "waiting") {
-        // move to certain area and wait
-        // this.positionX = 100 + Math.random() * (500 - 100);
-        // this.positionY = 500 + Math.random() * (900 - 500);
-      } else if (this.state == "coming") {
-        // move to free table
-      } else if (this.state == "leaving") {
-        // leave the screen and switch back to waiting
+        if (distance > 1) {
+          this.positionX += dx / distance * 2;
+          this.positionY += dy / distance * 2;
+        } else {
+          this.state = "ordering";
+          console.log("I am ordering now")
+        }
       }
 
       this.draw();

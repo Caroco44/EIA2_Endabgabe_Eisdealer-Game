@@ -29,6 +29,7 @@ var Endabgabe_Eisdealer;
         tables.push(new Endabgabe_Eisdealer.Table(450, 290));
         tables.push(new Endabgabe_Eisdealer.Table(650, 440));
         window.addEventListener("keydown", changeMood);
+        canvas.addEventListener("pointerdown", tableClicked);
         window.setInterval(function () {
             animation();
         }, 24);
@@ -46,6 +47,27 @@ var Endabgabe_Eisdealer;
         if (_event.code == "Space") {
             for (let customer of customers) {
                 customer.changeMood();
+            }
+        }
+    }
+    // Table is Clicked
+    function tableClicked(_event) {
+        let clickX = _event.clientX;
+        let clickY = _event.clientY;
+        for (let table of tables) {
+            if (table instanceof Endabgabe_Eisdealer.Table && table.state === "free") {
+                // Check if the click is within the bounds of the table
+                if (table.positionX < clickX && clickX < table.positionX + 150 && table.positionY < clickY && clickY < table.positionY + 70) {
+                    for (let customer of customers) {
+                        if (customer.state == "waiting") {
+                            customer.state = "coming";
+                            customer.targetPositionX = table.positionX;
+                            customer.targetPositionY = table.positionY;
+                            table.state = "occupied";
+                            break;
+                        }
+                    }
+                }
             }
         }
     }

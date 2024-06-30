@@ -6,7 +6,7 @@ namespace Endabgabe_Eisdealer {
     }
 
     public move() {
-  
+
       this.draw();
     }
 
@@ -15,8 +15,8 @@ namespace Endabgabe_Eisdealer {
       crc2.beginPath();
       crc2.translate(this.positionX, this.positionY);
 
-      crc2.fillStyle = this.color;
-      crc2.arc(10, 10, 20, 0, 2 * Math.PI)
+      crc2.fillStyle = "red";
+      crc2.fillRect(0, 0, 10, 20);
       crc2.fill();
 
       crc2.closePath();

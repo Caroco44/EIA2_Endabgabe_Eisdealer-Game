@@ -7,24 +7,31 @@ var Endabgabe_Eisdealer;
         color;
         mood;
         state;
+        targetPositionX;
+        targetPositionY;
         constructor(_positionX, _positionY, _color) {
             this.positionX = _positionX;
             this.positionY = _positionY;
             this.color = _color;
             this.mood = "happy";
             this.state = "waiting";
+            this.targetPositionX = undefined;
+            this.targetPositionY = undefined;
         }
         move() {
-            if (this.state == "waiting") {
-                // move to certain area and wait
-                // this.positionX = 100 + Math.random() * (500 - 100);
-                // this.positionY = 500 + Math.random() * (900 - 500);
-            }
-            else if (this.state == "coming") {
-                // move to free table
-            }
-            else if (this.state == "leaving") {
-                // leave the screen and switch back to waiting
+            if (this.state == "coming" && this.targetPositionX !== undefined && this.targetPositionY !== undefined) {
+                // Move towards the target table
+                let dx = this.targetPositionX - this.positionX;
+                let dy = this.targetPositionY - this.positionY;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance > 1) {
+                    this.positionX += dx / distance * 2;
+                    this.positionY += dy / distance * 2;
+                }
+                else {
+                    this.state = "ordering";
+                    console.log("I am ordering now");
+                }
             }
             this.draw();
         }

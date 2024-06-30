@@ -42,6 +42,7 @@ namespace Endabgabe_Eisdealer {
     tables.push(new Table(650, 440));
 
     window.addEventListener("keydown", changeMood);
+    canvas.addEventListener("pointerdown", tableClicked);
 
     window.setInterval(function (): void {
       animation();
@@ -65,6 +66,29 @@ namespace Endabgabe_Eisdealer {
     if (_event.code == "Space") {
       for (let customer of customers) {
         customer.changeMood();
+      }
+    }
+  }
+
+  // Table is Clicked
+  function tableClicked(_event: PointerEvent) {
+    let clickX: number = _event.clientX;
+    let clickY: number = _event.clientY;
+
+    for (let table of tables) {
+      if (table instanceof Table && table.state === "free") {
+        // Check if the click is within the bounds of the table
+        if (table.positionX < clickX && clickX < table.positionX + 150 && table.positionY < clickY && clickY < table.positionY + 70) {
+          for (let customer of customers) {
+            if (customer.state == "waiting") {
+              customer.state = "coming";
+              customer.targetPositionX = table.positionX;
+              customer.targetPositionY = table.positionY;
+              table.state = "occupied";
+              break;
+            }
+          }
+        }
       }
     }
   }
