@@ -30,6 +30,7 @@ var Endabgabe_Eisdealer;
         tables.push(new Endabgabe_Eisdealer.Table(650, 440));
         window.addEventListener("keydown", changeMood);
         canvas.addEventListener("pointerdown", tableClicked);
+        setInterval(createCustomer, 5000);
         window.setInterval(function () {
             animation();
         }, 24);
@@ -70,6 +71,18 @@ var Endabgabe_Eisdealer;
                 }
             }
         }
+    }
+    // Create a new Customer
+    function createCustomer() {
+        // Define the range for random positions
+        let minX = 50;
+        let maxX = 300;
+        let minY = 400;
+        let maxY = 500;
+        //Generate random positions within the defined range
+        let x = Math.random() * (maxX - minX) + minX;
+        let y = Math.random() * (maxY - minY) + minY;
+        customers.push(new Endabgabe_Eisdealer.Customer(x, y, "green"));
     }
     // Animation
     function animation() {

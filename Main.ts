@@ -43,6 +43,7 @@ namespace Endabgabe_Eisdealer {
 
     window.addEventListener("keydown", changeMood);
     canvas.addEventListener("pointerdown", tableClicked);
+    setInterval(createCustomer, 5000);
 
     window.setInterval(function (): void {
       animation();
@@ -92,6 +93,22 @@ namespace Endabgabe_Eisdealer {
       }
     }
   }
+
+
+  // Create a new Customer
+  function createCustomer(): void {
+    // Define the range for random positions
+    let minX = 50;
+    let maxX = 300;
+    let minY = 400;
+    let maxY = 500;
+
+    //Generate random positions within the defined range
+    let x = Math.random() * (maxX - minX) + minX;
+    let y = Math.random() * (maxY - minY) + minY;
+    customers.push(new Customer(x, y, "green"));
+  }
+
 
   // Animation
   function animation(): void {
