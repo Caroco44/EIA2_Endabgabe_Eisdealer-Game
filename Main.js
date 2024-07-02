@@ -24,10 +24,10 @@ var Endabgabe_Eisdealer;
         sortiment.push(new Endabgabe_Eisdealer.Sauce(1000, 400, "purple"));
         sortiment.push(new Endabgabe_Eisdealer.Sprinkles(1050, 400, "red"));
         customers.push(new Endabgabe_Eisdealer.Customer(200, 400, "green"));
-        tables.push(new Endabgabe_Eisdealer.Table(450, 80));
-        tables.push(new Endabgabe_Eisdealer.Table(750, 200));
-        tables.push(new Endabgabe_Eisdealer.Table(450, 290));
-        tables.push(new Endabgabe_Eisdealer.Table(650, 440));
+        tables.push(new Endabgabe_Eisdealer.Table(400, 80));
+        tables.push(new Endabgabe_Eisdealer.Table(600, 200));
+        tables.push(new Endabgabe_Eisdealer.Table(400, 320));
+        tables.push(new Endabgabe_Eisdealer.Table(600, 440));
         window.addEventListener("keydown", changeMood);
         canvas.addEventListener("pointerdown", tableClicked);
         setInterval(createCustomer, 5000);
@@ -74,15 +74,17 @@ var Endabgabe_Eisdealer;
     }
     // Create a new Customer
     function createCustomer() {
-        // Define the range for random positions
-        let minX = 50;
-        let maxX = 300;
-        let minY = 400;
-        let maxY = 500;
-        //Generate random positions within the defined range
-        let x = Math.random() * (maxX - minX) + minX;
-        let y = Math.random() * (maxY - minY) + minY;
-        customers.push(new Endabgabe_Eisdealer.Customer(x, y, "green"));
+        if (customers.length < 7) {
+            // Define the range for random positions
+            let minX = 50;
+            let maxX = 300;
+            let minY = 400;
+            let maxY = 500;
+            //Generate random positions within the defined range
+            let x = Math.random() * (maxX - minX) + minX;
+            let y = Math.random() * (maxY - minY) + minY;
+            customers.push(new Endabgabe_Eisdealer.Customer(x, y, "green"));
+        }
     }
     // Animation
     function animation() {

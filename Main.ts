@@ -36,10 +36,10 @@ namespace Endabgabe_Eisdealer {
 
     customers.push(new Customer(200, 400, "green"));
 
-    tables.push(new Table(450, 80));
-    tables.push(new Table(750, 200));
-    tables.push(new Table(450, 290));
-    tables.push(new Table(650, 440));
+    tables.push(new Table(400, 80));
+    tables.push(new Table(600, 200));
+    tables.push(new Table(400, 320));
+    tables.push(new Table(600, 440));
 
     window.addEventListener("keydown", changeMood);
     canvas.addEventListener("pointerdown", tableClicked);

@@ -13,11 +13,82 @@
   <script defer src="Sprinkles.js"></script>
   <script defer src="Sauce.js"></script>
   <script defer src="Customer.js"></script>
+  <link rel="stylesheet" href="List.css" type="text/css" media="screen" />
+
 
 </head>
 
 <body>
   <canvas></canvas>
+
+  <form>
+    <fieldset>
+        <legend>Ice Cream</legend>
+        <label>
+            <input type="checkbox" name="ice-cream" value="strawberry"> Strawberry
+            <input type="number" name="strawberry-quantity" min="0" max="3" class="quantity-input" placeholder="0">
+        </label>
+        <label>
+            <input type="checkbox" name="ice-cream" value="chocolate"> Chocolate
+            <input type="number" name="chocolate-quantity" min="0" max="3" class="quantity-input" placeholder="0">
+        </label>
+        <label>
+            <input type="checkbox" name="ice-cream" value="yoghurt"> Yoghurt
+            <input type="number" name="yoghurt-quantity" min="0" max="3" class="quantity-input" placeholder="0">
+        </label>
+        <label>
+            <input type="checkbox" name="ice-cream" value="mochi"> Mochi
+            <input type="number" name="mochi-quantity" min="0" max="3" class="quantity-input" placeholder="0">
+        </label>
+        <label>
+            <input type="checkbox" name="ice-cream" value="kiwi"> Kiwi
+            <input type="number" name="kiwi-quantity" min="0" max="3" class="quantity-input" placeholder="0">
+        </label>
+    </fieldset>
+
+    <br><br>
+
+    <fieldset>
+        <legend>Sauce</legend>
+        <label>
+            <input type="checkbox" name="sauce" value="strawberry-sauce"> Strawberry
+            <input type="number" name="strawberry-sauce-quantity" min="0" max="3" class="quantity-input"
+                placeholder="0">
+        </label>
+        <label>
+            <input type="checkbox" name="sauce" value="chocolate-sauce"> Chocolate
+            <input type="number" name="chocolate-sauce-quantity" min="0" max="3" class="quantity-input"
+                placeholder="0">
+        </label>
+        <label>
+            <input type="checkbox" name="sauce" value="vanilla-sauce"> Vanilla
+            <input type="number" name="vanilla-sauce-quantity" min="0" max="3" class="quantity-input"
+                placeholder="0">
+        </label>
+    </fieldset>
+
+    <br><br>
+
+    <fieldset>
+        <legend>Sprinkles</legend>
+        <label>
+            <input type="checkbox" name="sprinkles" value="chocolate-sprinkles"> Chocolate
+            <input type="number" name="chocolate-sprinkles-quantity" min="0" max="3" class="quantity-input"
+                placeholder="0">
+        </label>
+        <label>
+            <input type="checkbox" name="sprinkles" value="cookie-sprinkles"> Cookie
+            <input type="number" name="cookie-sprinkles-quantity" min="0" max="3" class="quantity-input"
+                placeholder="0">
+        </label>
+        <label>
+            <input type="checkbox" name="sprinkles" value="blueberry-sprinkles"> Blueberry
+            <input type="number" name="blueberry-sprinkles-quantity" min="0" max="3" class="quantity-input"
+                placeholder="0">
+        </label>
+    </fieldset>
+</form>
+
 </body>
 
 </html>
