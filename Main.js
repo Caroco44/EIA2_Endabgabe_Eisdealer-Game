@@ -30,6 +30,7 @@ var Endabgabe_Eisdealer;
         tables.push(new Endabgabe_Eisdealer.Table(600, 440));
         window.addEventListener("keydown", changeMood);
         canvas.addEventListener("pointerdown", tableClicked);
+        Endabgabe_Eisdealer.createData();
         setInterval(createCustomer, 5000);
         window.setInterval(function () {
             animation();

@@ -44,6 +44,8 @@ namespace Endabgabe_Eisdealer {
     window.addEventListener("keydown", changeMood);
     canvas.addEventListener("pointerdown", tableClicked);
 
+    createData();
+
     setInterval(createCustomer, 5000);
 
     window.setInterval(function (): void {
