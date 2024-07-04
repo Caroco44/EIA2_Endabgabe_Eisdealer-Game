@@ -45,8 +45,12 @@ namespace Endabgabe_Eisdealer {
     canvas.addEventListener("pointerdown", tableClicked);
 
     createData();
+    document.querySelectorAll("input[type='checkbox'], input[type='number']").forEach(input => {
+      input.addEventListener("change", calculatePrice);
+    });
 
     setInterval(createCustomer, 5000);
+
 
     window.setInterval(function (): void {
       animation();

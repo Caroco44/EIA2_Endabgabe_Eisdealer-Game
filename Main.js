@@ -31,6 +31,9 @@ var Endabgabe_Eisdealer;
         window.addEventListener("keydown", changeMood);
         canvas.addEventListener("pointerdown", tableClicked);
         Endabgabe_Eisdealer.createData();
+        document.querySelectorAll("input[type='checkbox'], input[type='number']").forEach(input => {
+            input.addEventListener("change", Endabgabe_Eisdealer.calculatePrice);
+        });
         setInterval(createCustomer, 5000);
         window.setInterval(function () {
             animation();

@@ -11,21 +11,21 @@ namespace Endabgabe_Eisdealer {
 
   export let data: Data = {
     IceCream: [
-      { name: "Strawberry", price: 1 },
-      { name: "Chocolate", price: 1 },
-      { name: "Yoghurt", price: 1 },
-      { name: "Mochi", price: 1.5 },
-      { name: "Kiwi", price: 1.5 },
+      { name: "Strawberry Ice Cream", price: 1 },
+      { name: "Chocolate Ice Cream", price: 1 },
+      { name: "Yoghurt Ice Cream", price: 1 },
+      { name: "Mochi Ice Cream", price: 1.5 },
+      { name: "Kiwi Ice Cream", price: 1.5 },
     ],
     Sauce: [
-      { name: "Strawberry", price: 0.60 },
-      { name: "Chocolate", price: 0.60 },
-      { name: "Vanilla", price: 0.50 },
+      { name: "Strawberry Sauce", price: 0.60 },
+      { name: "Chocolate Sauce", price: 0.60 },
+      { name: "Vanilla Sauce", price: 0.50 },
     ],
     Sprinkles: [
-      { name: "Chocolate", price: 0.50 },
-      { name: "Cookie", price: 0.60 },
-      { name: "Blueberry", price: 0.70 },
+      { name: "Chocolate Sprinkles", price: 0.50 },
+      { name: "Cookie Sprinkles", price: 0.60 },
+      { name: "Blueberry Sprinkles", price: 0.70 },
     ]
   };
 
@@ -37,7 +37,7 @@ namespace Endabgabe_Eisdealer {
       switch (category) {
         case "IceCream":
           for (let iceCream of items) {
-            // console.log(`IceCream: ${iceCream.name}, Price: ${iceCream.price}`);
+            console.log(`IceCream: ${iceCream.name}, Price: ${iceCream.price}`);
             createIceCreamData(iceCream);
           }
           break;
@@ -145,6 +145,53 @@ namespace Endabgabe_Eisdealer {
 
     // Put label under fieldset
     document.getElementById("FieldsetSprinkle")?.appendChild(SprinkleLabel)
+  }
+
+
+  export function calculatePrice() {
+    let totalPrice: number = 0;
+  
+    // Calculate the price for IceCream
+    for (let iceCream of data.IceCream) {
+      let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
+      let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
+  
+      if (iceCreamCheckbox?.checked) {
+        let quantity = parseInt(iceCreamNumber.value) || 0; // Default to 0 if empty
+        totalPrice += iceCream.price * quantity;
+      }
+    }
+  
+    // Calculate the price for Sauce
+    for (let sauce of data.Sauce) {
+      let sauceCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sauce.name}"]`);
+      let sauceNumber = sauceCheckbox?.nextElementSibling as HTMLInputElement;
+  
+      if (sauceCheckbox?.checked) {
+        let quantity = parseInt(sauceNumber.value) || 0; // Default to 0 if empty
+        totalPrice += sauce.price * quantity;
+      }
+    }
+  
+    // Calculate the price for Sprinkles
+    for (let sprinkle of data.Sprinkles) {
+      let sprinkleCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sprinkle.name}"]`);
+      let sprinkleNumber = sprinkleCheckbox?.nextElementSibling as HTMLInputElement;
+  
+      if (sprinkleCheckbox?.checked) {
+        let quantity = parseInt(sprinkleNumber.value) || 0; // Default to 0 if empty
+        totalPrice += sprinkle.price * quantity;
+      }
+    }
+  
+    // Display total price
+    console.log(`Total Price: ${totalPrice.toFixed(2)} €`);
+  
+    // Update the total price on the webpage
+    let totalPriceElement = document.getElementById("totalPrice");
+    if (totalPriceElement) {
+      totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
+    }
   }
 
 }

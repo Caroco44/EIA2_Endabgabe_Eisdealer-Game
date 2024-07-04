@@ -3,21 +3,21 @@ var Endabgabe_Eisdealer;
 (function (Endabgabe_Eisdealer) {
     Endabgabe_Eisdealer.data = {
         IceCream: [
-            { name: "Strawberry", price: 1 },
-            { name: "Chocolate", price: 1 },
-            { name: "Yoghurt", price: 1 },
-            { name: "Mochi", price: 1.5 },
-            { name: "Kiwi", price: 1.5 },
+            { name: "Strawberry Ice Cream", price: 1 },
+            { name: "Chocolate Ice Cream", price: 1 },
+            { name: "Yoghurt Ice Cream", price: 1 },
+            { name: "Mochi Ice Cream", price: 1.5 },
+            { name: "Kiwi Ice Cream", price: 1.5 },
         ],
         Sauce: [
-            { name: "Strawberry", price: 0.60 },
-            { name: "Chocolate", price: 0.60 },
-            { name: "Vanilla", price: 0.50 },
+            { name: "Strawberry Sauce", price: 0.60 },
+            { name: "Chocolate Sauce", price: 0.60 },
+            { name: "Vanilla Sauce", price: 0.50 },
         ],
         Sprinkles: [
-            { name: "Chocolate", price: 0.50 },
-            { name: "Cookie", price: 0.60 },
-            { name: "Blueberry", price: 0.70 },
+            { name: "Chocolate Sprinkles", price: 0.50 },
+            { name: "Cookie Sprinkles", price: 0.60 },
+            { name: "Blueberry Sprinkles", price: 0.70 },
         ]
     };
     function createData() {
@@ -27,7 +27,7 @@ var Endabgabe_Eisdealer;
             switch (category) {
                 case "IceCream":
                     for (let iceCream of items) {
-                        // console.log(`IceCream: ${iceCream.name}, Price: ${iceCream.price}`);
+                        console.log(`IceCream: ${iceCream.name}, Price: ${iceCream.price}`);
                         createIceCreamData(iceCream);
                     }
                     break;
@@ -112,5 +112,43 @@ var Endabgabe_Eisdealer;
         // Put label under fieldset
         document.getElementById("FieldsetSprinkle")?.appendChild(SprinkleLabel);
     }
+    function calculatePrice() {
+        let totalPrice = 0;
+        // Calculate the price for IceCream
+        for (let iceCream of Endabgabe_Eisdealer.data.IceCream) {
+            let iceCreamCheckbox = document.querySelector(`input[name="${iceCream.name}"]`);
+            let iceCreamNumber = iceCreamCheckbox?.nextElementSibling;
+            if (iceCreamCheckbox?.checked) {
+                let quantity = parseInt(iceCreamNumber.value) || 0; // Default to 0 if empty
+                totalPrice += iceCream.price * quantity;
+            }
+        }
+        // Calculate the price for Sauce
+        for (let sauce of Endabgabe_Eisdealer.data.Sauce) {
+            let sauceCheckbox = document.querySelector(`input[name="${sauce.name}"]`);
+            let sauceNumber = sauceCheckbox?.nextElementSibling;
+            if (sauceCheckbox?.checked) {
+                let quantity = parseInt(sauceNumber.value) || 0; // Default to 0 if empty
+                totalPrice += sauce.price * quantity;
+            }
+        }
+        // Calculate the price for Sprinkles
+        for (let sprinkle of Endabgabe_Eisdealer.data.Sprinkles) {
+            let sprinkleCheckbox = document.querySelector(`input[name="${sprinkle.name}"]`);
+            let sprinkleNumber = sprinkleCheckbox?.nextElementSibling;
+            if (sprinkleCheckbox?.checked) {
+                let quantity = parseInt(sprinkleNumber.value) || 0; // Default to 0 if empty
+                totalPrice += sprinkle.price * quantity;
+            }
+        }
+        // Display total price
+        console.log(`Total Price: ${totalPrice.toFixed(2)} €`);
+        // Update the total price on the webpage
+        let totalPriceElement = document.getElementById("totalPrice");
+        if (totalPriceElement) {
+            totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
+        }
+    }
+    Endabgabe_Eisdealer.calculatePrice = calculatePrice;
 })(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
 //# sourceMappingURL=SortimentData.js.map
