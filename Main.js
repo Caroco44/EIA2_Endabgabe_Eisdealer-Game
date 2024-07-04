@@ -20,7 +20,7 @@ var Endabgabe_Eisdealer;
         canvas.height = window.innerHeight;
         drawBackground();
         imgData = Endabgabe_Eisdealer.crc2.getImageData(0, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
-        sortiment.push(new Endabgabe_Eisdealer.IceCream(920, 140, "yellow"));
+        // sortiment.push(new IceCream(920, 140, "yellow"));
         sortiment.push(new Endabgabe_Eisdealer.Sauce(900, 140, "purple"));
         sortiment.push(new Endabgabe_Eisdealer.Sprinkles(880, 140, "red"));
         customers.push(new Endabgabe_Eisdealer.Customer(200, 400, "green"));
@@ -102,19 +102,19 @@ var Endabgabe_Eisdealer;
         }
     }
     function updateIceCreamDrawing() {
+        let updatedSortiment = [];
         for (let iceCream of Endabgabe_Eisdealer.data.IceCream) {
             let iceCreamCheckbox = document.querySelector(`input[name="${iceCream.name}"]`);
             let iceCreamNumber = iceCreamCheckbox?.nextElementSibling;
             if (iceCreamCheckbox?.checked) {
                 let quantity = parseInt(iceCreamNumber.value) || 0;
                 for (let i = 0; i < quantity; i++) {
-                    sortiment.push(new Endabgabe_Eisdealer.IceCream(900, 140, iceCream.color));
+                    updatedSortiment.push(new Endabgabe_Eisdealer.IceCream(900, 140, iceCream.color));
                 }
             }
-            else {
-                // delete element
-            }
         }
+        // Replace sortiment with updatedSortiment
+        sortiment = updatedSortiment;
     }
     Endabgabe_Eisdealer.updateIceCreamDrawing = updateIceCreamDrawing;
     function updateSauceDrawing() {

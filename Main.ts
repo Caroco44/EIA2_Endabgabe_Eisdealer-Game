@@ -30,7 +30,7 @@ namespace Endabgabe_Eisdealer {
     imgData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
 
 
-    sortiment.push(new IceCream(920, 140, "yellow"));
+    // sortiment.push(new IceCream(920, 140, "yellow"));
     sortiment.push(new Sauce(900, 140, "purple"));
     sortiment.push(new Sprinkles(880, 140, "red"));
 
@@ -138,21 +138,22 @@ namespace Endabgabe_Eisdealer {
 
 
   export function updateIceCreamDrawing() {
+    let updatedSortiment: IceCream[] = [];
 
     for (let iceCream of data.IceCream) {
-      let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
-      let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
+        let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
+        let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
 
-      if (iceCreamCheckbox?.checked) {
-        let quantity = parseInt(iceCreamNumber.value) || 0;
-        for (let i = 0; i < quantity; i++) {
-          sortiment.push(new IceCream(900, 140, iceCream.color));
+        if (iceCreamCheckbox?.checked) {
+            let quantity = parseInt(iceCreamNumber.value) || 0;
+            for (let i = 0; i < quantity; i++) {
+                updatedSortiment.push(new IceCream(900, 140, iceCream.color));
+            }
         }
-      } else {
-        // delete element
-      }
     }
-  }
+    // Replace sortiment with updatedSortiment
+    sortiment = updatedSortiment;
+}
 
   export function updateSauceDrawing() {
     console.log("Sauce is updated");
