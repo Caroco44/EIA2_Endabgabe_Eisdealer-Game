@@ -20,9 +20,6 @@ var Endabgabe_Eisdealer;
         canvas.height = window.innerHeight;
         drawBackground();
         imgData = Endabgabe_Eisdealer.crc2.getImageData(0, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
-        // sortiment.push(new IceCream(920, 140, "yellow"));
-        sortiment.push(new Endabgabe_Eisdealer.Sauce(900, 140, "purple"));
-        sortiment.push(new Endabgabe_Eisdealer.Sprinkles(880, 140, "red"));
         customers.push(new Endabgabe_Eisdealer.Customer(200, 400, "green"));
         tables.push(new Endabgabe_Eisdealer.Table(400, 80));
         tables.push(new Endabgabe_Eisdealer.Table(600, 200));
@@ -102,27 +99,51 @@ var Endabgabe_Eisdealer;
         }
     }
     function updateIceCreamDrawing() {
-        let updatedSortiment = [];
+        let updatedIceCream = [];
         for (let iceCream of Endabgabe_Eisdealer.data.IceCream) {
             let iceCreamCheckbox = document.querySelector(`input[name="${iceCream.name}"]`);
             let iceCreamNumber = iceCreamCheckbox?.nextElementSibling;
             if (iceCreamCheckbox?.checked) {
                 let quantity = parseInt(iceCreamNumber.value) || 0;
                 for (let i = 0; i < quantity; i++) {
-                    updatedSortiment.push(new Endabgabe_Eisdealer.IceCream(900, 140, iceCream.color));
+                    updatedIceCream.push(new Endabgabe_Eisdealer.IceCream(900, 140, iceCream.color));
                 }
             }
         }
         // Replace sortiment with updatedSortiment
-        sortiment = updatedSortiment;
+        sortiment = updatedIceCream;
     }
     Endabgabe_Eisdealer.updateIceCreamDrawing = updateIceCreamDrawing;
     function updateSauceDrawing() {
-        console.log("Sauce is updated");
+        let updatedSauce = [];
+        for (let sauce of Endabgabe_Eisdealer.data.Sauce) {
+            let sauceCheckbox = document.querySelector(`input[name="${sauce.name}"]`);
+            let sauceNumber = sauceCheckbox?.nextElementSibling;
+            if (sauceCheckbox?.checked) {
+                let quantity = parseInt(sauceNumber.value) || 0;
+                for (let i = 0; i < quantity; i++) {
+                    updatedSauce.push(new Endabgabe_Eisdealer.Sauce(900, 100, sauce.color));
+                }
+            }
+        }
+        // Replace sortiment with updatedSortiment
+        sortiment = updatedSauce;
     }
     Endabgabe_Eisdealer.updateSauceDrawing = updateSauceDrawing;
     function updateSprinkleDrawing() {
-        console.log("Sprinkle is updated");
+        let updatedSprinkle = [];
+        for (let sprinkle of Endabgabe_Eisdealer.data.Sprinkles) {
+            let sprinkleCheckbox = document.querySelector(`input[name="${sprinkle.name}"]`);
+            let sprinkleNumber = sprinkleCheckbox?.nextElementSibling;
+            if (sprinkleCheckbox?.checked) {
+                let quantity = parseInt(sprinkleNumber.value) || 0;
+                for (let i = 0; i < quantity; i++) {
+                    updatedSprinkle.push(new Endabgabe_Eisdealer.Sprinkles(900, 100, sprinkle.color));
+                }
+            }
+        }
+        // Replace sortiment with updatedSortiment
+        sortiment = updatedSprinkle;
     }
     Endabgabe_Eisdealer.updateSprinkleDrawing = updateSprinkleDrawing;
     // Animation

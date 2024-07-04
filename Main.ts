@@ -29,11 +29,6 @@ namespace Endabgabe_Eisdealer {
 
     imgData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
 
-
-    // sortiment.push(new IceCream(920, 140, "yellow"));
-    sortiment.push(new Sauce(900, 140, "purple"));
-    sortiment.push(new Sprinkles(880, 140, "red"));
-
     customers.push(new Customer(200, 400, "green"));
 
     tables.push(new Table(400, 80));
@@ -138,29 +133,60 @@ namespace Endabgabe_Eisdealer {
 
 
   export function updateIceCreamDrawing() {
-    let updatedSortiment: IceCream[] = [];
+    let updatedIceCream: IceCream[] = [];
 
     for (let iceCream of data.IceCream) {
-        let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
-        let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
+      let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
+      let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
 
-        if (iceCreamCheckbox?.checked) {
-            let quantity = parseInt(iceCreamNumber.value) || 0;
-            for (let i = 0; i < quantity; i++) {
-                updatedSortiment.push(new IceCream(900, 140, iceCream.color));
-            }
+      if (iceCreamCheckbox?.checked) {
+        let quantity = parseInt(iceCreamNumber.value) || 0;
+        for (let i = 0; i < quantity; i++) {
+          updatedIceCream.push(new IceCream(900, 140, iceCream.color));
         }
+      }
     }
+
     // Replace sortiment with updatedSortiment
-    sortiment = updatedSortiment;
-}
+    sortiment = updatedIceCream;
+  }
 
   export function updateSauceDrawing() {
-    console.log("Sauce is updated");
+    let updatedSauce: Sauce[] = [];
+
+    for (let sauce of data.Sauce) {
+      let sauceCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sauce.name}"]`);
+      let sauceNumber = sauceCheckbox?.nextElementSibling as HTMLInputElement;
+
+      if (sauceCheckbox?.checked) {
+        let quantity = parseInt(sauceNumber.value) || 0;
+        for (let i = 0; i < quantity; i++) {
+          updatedSauce.push(new Sauce(900, 100, sauce.color));
+        }
+      }
+    }
+
+    // Replace sortiment with updatedSortiment
+    sortiment = updatedSauce;
   }
 
   export function updateSprinkleDrawing() {
-    console.log("Sprinkle is updated");
+    let updatedSprinkle: Sprinkles[] = [];
+
+    for (let sprinkle of data.Sprinkles) {
+      let sprinkleCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sprinkle.name}"]`);
+      let sprinkleNumber = sprinkleCheckbox?.nextElementSibling as HTMLInputElement;
+
+      if (sprinkleCheckbox?.checked) {
+        let quantity = parseInt(sprinkleNumber.value) || 0;
+        for (let i = 0; i < quantity; i++) {
+          updatedSprinkle.push(new Sprinkles(900, 100, sprinkle.color));
+        }
+      }
+    }
+
+    // Replace sortiment with updatedSortiment
+    sortiment = updatedSprinkle;
   }
 
 

@@ -15,7 +15,7 @@ namespace Endabgabe_Eisdealer {
       crc2.beginPath();
       crc2.translate(this.positionX, this.positionY);
 
-      crc2.fillStyle = "red";
+      crc2.fillStyle = this.color;
       crc2.fillRect(0, 0, 10, 20);
       crc2.fill();
 

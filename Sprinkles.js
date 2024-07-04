@@ -12,7 +12,7 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.save();
             Endabgabe_Eisdealer.crc2.beginPath();
             Endabgabe_Eisdealer.crc2.translate(this.positionX, this.positionY);
-            Endabgabe_Eisdealer.crc2.fillStyle = "red";
+            Endabgabe_Eisdealer.crc2.fillStyle = this.color;
             Endabgabe_Eisdealer.crc2.fillRect(0, 0, 10, 20);
             Endabgabe_Eisdealer.crc2.fill();
             Endabgabe_Eisdealer.crc2.closePath();
