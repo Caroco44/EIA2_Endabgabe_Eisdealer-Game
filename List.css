@@ -1,11 +1,18 @@
 body {
 	display: grid;
-	grid-template-columns: 60% auto;
+	grid-template-columns: 70% auto;
 	grid-template-rows: auto auto
 }
 
 form {
   width: 500px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	font-size: 15px;
+	margin-left: 100px;
+	margin-top: 30px;
+}
+
+fieldset {
+	width: 50%;
 }
 

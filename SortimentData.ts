@@ -18,14 +18,14 @@ namespace Endabgabe_Eisdealer {
       { name: "Kiwi", price: 1.5 },
     ],
     Sauce: [
-      { name: "StrawberrySauce", price: 0.60 },
-      { name: "ChocolateSauce", price: 0.60 },
-      { name: "VanillaSauce", price: 0.50 },
+      { name: "Strawberry", price: 0.60 },
+      { name: "Chocolate", price: 0.60 },
+      { name: "Vanilla", price: 0.50 },
     ],
     Sprinkles: [
-      { name: "ChocolateSprinkles", price: 0.50 },
-      { name: "CookieSprinkles", price: 0.60 },
-      { name: "BlueberrySprinkles", price: 0.70 },
+      { name: "Chocolate", price: 0.50 },
+      { name: "Cookie", price: 0.60 },
+      { name: "Blueberry", price: 0.70 },
     ]
   };
 
@@ -45,14 +45,14 @@ namespace Endabgabe_Eisdealer {
         case "Sauce":
           for (let sauce of items) {
             // console.log(`Sauce: ${sauce.name}, Price: ${sauce.price}`);
-            createSauceData();
+            createSauceData(sauce);
           }
           break;
 
         case "Sprinkles":
           for (let sprinkle of items) {
             // console.log(`Sprinkles: ${sprinkle.name}, Price: ${sprinkle.price}`);
-            createSprinklesData();
+            createSprinklesData(sprinkle);
           }
           break;
 
@@ -63,36 +63,79 @@ namespace Endabgabe_Eisdealer {
   }
 
   function createIceCreamData(iceCream: Item) {
-    // Variablen für die Elemente, Bestimmen des Attributes
+    // Create Elements and Save in Variable
     let IceCreamCheckbox = document.createElement("input");
     IceCreamCheckbox.setAttribute("type", "checkbox")
 
     let IceCreamNumber = document.createElement("input");
     IceCreamNumber.setAttribute("type", "number")
-    
+
     let IceCreamLabel = document.createElement("label");
 
     // Write Text
-    let text = document.createElement("p");
+    let text = document.createElement("legend");
     IceCreamLabel.appendChild(text)
     text.innerHTML = iceCream.name;
+    IceCreamCheckbox.name = iceCream.name
 
+    // Add Checkbox and Number to Label
     IceCreamLabel.appendChild(IceCreamCheckbox)
     IceCreamLabel.appendChild(IceCreamNumber)
 
+    // Put label under fieldset
     document.getElementById("FieldsetIceCream")?.appendChild(IceCreamLabel)
-
-  
-
-    IceCreamCheckbox.name = iceCream.name
   }
 
-  function createSauceData() {
 
+
+  function createSauceData(sauce: Item) {
+    // Create Elements and Save in Variable
+    let SauceCheckbox = document.createElement("input");
+    SauceCheckbox.setAttribute("type", "checkbox")
+
+    let SauceNumber = document.createElement("input");
+    SauceNumber.setAttribute("type", "number")
+
+    let SauceLabel = document.createElement("label");
+
+    // Write Text
+    let text = document.createElement("legend");
+    SauceLabel.appendChild(text)
+    text.innerHTML = sauce.name;
+    SauceCheckbox.name = sauce.name
+
+    // Add Checkbox and Number to Label
+    SauceLabel.appendChild(SauceCheckbox)
+    SauceLabel.appendChild(SauceNumber)
+
+    // Put label under fieldset
+    document.getElementById("FieldsetSauce")?.appendChild(SauceLabel)
   }
 
-  function createSprinklesData() {
 
+
+  function createSprinklesData(sprinkle: Item) {
+    // Create Elements and Save in Variable
+    let SprinkleCheckbox = document.createElement("input");
+    SprinkleCheckbox.setAttribute("type", "checkbox")
+
+    let SprinkleNumber = document.createElement("input");
+    SprinkleNumber.setAttribute("type", "number")
+
+    let SprinkleLabel = document.createElement("label");
+
+    // Write Text
+    let text = document.createElement("legend");
+    SprinkleLabel.appendChild(text)
+    text.innerHTML = sprinkle.name;
+    SprinkleCheckbox.name = sprinkle.name
+
+    // Add Checkbox and Number to Label
+    SprinkleLabel.appendChild(SprinkleCheckbox)
+    SprinkleLabel.appendChild(SprinkleNumber)
+
+    // Put label under fieldset
+    document.getElementById("FieldsetSprinkle")?.appendChild(SprinkleLabel)
   }
 
 }
