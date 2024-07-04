@@ -61,6 +61,23 @@ namespace Endabgabe_Eisdealer {
 
     crc2.fillStyle = gradient;
     crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
+
+    // Draw Ice Cream Cone
+    crc2.save();
+    crc2.beginPath();
+
+    crc2.translate(1050, 530);
+
+    crc2.moveTo(0, 0);
+    crc2.lineTo(-50, -100);
+    crc2.lineTo(50, -100);
+    crc2.closePath();
+
+    crc2.fillStyle = "brown";
+    crc2.fill();
+
+    crc2.restore();
+
   }
 
   // Change Mood

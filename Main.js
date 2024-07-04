@@ -42,6 +42,17 @@ var Endabgabe_Eisdealer;
         gradient.addColorStop(1, "lightpink");
         Endabgabe_Eisdealer.crc2.fillStyle = gradient;
         Endabgabe_Eisdealer.crc2.fillRect(0, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
+        // Draw Ice Cream Cone
+        Endabgabe_Eisdealer.crc2.save();
+        Endabgabe_Eisdealer.crc2.beginPath();
+        Endabgabe_Eisdealer.crc2.translate(1050, 530);
+        Endabgabe_Eisdealer.crc2.moveTo(0, 0);
+        Endabgabe_Eisdealer.crc2.lineTo(-50, -100);
+        Endabgabe_Eisdealer.crc2.lineTo(50, -100);
+        Endabgabe_Eisdealer.crc2.closePath();
+        Endabgabe_Eisdealer.crc2.fillStyle = "brown";
+        Endabgabe_Eisdealer.crc2.fill();
+        Endabgabe_Eisdealer.crc2.restore();
     }
     // Change Mood
     function changeMood(_event) {
