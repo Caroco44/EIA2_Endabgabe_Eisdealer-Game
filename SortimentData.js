@@ -55,6 +55,9 @@ var Endabgabe_Eisdealer;
         IceCreamCheckbox.setAttribute("type", "checkbox");
         let IceCreamNumber = document.createElement("input");
         IceCreamNumber.setAttribute("type", "number");
+        IceCreamNumber.setAttribute("min", "0");
+        IceCreamNumber.setAttribute("max", "3");
+        IceCreamNumber.setAttribute("placeholder", "0");
         let IceCreamLabel = document.createElement("label");
         // Write Text
         let text = document.createElement("legend");
@@ -73,6 +76,9 @@ var Endabgabe_Eisdealer;
         SauceCheckbox.setAttribute("type", "checkbox");
         let SauceNumber = document.createElement("input");
         SauceNumber.setAttribute("type", "number");
+        SauceNumber.setAttribute("min", "0");
+        SauceNumber.setAttribute("max", "3");
+        SauceNumber.setAttribute("placeholder", "0");
         let SauceLabel = document.createElement("label");
         // Write Text
         let text = document.createElement("legend");
@@ -91,6 +97,9 @@ var Endabgabe_Eisdealer;
         SprinkleCheckbox.setAttribute("type", "checkbox");
         let SprinkleNumber = document.createElement("input");
         SprinkleNumber.setAttribute("type", "number");
+        SprinkleNumber.setAttribute("min", "0");
+        SprinkleNumber.setAttribute("max", "3");
+        SprinkleNumber.setAttribute("placeholder", "0");
         let SprinkleLabel = document.createElement("label");
         // Write Text
         let text = document.createElement("legend");

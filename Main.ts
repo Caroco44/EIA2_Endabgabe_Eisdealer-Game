@@ -30,9 +30,9 @@ namespace Endabgabe_Eisdealer {
     imgData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
 
 
-    sortiment.push(new IceCream(1100, 400, "yellow"));
-    sortiment.push(new Sauce(1000, 400, "purple"));
-    sortiment.push(new Sprinkles(1050, 400, "red"));
+    sortiment.push(new IceCream(920, 140, "yellow"));
+    sortiment.push(new Sauce(900, 140, "purple"));
+    sortiment.push(new Sprinkles(880, 140, "red"));
 
     customers.push(new Customer(200, 400, "green"));
 
@@ -68,7 +68,7 @@ namespace Endabgabe_Eisdealer {
     crc2.save();
     crc2.beginPath();
 
-    crc2.translate(1050, 530);
+    crc2.translate(900, 270);
 
     crc2.moveTo(0, 0);
     crc2.lineTo(-50, -100);
