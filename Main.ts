@@ -136,6 +136,33 @@ namespace Endabgabe_Eisdealer {
   }
 
 
+
+  export function updateIceCreamDrawing() {
+
+    for (let iceCream of data.IceCream) {
+      let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
+      let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
+
+      if (iceCreamCheckbox?.checked) {
+        let quantity = parseInt(iceCreamNumber.value) || 0;
+        for (let i = 0; i < quantity; i++) {
+          sortiment.push(new IceCream(900, 140, iceCream.color));
+        }
+      } else {
+        // delete element
+      }
+    }
+  }
+
+  export function updateSauceDrawing() {
+    console.log("Sauce is updated");
+  }
+
+  export function updateSprinkleDrawing() {
+    console.log("Sprinkle is updated");
+  }
+
+
   // Animation
   function animation(): void {
     drawBackground();

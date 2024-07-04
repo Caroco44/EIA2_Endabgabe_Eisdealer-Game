@@ -101,6 +101,30 @@ var Endabgabe_Eisdealer;
             customers.push(new Endabgabe_Eisdealer.Customer(x, y, "green"));
         }
     }
+    function updateIceCreamDrawing() {
+        for (let iceCream of Endabgabe_Eisdealer.data.IceCream) {
+            let iceCreamCheckbox = document.querySelector(`input[name="${iceCream.name}"]`);
+            let iceCreamNumber = iceCreamCheckbox?.nextElementSibling;
+            if (iceCreamCheckbox?.checked) {
+                let quantity = parseInt(iceCreamNumber.value) || 0;
+                for (let i = 0; i < quantity; i++) {
+                    sortiment.push(new Endabgabe_Eisdealer.IceCream(900, 140, iceCream.color));
+                }
+            }
+            else {
+                // delete element
+            }
+        }
+    }
+    Endabgabe_Eisdealer.updateIceCreamDrawing = updateIceCreamDrawing;
+    function updateSauceDrawing() {
+        console.log("Sauce is updated");
+    }
+    Endabgabe_Eisdealer.updateSauceDrawing = updateSauceDrawing;
+    function updateSprinkleDrawing() {
+        console.log("Sprinkle is updated");
+    }
+    Endabgabe_Eisdealer.updateSprinkleDrawing = updateSprinkleDrawing;
     // Animation
     function animation() {
         drawBackground();

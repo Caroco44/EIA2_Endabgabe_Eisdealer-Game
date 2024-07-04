@@ -6,9 +6,9 @@ var Endabgabe_Eisdealer;
         positionY;
         color;
         // zusätzliche Eigenschaften
-        state;
-        price;
-        name;
+        // public state: string;
+        // public price: number;
+        // public name: string;
         constructor(_positionX, _positionY, _color) {
             this.positionX = _positionX;
             this.positionY = _positionY;

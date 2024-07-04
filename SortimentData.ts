@@ -30,6 +30,4 @@ namespace Endabgabe_Eisdealer {
     ]
   };
 
-  
-
 }

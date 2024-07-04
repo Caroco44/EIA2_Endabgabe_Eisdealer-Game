@@ -7,9 +7,9 @@ namespace Endabgabe_Eisdealer {
     public color: string;
 
     // zusätzliche Eigenschaften
-    public state: string;
-    public price: number;
-    public name: string;
+    // public state: string;
+    // public price: number;
+    // public name: string;
 
     constructor(_positionX: number, _positionY: number, _color: string) {
       this.positionX = _positionX;

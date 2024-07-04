@@ -33,7 +33,7 @@ namespace Endabgabe_Eisdealer {
         }
     }
 
-    function createIceCreamData(iceCream: Item) {
+    export function createIceCreamData(iceCream: Item) {
         // Create Elements and Save in Variable
         let IceCreamCheckbox = document.createElement("input");
         IceCreamCheckbox.setAttribute("type", "checkbox")
@@ -66,7 +66,7 @@ namespace Endabgabe_Eisdealer {
 
 
 
-    function createSauceData(sauce: Item) {
+    export function createSauceData(sauce: Item) {
         // Create Elements and Save in Variable
         let SauceCheckbox = document.createElement("input");
         SauceCheckbox.setAttribute("type", "checkbox")
@@ -99,7 +99,7 @@ namespace Endabgabe_Eisdealer {
 
 
 
-    function createSprinklesData(sprinkle: Item) {
+    export function createSprinklesData(sprinkle: Item) {
         // Create Elements and Save in Variable
         let SprinkleCheckbox = document.createElement("input");
         SprinkleCheckbox.setAttribute("type", "checkbox")
@@ -173,17 +173,5 @@ namespace Endabgabe_Eisdealer {
         if (totalPriceElement) {
             totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
         }
-    }
-
-    function updateIceCreamDrawing() {
-        console.log("Ice Cream is updated");
-    }
-
-    function updateSauceDrawing() {
-        console.log("Sauce is updated");
-    }
-
-    function updateSprinkleDrawing() {
-        console.log("Sprinkle is updated");
     }
 }

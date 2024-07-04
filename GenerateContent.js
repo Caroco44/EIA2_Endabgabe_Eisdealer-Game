@@ -51,9 +51,10 @@ var Endabgabe_Eisdealer;
         // Put label under fieldset
         document.getElementById("FieldsetIceCream")?.appendChild(IceCreamLabel);
         // Add event listener for changes in checkbox or number input
-        IceCreamCheckbox.addEventListener('change', updateIceCreamDrawing);
-        IceCreamNumber.addEventListener('input', updateIceCreamDrawing);
+        IceCreamCheckbox.addEventListener('change', Endabgabe_Eisdealer.updateIceCreamDrawing);
+        IceCreamNumber.addEventListener('input', Endabgabe_Eisdealer.updateIceCreamDrawing);
     }
+    Endabgabe_Eisdealer.createIceCreamData = createIceCreamData;
     function createSauceData(sauce) {
         // Create Elements and Save in Variable
         let SauceCheckbox = document.createElement("input");
@@ -75,9 +76,10 @@ var Endabgabe_Eisdealer;
         // Put label under fieldset
         document.getElementById("FieldsetSauce")?.appendChild(SauceLabel);
         // Add event listener for changes in checkbox or number input
-        SauceCheckbox.addEventListener('change', updateSauceDrawing);
-        SauceNumber.addEventListener('input', updateSauceDrawing);
+        SauceCheckbox.addEventListener('change', Endabgabe_Eisdealer.updateSauceDrawing);
+        SauceNumber.addEventListener('input', Endabgabe_Eisdealer.updateSauceDrawing);
     }
+    Endabgabe_Eisdealer.createSauceData = createSauceData;
     function createSprinklesData(sprinkle) {
         // Create Elements and Save in Variable
         let SprinkleCheckbox = document.createElement("input");
@@ -99,9 +101,10 @@ var Endabgabe_Eisdealer;
         // Put label under fieldset
         document.getElementById("FieldsetSprinkle")?.appendChild(SprinkleLabel);
         // Add event listener for changes in checkbox or number input
-        SprinkleCheckbox.addEventListener('change', updateSprinkleDrawing);
-        SprinkleNumber.addEventListener('input', updateSprinkleDrawing);
+        SprinkleCheckbox.addEventListener('change', Endabgabe_Eisdealer.updateSprinkleDrawing);
+        SprinkleNumber.addEventListener('input', Endabgabe_Eisdealer.updateSprinkleDrawing);
     }
+    Endabgabe_Eisdealer.createSprinklesData = createSprinklesData;
     function calculatePrice() {
         let totalPrice = 0;
         // Calculate the price for IceCream
@@ -138,14 +141,5 @@ var Endabgabe_Eisdealer;
         }
     }
     Endabgabe_Eisdealer.calculatePrice = calculatePrice;
-    function updateIceCreamDrawing() {
-        console.log("Ice Cream is updated");
-    }
-    function updateSauceDrawing() {
-        console.log("Sauce is updated");
-    }
-    function updateSprinkleDrawing() {
-        console.log("Sprinkle is updated");
-    }
 })(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
 //# sourceMappingURL=GenerateContent.js.map
