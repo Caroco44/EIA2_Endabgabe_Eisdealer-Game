@@ -116,6 +116,8 @@ namespace Endabgabe_Eisdealer {
   }
 
 
+  
+
   export function updateIceCreamDrawing() {
     let updatedItems: Sortiment[] = []; // Array für die aktualisierten Elemente
 
@@ -203,6 +205,8 @@ namespace Endabgabe_Eisdealer {
     sortiment = [...sortiment.filter(item => !(item instanceof Sauce)), ...updatedItems];
   }
 
+
+
   export function updateSprinkleDrawing() {
         let updatedItems: Sortiment[] = []; // Array für die aktualisierten Elemente
 
@@ -244,6 +248,8 @@ namespace Endabgabe_Eisdealer {
     // Aktualisieren des Sortiments mit den neuen Eiskugeln
     sortiment = [...sortiment.filter(item => !(item instanceof Sprinkles)), ...updatedItems];
   }
+
+
 
 
   // Animation

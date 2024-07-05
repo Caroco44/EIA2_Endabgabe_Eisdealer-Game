@@ -33,10 +33,12 @@ namespace Endabgabe_Eisdealer {
         }
     }
 
+
+    // Add event listener call for displaySortiment
     export function createIceCreamData(iceCream: Item) {
         // Create Elements and Save in Variable
         let IceCreamCheckbox = document.createElement("input");
-        IceCreamCheckbox.setAttribute("type", "checkbox")
+        IceCreamCheckbox.setAttribute("type", "checkbox");
 
         let IceCreamNumber = document.createElement("input");
         IceCreamNumber.setAttribute("type", "number");
@@ -48,28 +50,32 @@ namespace Endabgabe_Eisdealer {
 
         // Write Text
         let text = document.createElement("legend");
-        IceCreamLabel.appendChild(text)
+        IceCreamLabel.appendChild(text);
         text.innerHTML = iceCream.name;
-        IceCreamCheckbox.name = iceCream.name
+        IceCreamCheckbox.name = iceCream.name;
 
         // Add Checkbox and Number to Label
-        IceCreamLabel.appendChild(IceCreamCheckbox)
-        IceCreamLabel.appendChild(IceCreamNumber)
+        IceCreamLabel.appendChild(IceCreamCheckbox);
+        IceCreamLabel.appendChild(IceCreamNumber);
 
         // Put label under fieldset
-        document.getElementById("FieldsetIceCream")?.appendChild(IceCreamLabel)
+        document.getElementById("FieldsetIceCream")?.appendChild(IceCreamLabel);
 
         // Add event listener for changes in checkbox or number input
-        IceCreamCheckbox.addEventListener('change', updateIceCreamDrawing);
-        IceCreamNumber.addEventListener('input', updateIceCreamDrawing);
+        IceCreamCheckbox.addEventListener('change', () => {
+            updateIceCreamDrawing();
+            displaySortiment();
+        });
+        IceCreamNumber.addEventListener('input', () => {
+            updateIceCreamDrawing();
+            displaySortiment();
+        });
     }
 
-
-
+    // The other data creation functions should follow the same pattern
     export function createSauceData(sauce: Item) {
-        // Create Elements and Save in Variable
         let SauceCheckbox = document.createElement("input");
-        SauceCheckbox.setAttribute("type", "checkbox")
+        SauceCheckbox.setAttribute("type", "checkbox");
 
         let SauceNumber = document.createElement("input");
         SauceNumber.setAttribute("type", "number");
@@ -79,30 +85,29 @@ namespace Endabgabe_Eisdealer {
 
         let SauceLabel = document.createElement("label");
 
-        // Write Text
         let text = document.createElement("legend");
-        SauceLabel.appendChild(text)
+        SauceLabel.appendChild(text);
         text.innerHTML = sauce.name;
-        SauceCheckbox.name = sauce.name
+        SauceCheckbox.name = sauce.name;
 
-        // Add Checkbox and Number to Label
-        SauceLabel.appendChild(SauceCheckbox)
-        SauceLabel.appendChild(SauceNumber)
+        SauceLabel.appendChild(SauceCheckbox);
+        SauceLabel.appendChild(SauceNumber);
 
-        // Put label under fieldset
-        document.getElementById("FieldsetSauce")?.appendChild(SauceLabel)
+        document.getElementById("FieldsetSauce")?.appendChild(SauceLabel);
 
-        // Add event listener for changes in checkbox or number input
-        SauceCheckbox.addEventListener('change', updateSauceDrawing);
-        SauceNumber.addEventListener('input', updateSauceDrawing);
+        SauceCheckbox.addEventListener('change', () => {
+            updateSauceDrawing();
+            displaySortiment();
+        });
+        SauceNumber.addEventListener('input', () => {
+            updateSauceDrawing();
+            displaySortiment();
+        });
     }
 
-
-
     export function createSprinklesData(sprinkle: Item) {
-        // Create Elements and Save in Variable
         let SprinkleCheckbox = document.createElement("input");
-        SprinkleCheckbox.setAttribute("type", "checkbox")
+        SprinkleCheckbox.setAttribute("type", "checkbox");
 
         let SprinkleNumber = document.createElement("input");
         SprinkleNumber.setAttribute("type", "number");
@@ -112,22 +117,24 @@ namespace Endabgabe_Eisdealer {
 
         let SprinkleLabel = document.createElement("label");
 
-        // Write Text
         let text = document.createElement("legend");
-        SprinkleLabel.appendChild(text)
+        SprinkleLabel.appendChild(text);
         text.innerHTML = sprinkle.name;
-        SprinkleCheckbox.name = sprinkle.name
+        SprinkleCheckbox.name = sprinkle.name;
 
-        // Add Checkbox and Number to Label
-        SprinkleLabel.appendChild(SprinkleCheckbox)
-        SprinkleLabel.appendChild(SprinkleNumber)
+        SprinkleLabel.appendChild(SprinkleCheckbox);
+        SprinkleLabel.appendChild(SprinkleNumber);
 
-        // Put label under fieldset
-        document.getElementById("FieldsetSprinkle")?.appendChild(SprinkleLabel)
+        document.getElementById("FieldsetSprinkle")?.appendChild(SprinkleLabel);
 
-        // Add event listener for changes in checkbox or number input
-        SprinkleCheckbox.addEventListener('change', updateSprinkleDrawing);
-        SprinkleNumber.addEventListener('input', updateSprinkleDrawing);
+        SprinkleCheckbox.addEventListener('change', () => {
+            updateSprinkleDrawing();
+            displaySortiment();
+        });
+        SprinkleNumber.addEventListener('input', () => {
+            updateSprinkleDrawing();
+            displaySortiment();
+        });
     }
 
 
@@ -174,4 +181,34 @@ namespace Endabgabe_Eisdealer {
             totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
         }
     }
+
+
+
+    export function displaySortiment() {
+        console.clear(); // Clear the console for a fresh display
+
+        // Function to log checked items and their quantities
+        const logCheckedItems = (category: string, items: Item[]) => {
+            items.forEach(item => {
+                let itemCheckbox = document.querySelector<HTMLInputElement>(`input[name="${item.name}"]`);
+                let itemNumber = itemCheckbox?.nextElementSibling as HTMLInputElement;
+
+                if (itemCheckbox?.checked) {
+                    let quantity = parseInt(itemNumber?.value) || 0;
+                    console.log(`${category}: ${item.name}, Quantity: ${quantity}`);
+                }
+            });
+        };
+
+        // Log IceCream
+        logCheckedItems("Ice Cream", data.IceCream);
+
+        // Log Sauce
+        logCheckedItems("Sauce", data.Sauce);
+
+        // Log Sprinkles
+        logCheckedItems("Sprinkles", data.Sprinkles);
+    }
+
+    
 }
