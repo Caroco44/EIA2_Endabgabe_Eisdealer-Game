@@ -16,3 +16,12 @@ fieldset {
 	width: 50%;
 }
 
+
+.customerOrder {
+	width: 200px;
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #424242;
+	background-color: #f9f9f9;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

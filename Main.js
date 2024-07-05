@@ -79,8 +79,18 @@ var Endabgabe_Eisdealer;
     function displayCustomerOrder() {
         let orderingCustomers = customers.filter(customer => customer.state == "ordering");
         if (orderingCustomers.length > 0) {
-            console.log("displayCustomerOrder wurde aufgerufen");
-            // im div id =  customerOrder die Bestellung anzeigen
+            console.log("displayCustomerOrder was called");
+            // Create a new div element with the content "hello world"
+            let order = document.createElement("div");
+            order.textContent = "hello world";
+            order.classList.add("order-item");
+            // Get the container div where the order should be displayed
+            let customerOrderDiv = document.createElement("div");
+            customerOrderDiv.classList.add("customerOrder");
+            // Append the new order div to the customerOrderDiv
+            customerOrderDiv.appendChild(order);
+            // Append the customerOrderDiv to the document body or another appropriate parent element
+            document.body.appendChild(customerOrderDiv);
         }
     }
     Endabgabe_Eisdealer.displayCustomerOrder = displayCustomerOrder;
