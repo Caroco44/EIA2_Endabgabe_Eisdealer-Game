@@ -90,50 +90,104 @@ var Endabgabe_Eisdealer;
         }
     }
     function updateIceCreamDrawing() {
-        let updatedItems = []; // Use Sortiment type array to hold all items
-        for (let iceCream of Endabgabe_Eisdealer.data.IceCream) {
+        let updatedItems = []; // Array für die aktualisierten Elemente
+        // Map, um existierende Eiskugeln nach Farbe zu gruppieren
+        let existingIceCreamsByColor = new Map();
+        // Füllen der Map mit existierenden Eiskugeln
+        sortiment.forEach(item => {
+            if (item instanceof Endabgabe_Eisdealer.IceCream) {
+                if (!existingIceCreamsByColor.has(item.color)) {
+                    existingIceCreamsByColor.set(item.color, []);
+                }
+                existingIceCreamsByColor.get(item.color).push(item);
+            }
+        });
+        // Verarbeiten von jedem IceCream aus den Daten
+        Endabgabe_Eisdealer.data.IceCream.forEach(iceCream => {
             let iceCreamCheckbox = document.querySelector(`input[name="${iceCream.name}"]`);
             let iceCreamNumber = iceCreamCheckbox?.nextElementSibling;
-            if (iceCreamCheckbox?.checked) {
-                let quantity = parseInt(iceCreamNumber.value) || 0;
-                for (let i = 0; i < quantity; i++) {
-                    updatedItems.push(new Endabgabe_Eisdealer.IceCream(900, 140, iceCream.color));
-                }
+            let quantity = iceCreamCheckbox?.checked ? parseInt(iceCreamNumber?.value) || 0 : 0;
+            let existingIceCreams = existingIceCreamsByColor.get(iceCream.color) || [];
+            // Berechnen der Differenz zur gewünschten Menge
+            let newCount = Math.max(0, quantity - existingIceCreams.length);
+            // Hinzufügen neuer Eiskugeln
+            for (let i = 0; i < newCount; i++) {
+                let randomX = Math.random() * 100 + 800; // Zufällige X-Position zwischen 800 und 900
+                let randomY = Math.random() * 20 + 100; // Zufällige Y-Position zwischen 100 und 120
+                existingIceCreams.push(new Endabgabe_Eisdealer.IceCream(randomX, randomY, iceCream.color));
             }
-        }
-        // Merge updated items into sortiment
+            // Beschränken auf die gewünschte Menge
+            updatedItems.push(...existingIceCreams.slice(0, quantity));
+        });
+        // Aktualisieren des Sortiments mit den neuen Eiskugeln
         sortiment = [...sortiment.filter(item => !(item instanceof Endabgabe_Eisdealer.IceCream)), ...updatedItems];
     }
     Endabgabe_Eisdealer.updateIceCreamDrawing = updateIceCreamDrawing;
     function updateSauceDrawing() {
-        let updatedItems = []; // Use Sortiment type array to hold all items
-        for (let sauce of Endabgabe_Eisdealer.data.Sauce) {
+        let updatedItems = []; // Array für die aktualisierten Elemente
+        // Map, um existierende Eiskugeln nach Farbe zu gruppieren
+        let existingSaucesByColor = new Map();
+        // Füllen der Map mit existierenden Eiskugeln
+        sortiment.forEach(item => {
+            if (item instanceof Endabgabe_Eisdealer.Sauce) {
+                if (!existingSaucesByColor.has(item.color)) {
+                    existingSaucesByColor.set(item.color, []);
+                }
+                existingSaucesByColor.get(item.color).push(item);
+            }
+        });
+        // Verarbeiten von jedem IceCream aus den Daten
+        Endabgabe_Eisdealer.data.Sauce.forEach(sauce => {
             let sauceCheckbox = document.querySelector(`input[name="${sauce.name}"]`);
             let sauceNumber = sauceCheckbox?.nextElementSibling;
-            if (sauceCheckbox?.checked) {
-                let quantity = parseInt(sauceNumber.value) || 0;
-                for (let i = 0; i < quantity; i++) {
-                    updatedItems.push(new Endabgabe_Eisdealer.Sauce(900, 100, sauce.color));
-                }
+            let quantity = sauceCheckbox?.checked ? parseInt(sauceNumber?.value) || 0 : 0;
+            let existingSauces = existingSaucesByColor.get(sauce.color) || [];
+            // Berechnen der Differenz zur gewünschten Menge
+            let newCount = Math.max(0, quantity - existingSauces.length);
+            // Hinzufügen neuer Eiskugeln
+            for (let i = 0; i < newCount; i++) {
+                let randomX = Math.random() * 100 + 800; // Zufällige X-Position zwischen 800 und 900
+                let randomY = Math.random() * 20 + 100; // Zufällige Y-Position zwischen 100 und 120
+                existingSauces.push(new Endabgabe_Eisdealer.Sauce(randomX, randomY, sauce.color));
             }
-        }
-        // Merge updated items into sortiment
+            // Beschränken auf die gewünschte Menge
+            updatedItems.push(...existingSauces.slice(0, quantity));
+        });
+        // Aktualisieren des Sortiments mit den neuen Eiskugeln
         sortiment = [...sortiment.filter(item => !(item instanceof Endabgabe_Eisdealer.Sauce)), ...updatedItems];
     }
     Endabgabe_Eisdealer.updateSauceDrawing = updateSauceDrawing;
     function updateSprinkleDrawing() {
-        let updatedItems = []; // Use Sortiment type array to hold all items
-        for (let sprinkle of Endabgabe_Eisdealer.data.Sprinkles) {
-            let sprinkleCheckbox = document.querySelector(`input[name="${sprinkle.name}"]`);
-            let sprinkleNumber = sprinkleCheckbox?.nextElementSibling;
-            if (sprinkleCheckbox?.checked) {
-                let quantity = parseInt(sprinkleNumber.value) || 0;
-                for (let i = 0; i < quantity; i++) {
-                    updatedItems.push(new Endabgabe_Eisdealer.Sprinkles(900, 100, sprinkle.color));
+        let updatedItems = []; // Array für die aktualisierten Elemente
+        // Map, um existierende Eiskugeln nach Farbe zu gruppieren
+        let existingSprinklesByColor = new Map();
+        // Füllen der Map mit existierenden Eiskugeln
+        sortiment.forEach(item => {
+            if (item instanceof Endabgabe_Eisdealer.Sprinkles) {
+                if (!existingSprinklesByColor.has(item.color)) {
+                    existingSprinklesByColor.set(item.color, []);
                 }
+                existingSprinklesByColor.get(item.color).push(item);
             }
-        }
-        // Merge updated items into sortiment
+        });
+        // Verarbeiten von jedem IceCream aus den Daten
+        Endabgabe_Eisdealer.data.Sprinkles.forEach(sprinkles => {
+            let sprinklesCheckbox = document.querySelector(`input[name="${sprinkles.name}"]`);
+            let sprinklesNumber = sprinklesCheckbox?.nextElementSibling;
+            let quantity = sprinklesCheckbox?.checked ? parseInt(sprinklesNumber?.value) || 0 : 0;
+            let existingSprinkles = existingSprinklesByColor.get(sprinkles.color) || [];
+            // Berechnen der Differenz zur gewünschten Menge
+            let newCount = Math.max(0, quantity - existingSprinkles.length);
+            // Hinzufügen neuer Eiskugeln
+            for (let i = 0; i < newCount; i++) {
+                let randomX = Math.random() * 100 + 800; // Zufällige X-Position zwischen 800 und 900
+                let randomY = Math.random() * 20 + 100; // Zufällige Y-Position zwischen 100 und 120
+                existingSprinkles.push(new Endabgabe_Eisdealer.Sprinkles(randomX, randomY, sprinkles.color));
+            }
+            // Beschränken auf die gewünschte Menge
+            updatedItems.push(...existingSprinkles.slice(0, quantity));
+        });
+        // Aktualisieren des Sortiments mit den neuen Eiskugeln
         sortiment = [...sortiment.filter(item => !(item instanceof Endabgabe_Eisdealer.Sprinkles)), ...updatedItems];
     }
     Endabgabe_Eisdealer.updateSprinkleDrawing = updateSprinkleDrawing;
