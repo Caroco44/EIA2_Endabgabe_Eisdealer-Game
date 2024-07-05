@@ -192,6 +192,23 @@ var Endabgabe_Eisdealer;
         sortiment = [...sortiment.filter(item => !(item instanceof Endabgabe_Eisdealer.Sprinkles)), ...updatedItems];
     }
     Endabgabe_Eisdealer.updateSprinkleDrawing = updateSprinkleDrawing;
+    // Animation
+    function animation() {
+        drawBackground();
+        Endabgabe_Eisdealer.crc2.putImageData(imgData, 0, 0);
+        for (let food of sortiment) {
+            food.move();
+        }
+        for (let customer of customers) {
+            customer.move();
+        }
+        for (let table of tables) {
+            table.draw();
+        }
+        for (let cones of cone) {
+            cones.draw();
+        }
+    }
     function displayCustomerOrder() {
         // Filter customers who are currently ordering
         let orderingCustomers = customers.filter(customer => customer.state == "ordering");
@@ -217,22 +234,5 @@ var Endabgabe_Eisdealer;
         });
     }
     Endabgabe_Eisdealer.displayCustomerOrder = displayCustomerOrder;
-    // Animation
-    function animation() {
-        drawBackground();
-        Endabgabe_Eisdealer.crc2.putImageData(imgData, 0, 0);
-        for (let food of sortiment) {
-            food.move();
-        }
-        for (let customer of customers) {
-            customer.move();
-        }
-        for (let table of tables) {
-            table.draw();
-        }
-        for (let cones of cone) {
-            cones.draw();
-        }
-    }
 })(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
 //# sourceMappingURL=Main.js.map
