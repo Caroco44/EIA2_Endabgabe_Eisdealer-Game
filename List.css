@@ -5,8 +5,8 @@ body {
 }
 
 form {
-  width: 500px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	width: 500px;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 	font-size: 15px;
 	margin-left: 100px;
 	margin-top: 30px;
@@ -18,10 +18,11 @@ fieldset {
 
 
 .customerOrder {
-	width: 200px;
+	width: 100px;
 	padding: 10px;
 	margin: 5px 0;
-	border: 1px solid #424242;
-	background-color: #f9f9f9;
+	border: 1px solid #4adbdb;
+	border-radius: 5px;
+	background-color: #ffd5fb;
 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
