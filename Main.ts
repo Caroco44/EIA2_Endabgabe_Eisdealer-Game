@@ -47,7 +47,7 @@ namespace Endabgabe_Eisdealer {
     });
 
     setInterval(createCustomer, 5000);
-
+    displayCustomerOrder();
 
     window.setInterval(function (): void {
       animation();
@@ -81,7 +81,7 @@ namespace Endabgabe_Eisdealer {
     let clickY: number = _event.clientY;
 
     for (let table of tables) {
-      if (table instanceof Table && table.state === "free") {
+      if (table instanceof Table && table.state == "free") {
         // Check if the click is within the bounds of the table
         if (table.positionX < clickX && clickX < table.positionX + 150 && table.positionY < clickY && clickY < table.positionY + 70) {
           for (let customer of customers) {
@@ -95,6 +95,19 @@ namespace Endabgabe_Eisdealer {
           }
         }
       }
+    }
+  }
+
+
+
+  export function displayCustomerOrder() {
+    let orderingCustomers = customers.filter(customer => customer.state == "ordering");
+
+    if (orderingCustomers.length > 0) {
+      console.log("displayCustomerOrder wurde aufgerufen");
+
+      // im div id =  customerOrder die Bestellung anzeigen
+
     }
   }
 
@@ -116,7 +129,7 @@ namespace Endabgabe_Eisdealer {
   }
 
 
-  
+
 
   export function updateIceCreamDrawing() {
     let updatedItems: Sortiment[] = []; // Array für die aktualisierten Elemente
@@ -208,7 +221,7 @@ namespace Endabgabe_Eisdealer {
 
 
   export function updateSprinkleDrawing() {
-        let updatedItems: Sortiment[] = []; // Array für die aktualisierten Elemente
+    let updatedItems: Sortiment[] = []; // Array für die aktualisierten Elemente
 
     // Map, um existierende Eiskugeln nach Farbe zu gruppieren
     let existingSprinklesByColor: Map<string, Sauce[]> = new Map();

@@ -34,6 +34,7 @@ var Endabgabe_Eisdealer;
             input.addEventListener("change", Endabgabe_Eisdealer.calculatePrice);
         });
         setInterval(createCustomer, 5000);
+        displayCustomerOrder();
         window.setInterval(function () {
             animation();
         }, 24);
@@ -59,7 +60,7 @@ var Endabgabe_Eisdealer;
         let clickX = _event.clientX;
         let clickY = _event.clientY;
         for (let table of tables) {
-            if (table instanceof Endabgabe_Eisdealer.Table && table.state === "free") {
+            if (table instanceof Endabgabe_Eisdealer.Table && table.state == "free") {
                 // Check if the click is within the bounds of the table
                 if (table.positionX < clickX && clickX < table.positionX + 150 && table.positionY < clickY && clickY < table.positionY + 70) {
                     for (let customer of customers) {
@@ -75,6 +76,14 @@ var Endabgabe_Eisdealer;
             }
         }
     }
+    function displayCustomerOrder() {
+        let orderingCustomers = customers.filter(customer => customer.state == "ordering");
+        if (orderingCustomers.length > 0) {
+            console.log("displayCustomerOrder wurde aufgerufen");
+            // im div id =  customerOrder die Bestellung anzeigen
+        }
+    }
+    Endabgabe_Eisdealer.displayCustomerOrder = displayCustomerOrder;
     // Create a new Customer
     function createCustomer() {
         if (customers.length < 7) {

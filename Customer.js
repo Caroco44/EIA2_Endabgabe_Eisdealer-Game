@@ -29,11 +29,15 @@ var Endabgabe_Eisdealer;
                     this.positionY += dy / distance * 2;
                 }
                 else {
-                    this.state = "ordering";
-                    console.log("I am ordering now");
+                    this.order();
                 }
             }
             this.draw();
+        }
+        order() {
+            this.state = "ordering";
+            console.log("I want to order now");
+            Endabgabe_Eisdealer.displayCustomerOrder();
         }
         draw() {
             Endabgabe_Eisdealer.crc2.save();

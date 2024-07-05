@@ -30,13 +30,22 @@ namespace Endabgabe_Eisdealer {
           this.positionX += dx / distance * 2;
           this.positionY += dy / distance * 2;
         } else {
-          this.state = "ordering";
-          console.log("I am ordering now")
+          this.order();
         }
       }
 
       this.draw();
     }
+
+    public order(): void {
+      this.state = "ordering";
+      console.log("I want to order now");
+
+      displayCustomerOrder();
+    }
+
+
+
 
     public draw(): void {
       crc2.save();

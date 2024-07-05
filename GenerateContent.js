@@ -8,19 +8,16 @@ var Endabgabe_Eisdealer;
             switch (category) {
                 case "IceCream":
                     for (let iceCream of items) {
-                        // console.log(`IceCream: ${iceCream.name}, Price: ${iceCream.price}`);
                         createIceCreamData(iceCream);
                     }
                     break;
                 case "Sauce":
                     for (let sauce of items) {
-                        // console.log(`Sauce: ${sauce.name}, Price: ${sauce.price}`);
                         createSauceData(sauce);
                     }
                     break;
                 case "Sprinkles":
                     for (let sprinkle of items) {
-                        // console.log(`Sprinkles: ${sprinkle.name}, Price: ${sprinkle.price}`);
                         createSprinklesData(sprinkle);
                     }
                     break;
@@ -152,7 +149,7 @@ var Endabgabe_Eisdealer;
     }
     Endabgabe_Eisdealer.calculatePrice = calculatePrice;
     function displaySortiment() {
-        console.clear(); // Clear the console for a fresh display
+        // console.clear(); // Clear the console for a fresh display
         // Function to log checked items and their quantities
         const logCheckedItems = (category, items) => {
             items.forEach(item => {
