@@ -76,31 +76,6 @@ var Endabgabe_Eisdealer;
             }
         }
     }
-    function displayCustomerOrder() {
-        // Filter customers who are currently ordering
-        let orderingCustomers = customers.filter(customer => customer.state == "ordering");
-        // Iterate over each ordering customer
-        orderingCustomers.forEach(customer => {
-            // Create order display only if the customer has a valid position
-            if (customer.positionX !== undefined && customer.positionY !== undefined) {
-                // Create a new div element with the content "hello world"
-                let order = document.createElement("div");
-                order.textContent = "hello world";
-                order.classList.add("order-item");
-                // Calculate position based on customer's coordinates
-                let customerOrderDiv = document.createElement("div");
-                customerOrderDiv.classList.add("customerOrder");
-                customerOrderDiv.style.position = "absolute";
-                customerOrderDiv.style.left = `${customer.positionX - 100}px`;
-                customerOrderDiv.style.top = `${customer.positionY}px`;
-                // Append the new order div to the customerOrderDiv
-                customerOrderDiv.appendChild(order);
-                // Append the customerOrderDiv to the document body or another appropriate parent element
-                document.body.appendChild(customerOrderDiv);
-            }
-        });
-    }
-    Endabgabe_Eisdealer.displayCustomerOrder = displayCustomerOrder;
     // Create a new Customer
     function createCustomer() {
         if (customers.length < 7) {
@@ -217,6 +192,31 @@ var Endabgabe_Eisdealer;
         sortiment = [...sortiment.filter(item => !(item instanceof Endabgabe_Eisdealer.Sprinkles)), ...updatedItems];
     }
     Endabgabe_Eisdealer.updateSprinkleDrawing = updateSprinkleDrawing;
+    function displayCustomerOrder() {
+        // Filter customers who are currently ordering
+        let orderingCustomers = customers.filter(customer => customer.state == "ordering");
+        // Iterate over each ordering customer
+        orderingCustomers.forEach(customer => {
+            // Create order display only if the customer has a valid position
+            if (customer.positionX !== undefined && customer.positionY !== undefined) {
+                // Create a new div element with the content "hello world"
+                let order = document.createElement("div");
+                order.textContent = "hello world";
+                order.classList.add("order-item");
+                // Calculate position based on customer's coordinates
+                let customerOrderDiv = document.createElement("div");
+                customerOrderDiv.classList.add("customerOrder");
+                customerOrderDiv.style.position = "absolute";
+                customerOrderDiv.style.left = `${customer.positionX - 150}px`;
+                customerOrderDiv.style.top = `${customer.positionY}px`;
+                // Append the new order div to the customerOrderDiv
+                customerOrderDiv.appendChild(order);
+                // Append the customerOrderDiv to the document body or another appropriate parent element
+                document.body.appendChild(customerOrderDiv);
+            }
+        });
+    }
+    Endabgabe_Eisdealer.displayCustomerOrder = displayCustomerOrder;
     // Animation
     function animation() {
         drawBackground();
