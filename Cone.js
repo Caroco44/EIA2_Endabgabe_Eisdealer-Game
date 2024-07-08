@@ -1,12 +1,9 @@
 "use strict";
 var Endabgabe_Eisdealer;
 (function (Endabgabe_Eisdealer) {
-    class Cone {
-        positionX;
-        positionY;
-        constructor(_positionX, _positionY) {
-            this.positionX = _positionX;
-            this.positionY = _positionY;
+    class Cone extends Endabgabe_Eisdealer.Sortiment {
+        constructor(_positionX, _positionY, _color) {
+            super(_positionX, _positionY, _color);
         }
         move() {
             this.draw();
@@ -19,7 +16,7 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.lineTo(-50, -100);
             Endabgabe_Eisdealer.crc2.lineTo(50, -100);
             Endabgabe_Eisdealer.crc2.closePath();
-            Endabgabe_Eisdealer.crc2.fillStyle = "brown";
+            Endabgabe_Eisdealer.crc2.fillStyle = this.color;
             Endabgabe_Eisdealer.crc2.fill();
             Endabgabe_Eisdealer.crc2.restore();
         }

@@ -31,7 +31,7 @@ namespace Endabgabe_Eisdealer {
     imgData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
 
     customers.push(new Customer(200, 400, "green"));
-    cone.push(new Cone(900, 270));
+    cone.push(new Cone(900, 270, "brown"));
 
     tables.push(new Table(400, 80));
     tables.push(new Table(600, 200));
@@ -256,7 +256,7 @@ namespace Endabgabe_Eisdealer {
     crc2.putImageData(imgData, 0, 0);
 
     for (let food of sortiment) {
-      food.move();
+      food.draw();
     }
 
     for (let customer of customers) {

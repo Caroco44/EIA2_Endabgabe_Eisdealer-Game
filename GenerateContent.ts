@@ -182,7 +182,7 @@ namespace Endabgabe_Eisdealer {
 
 
     export function displaySortiment() {
-        // console.clear(); // Clear the console for a fresh display
+        console.clear(); // Clear the console for a fresh display
 
         // Function to log checked items and their quantities
         const logCheckedItems = (category: string, items: Item[]) => {

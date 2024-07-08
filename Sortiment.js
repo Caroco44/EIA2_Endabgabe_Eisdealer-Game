@@ -5,17 +5,14 @@ var Endabgabe_Eisdealer;
         positionX;
         positionY;
         color;
-        // zusätzliche Eigenschaften
-        // public state: string;
-        // public price: number;
-        // public name: string;
+        state;
         constructor(_positionX, _positionY, _color) {
             this.positionX = _positionX;
             this.positionY = _positionY;
             this.color = _color;
+            this.state = "creating";
             this.draw();
         }
-        move() { }
         draw() { }
     }
     Endabgabe_Eisdealer.Sortiment = Sortiment;

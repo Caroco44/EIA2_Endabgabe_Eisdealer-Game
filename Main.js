@@ -22,7 +22,7 @@ var Endabgabe_Eisdealer;
         drawBackground();
         imgData = Endabgabe_Eisdealer.crc2.getImageData(0, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
         customers.push(new Endabgabe_Eisdealer.Customer(200, 400, "green"));
-        cone.push(new Endabgabe_Eisdealer.Cone(900, 270));
+        cone.push(new Endabgabe_Eisdealer.Cone(900, 270, "brown"));
         tables.push(new Endabgabe_Eisdealer.Table(400, 80));
         tables.push(new Endabgabe_Eisdealer.Table(600, 200));
         tables.push(new Endabgabe_Eisdealer.Table(400, 320));
@@ -197,7 +197,7 @@ var Endabgabe_Eisdealer;
         drawBackground();
         Endabgabe_Eisdealer.crc2.putImageData(imgData, 0, 0);
         for (let food of sortiment) {
-            food.move();
+            food.draw();
         }
         for (let customer of customers) {
             customer.move();
