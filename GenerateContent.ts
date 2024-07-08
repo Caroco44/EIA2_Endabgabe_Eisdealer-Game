@@ -242,10 +242,10 @@ namespace Endabgabe_Eisdealer {
     
         // Verarbeiten von jedem IceCream aus den Daten
         data.Sprinkles.forEach(sprinkles => {
-          let sprinklesCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sprinkles.name}"]`);
-          let sprinklesNumber = sprinklesCheckbox?.nextElementSibling as HTMLInputElement;
+          let sprinkleCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sprinkles.name}"]`);
+          let sprinkleNumber = sprinkleCheckbox?.nextElementSibling as HTMLInputElement;
     
-          let quantity = sprinklesCheckbox?.checked ? parseInt(sprinklesNumber?.value) || 0 : 0;
+          let quantity = sprinkleCheckbox?.checked ? parseInt(sprinkleNumber?.value) || 0 : 0;
           let existingSprinkles = existingSprinklesByColor.get(sprinkles.color) || [];
     
           // Berechnen der Differenz zur gewünschten Menge

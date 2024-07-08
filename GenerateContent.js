@@ -195,9 +195,9 @@ var Endabgabe_Eisdealer;
         });
         // Verarbeiten von jedem IceCream aus den Daten
         Endabgabe_Eisdealer.data.Sprinkles.forEach(sprinkles => {
-            let sprinklesCheckbox = document.querySelector(`input[name="${sprinkles.name}"]`);
-            let sprinklesNumber = sprinklesCheckbox?.nextElementSibling;
-            let quantity = sprinklesCheckbox?.checked ? parseInt(sprinklesNumber?.value) || 0 : 0;
+            let sprinkleCheckbox = document.querySelector(`input[name="${sprinkles.name}"]`);
+            let sprinkleNumber = sprinkleCheckbox?.nextElementSibling;
+            let quantity = sprinkleCheckbox?.checked ? parseInt(sprinkleNumber?.value) || 0 : 0;
             let existingSprinkles = existingSprinklesByColor.get(sprinkles.color) || [];
             // Berechnen der Differenz zur gewünschten Menge
             let newCount = Math.max(0, quantity - existingSprinkles.length);
