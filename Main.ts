@@ -1,20 +1,14 @@
 namespace Endabgabe_Eisdealer {
-  // export interface Vector {
-  //   x: number;
-  //   y: number;
-  // }
 
   window.addEventListener("load", handleLoad);
   export let crc2: CanvasRenderingContext2D;
 
   let imgData: ImageData;
 
-
   // Arrays
-  let sortiment: Sortiment[] = [];
+  export let sortiment: Sortiment[] = [];
   let customers: Customer[] = [];
   let tables: Table[] = [];
-  let cone: Cone[] = [];
 
 
   function handleLoad(_event: Event): void {
@@ -31,7 +25,7 @@ namespace Endabgabe_Eisdealer {
     imgData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
 
     customers.push(new Customer(200, 400, "green"));
-    cone.push(new Cone(900, 270, "brown"));
+    sortiment.push(new Cone(900, 270, "brown"));
 
     tables.push(new Table(400, 80));
     tables.push(new Table(600, 200));
@@ -42,6 +36,7 @@ namespace Endabgabe_Eisdealer {
     canvas.addEventListener("pointerdown", tableClicked);
 
     createData();
+
     document.querySelectorAll("input[type='checkbox'], input[type='number']").forEach(input => {
       input.addEventListener("change", calculatePrice);
     });
@@ -115,141 +110,6 @@ namespace Endabgabe_Eisdealer {
     }
   }
 
-
-  export function updateIceCreamDrawing() {
-    let updatedItems: Sortiment[] = []; // Array für die aktualisierten Elemente
-
-    // Map, um existierende Eiskugeln nach Farbe zu gruppieren
-    let existingIceCreamsByColor: Map<string, IceCream[]> = new Map();
-
-    // Füllen der Map mit existierenden Eiskugeln
-    sortiment.forEach(item => {
-      if (item instanceof IceCream) {
-        if (!existingIceCreamsByColor.has(item.color)) {
-          existingIceCreamsByColor.set(item.color, []);
-        }
-        existingIceCreamsByColor.get(item.color)!.push(item);
-      }
-    });
-
-    // Verarbeiten von jedem IceCream aus den Daten
-    data.IceCream.forEach(iceCream => {
-      let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
-      let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
-
-      let quantity = iceCreamCheckbox?.checked ? parseInt(iceCreamNumber?.value) || 0 : 0;
-      let existingIceCreams = existingIceCreamsByColor.get(iceCream.color) || [];
-
-      // Berechnen der Differenz zur gewünschten Menge
-      let newCount = Math.max(0, quantity - existingIceCreams.length);
-
-      // Hinzufügen neuer Eiskugeln
-      for (let i = 0; i < newCount; i++) {
-        let randomX = Math.random() * 100 + 800; // Zufällige X-Position zwischen 800 und 900
-        let randomY = Math.random() * 20 + 100;  // Zufällige Y-Position zwischen 100 und 120
-        existingIceCreams.push(new IceCream(randomX, randomY, iceCream.color));
-      }
-
-      // Beschränken auf die gewünschte Menge
-      updatedItems.push(...existingIceCreams.slice(0, quantity));
-    });
-
-    // Aktualisieren des Sortiments mit den neuen Eiskugeln
-    sortiment = [...sortiment.filter(item => !(item instanceof IceCream)), ...updatedItems];
-  }
-
-
-
-
-  export function updateSauceDrawing() {
-    let updatedItems: Sortiment[] = []; // Array für die aktualisierten Elemente
-
-    // Map, um existierende Eiskugeln nach Farbe zu gruppieren
-    let existingSaucesByColor: Map<string, Sauce[]> = new Map();
-
-    // Füllen der Map mit existierenden Eiskugeln
-    sortiment.forEach(item => {
-      if (item instanceof Sauce) {
-        if (!existingSaucesByColor.has(item.color)) {
-          existingSaucesByColor.set(item.color, []);
-        }
-        existingSaucesByColor.get(item.color)!.push(item);
-      }
-    });
-
-    // Verarbeiten von jedem IceCream aus den Daten
-    data.Sauce.forEach(sauce => {
-      let sauceCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sauce.name}"]`);
-      let sauceNumber = sauceCheckbox?.nextElementSibling as HTMLInputElement;
-
-      let quantity = sauceCheckbox?.checked ? parseInt(sauceNumber?.value) || 0 : 0;
-      let existingSauces = existingSaucesByColor.get(sauce.color) || [];
-
-      // Berechnen der Differenz zur gewünschten Menge
-      let newCount = Math.max(0, quantity - existingSauces.length);
-
-      // Hinzufügen neuer Eiskugeln
-      for (let i = 0; i < newCount; i++) {
-        let randomX = Math.random() * 100 + 800; // Zufällige X-Position zwischen 800 und 900
-        let randomY = Math.random() * 20 + 100;  // Zufällige Y-Position zwischen 100 und 120
-        existingSauces.push(new Sauce(randomX, randomY, sauce.color));
-      }
-
-      // Beschränken auf die gewünschte Menge
-      updatedItems.push(...existingSauces.slice(0, quantity));
-    });
-
-    // Aktualisieren des Sortiments mit den neuen Eiskugeln
-    sortiment = [...sortiment.filter(item => !(item instanceof Sauce)), ...updatedItems];
-  }
-
-
-
-  export function updateSprinkleDrawing() {
-    let updatedItems: Sortiment[] = []; // Array für die aktualisierten Elemente
-
-    // Map, um existierende Eiskugeln nach Farbe zu gruppieren
-    let existingSprinklesByColor: Map<string, Sauce[]> = new Map();
-
-    // Füllen der Map mit existierenden Eiskugeln
-    sortiment.forEach(item => {
-      if (item instanceof Sprinkles) {
-        if (!existingSprinklesByColor.has(item.color)) {
-          existingSprinklesByColor.set(item.color, []);
-        }
-        existingSprinklesByColor.get(item.color)!.push(item);
-      }
-    });
-
-    // Verarbeiten von jedem IceCream aus den Daten
-    data.Sprinkles.forEach(sprinkles => {
-      let sprinklesCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sprinkles.name}"]`);
-      let sprinklesNumber = sprinklesCheckbox?.nextElementSibling as HTMLInputElement;
-
-      let quantity = sprinklesCheckbox?.checked ? parseInt(sprinklesNumber?.value) || 0 : 0;
-      let existingSprinkles = existingSprinklesByColor.get(sprinkles.color) || [];
-
-      // Berechnen der Differenz zur gewünschten Menge
-      let newCount = Math.max(0, quantity - existingSprinkles.length);
-
-      // Hinzufügen neuer Eiskugeln
-      for (let i = 0; i < newCount; i++) {
-        let randomX = Math.random() * 100 + 800; // Zufällige X-Position zwischen 800 und 900
-        let randomY = Math.random() * 20 + 100;  // Zufällige Y-Position zwischen 100 und 120
-        existingSprinkles.push(new Sprinkles(randomX, randomY, sprinkles.color));
-      }
-
-      // Beschränken auf die gewünschte Menge
-      updatedItems.push(...existingSprinkles.slice(0, quantity));
-    });
-
-    // Aktualisieren des Sortiments mit den neuen Eiskugeln
-    sortiment = [...sortiment.filter(item => !(item instanceof Sprinkles)), ...updatedItems];
-  }
-
-
-
-
   // Animation
   function animation(): void {
     drawBackground();
@@ -266,46 +126,82 @@ namespace Endabgabe_Eisdealer {
     for (let table of tables) {
       table.draw();
     }
+  }
 
-    for (let cones of cone) {
-      cones.draw();
+
+
+  export function calculatePrice() {
+    let totalPrice: number = 0;
+
+    // Calculate the price for IceCream
+    for (let iceCream of data.IceCream) {
+      let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
+      let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
+
+      if (iceCreamCheckbox?.checked) {
+        let quantity = parseInt(iceCreamNumber.value) || 0; // Default to 0 if empty
+        totalPrice += iceCream.price * quantity;
+      }
+    }
+
+    // Calculate the price for Sauce
+    for (let sauce of data.Sauce) {
+      let sauceCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sauce.name}"]`);
+      let sauceNumber = sauceCheckbox?.nextElementSibling as HTMLInputElement;
+
+      if (sauceCheckbox?.checked) {
+        let quantity = parseInt(sauceNumber.value) || 0; // Default to 0 if empty
+        totalPrice += sauce.price * quantity;
+      }
+    }
+
+    // Calculate the price for Sprinkles
+    for (let sprinkle of data.Sprinkles) {
+      let sprinkleCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sprinkle.name}"]`);
+      let sprinkleNumber = sprinkleCheckbox?.nextElementSibling as HTMLInputElement;
+
+      if (sprinkleCheckbox?.checked) {
+        let quantity = parseInt(sprinkleNumber.value) || 0; // Default to 0 if empty
+        totalPrice += sprinkle.price * quantity;
+      }
+    }
+
+    // Update the total price on the webpage
+    let totalPriceElement = document.getElementById("totalPrice");
+    if (totalPriceElement) {
+      totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
     }
   }
 
 
 
 
-
-
-
-
-  
   
   export function displayCustomerOrder() {
     // Filter customers who are currently ordering
     let orderingCustomers = customers.filter(customer => customer.state == "ordering");
-  
+
     // Iterate over each ordering customer
     orderingCustomers.forEach(customer => {
       // Create order display only if the customer has a valid position
       if (customer.positionX !== undefined && customer.positionY !== undefined) {
 
-  
+
         // Create a new div element with the content "hello world"
         let order = document.createElement("div");
         order.textContent = "hello world";
         order.classList.add("order-item");
-  
+
         // Calculate position based on customer's coordinates
         let customerOrderDiv = document.createElement("div");
         customerOrderDiv.classList.add("customerOrder");
         customerOrderDiv.style.position = "absolute";
         customerOrderDiv.style.left = `${customer.positionX - 150}px`;
         customerOrderDiv.style.top = `${customer.positionY}px`;
-  
+
         // Append the new order div to the customerOrderDiv
         customerOrderDiv.appendChild(order);
-  
+
         // Append the customerOrderDiv to the document body or another appropriate parent element
         document.body.appendChild(customerOrderDiv);
       }

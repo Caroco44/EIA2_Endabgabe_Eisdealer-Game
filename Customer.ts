@@ -37,6 +37,7 @@ namespace Endabgabe_Eisdealer {
       this.draw();
     }
 
+
     public order(): void {
       this.state = "ordering";
       console.log("I want to order now");
