@@ -34,7 +34,7 @@ namespace Endabgabe_Eisdealer {
 
     window.addEventListener("keydown", changeMood);
     canvas.addEventListener("pointerdown", tableClicked);
-    canvas.addEventListener("pointerdown", checkOrder);
+    // canvas.addEventListener("pointerdown", checkOrder);
 
     createData();
 
@@ -199,6 +199,9 @@ namespace Endabgabe_Eisdealer {
     };
   }
 
+
+
+
   export function displayCustomerOrder() {
     // Filter customers who are currently ordering
     let orderingCustomers = customers.filter(customer => customer.state == "ordering");
@@ -234,6 +237,11 @@ namespace Endabgabe_Eisdealer {
           // Append the new order div to the customerOrderDiv
           customerOrderDiv.appendChild(order);
 
+          // Add click event listener to the customerOrderDiv
+          customerOrderDiv.addEventListener("click", () => {
+            checkOrder(); // Call checkOrder when this div is clicked
+          });
+
           // Append the customerOrderDiv to the document body or another appropriate parent element
           document.body.appendChild(customerOrderDiv);
 
@@ -243,29 +251,13 @@ namespace Endabgabe_Eisdealer {
       }
     });
   }
-  
 
-  export function checkOrder(_event: PointerEvent) {
-    // let clickX: number = _event.clientX;
-    // let clickY: number = _event.clientY;
-
-    // for (let table of tables) {
-    //   if (table instanceof Table && table.state == "free") {
-    //     // Check if the click is within the bounds of the table
-    //     if (table.positionX < clickX && clickX < table.positionX + 150 && table.positionY < clickY && clickY < table.positionY + 70) {
-    //       for (let customer of customers) {
-    //         if (customer.state == "waiting") {
-    //           customer.state = "coming";
-    //           customer.targetPositionX = table.positionX;
-    //           customer.targetPositionY = table.positionY;
-    //           table.state = "occupied";
-    //           break;
-    //         }
-    //       }
-    //     }
-    //   }
+  function checkOrder() {
+    console.log("checkOrder was called");
+    // for (let customer of customers) {
+    //   // customer.state = "eating";
+    //   break;
     // }
   }
-
 
 }

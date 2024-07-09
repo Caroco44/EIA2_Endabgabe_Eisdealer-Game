@@ -35,7 +35,43 @@ var Endabgabe_Eisdealer;
                     this.order();
                 }
             }
-            this.draw();
+            else if (this.state == "eating") {
+                // Move towards the Cone
+                let conePositionX = 900; // Adjust according to your Cone's position
+                let conePositionY = 270; // Adjust according to your Cone's position
+                let dx = conePositionX - this.positionX;
+                let dy = conePositionY - this.positionY;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance > 1) {
+                    this.positionX += dx / distance * 2;
+                    this.positionY += dy / distance * 2;
+                }
+                else {
+                    // Perform actions when customer reaches the Cone
+                    console.log("Customer reached the Cone.");
+                    // Change state to "leaving" or perform further actions
+                    this.state = "leaving";
+                }
+            }
+            else if (this.state == "leaving") {
+                // Move towards position (0, 0)
+                let dx = 0 - this.positionX;
+                let dy = 0 - this.positionY;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance > 1) {
+                    this.positionX += dx / distance * 2;
+                    this.positionY += dy / distance * 2;
+                }
+                else {
+                    // Once the customer reaches (0, 0), you might want to reset or perform additional actions
+                    console.log("Customer reached (0, 0).");
+                    // Example: Reset the customer or remove them from the scene
+                    // Resetting position for reuse (assuming it's necessary)
+                    this.positionX = 0;
+                    this.positionY = 0;
+                }
+            }
+            this.draw(); // Draw the customer at its current position
         }
         order() {
             this.state = "ordering";

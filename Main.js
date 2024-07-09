@@ -24,7 +24,7 @@ var Endabgabe_Eisdealer;
         tables.push(new Endabgabe_Eisdealer.Table(600, 440));
         window.addEventListener("keydown", changeMood);
         canvas.addEventListener("pointerdown", tableClicked);
-        canvas.addEventListener("pointerdown", checkOrder);
+        // canvas.addEventListener("pointerdown", checkOrder);
         Endabgabe_Eisdealer.createData();
         document.querySelectorAll("input[type='checkbox'], input[type='number']").forEach(input => {
             input.addEventListener("change", calculatePrice);
@@ -181,6 +181,10 @@ var Endabgabe_Eisdealer;
                     customerOrderDiv.style.top = `${customer.positionY}px`;
                     // Append the new order div to the customerOrderDiv
                     customerOrderDiv.appendChild(order);
+                    // Add click event listener to the customerOrderDiv
+                    customerOrderDiv.addEventListener("click", () => {
+                        checkOrder(); // Call checkOrder when this div is clicked
+                    });
                     // Append the customerOrderDiv to the document body or another appropriate parent element
                     document.body.appendChild(customerOrderDiv);
                     // Add the customer ID to the set of displayed customers
@@ -190,26 +194,12 @@ var Endabgabe_Eisdealer;
         });
     }
     Endabgabe_Eisdealer.displayCustomerOrder = displayCustomerOrder;
-    function checkOrder(_event) {
-        // let clickX: number = _event.clientX;
-        // let clickY: number = _event.clientY;
-        // for (let table of tables) {
-        //   if (table instanceof Table && table.state == "free") {
-        //     // Check if the click is within the bounds of the table
-        //     if (table.positionX < clickX && clickX < table.positionX + 150 && table.positionY < clickY && clickY < table.positionY + 70) {
-        //       for (let customer of customers) {
-        //         if (customer.state == "waiting") {
-        //           customer.state = "coming";
-        //           customer.targetPositionX = table.positionX;
-        //           customer.targetPositionY = table.positionY;
-        //           table.state = "occupied";
-        //           break;
-        //         }
-        //       }
-        //     }
-        //   }
+    function checkOrder() {
+        console.log("checkOrder was called");
+        // for (let customer of customers) {
+        //   // customer.state = "eating";
+        //   break;
         // }
     }
-    Endabgabe_Eisdealer.checkOrder = checkOrder;
 })(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
 //# sourceMappingURL=Main.js.map

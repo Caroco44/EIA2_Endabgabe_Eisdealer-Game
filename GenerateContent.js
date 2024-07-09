@@ -227,13 +227,12 @@ var Endabgabe_Eisdealer;
                 }
             });
         };
-        // Log IceCream
+        // Log Ice Cream
         logCheckedItems("Ice Cream", Endabgabe_Eisdealer.data.IceCream);
         // Log Sauce
         logCheckedItems("Sauce", Endabgabe_Eisdealer.data.Sauce);
         // Log Sprinkles
         logCheckedItems("Sprinkles", Endabgabe_Eisdealer.data.Sprinkles);
     }
-    Endabgabe_Eisdealer.displaySortiment = displaySortiment;
 })(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
 //# sourceMappingURL=GenerateContent.js.map
