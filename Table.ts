@@ -1,9 +1,7 @@
 namespace Endabgabe_Eisdealer {
   export class Table {
-
     public positionX: number;
     public positionY: number;
-
     public state: "free" | "occupied";
 
     constructor(_positionX: number, _positionY: number) {
@@ -12,12 +10,9 @@ namespace Endabgabe_Eisdealer {
       this.state = "free";
     }
 
-
     public draw(): void {
       crc2.save();
       crc2.beginPath();
-  
-      crc2.save();
       crc2.translate(this.positionX, this.positionY);
 
       if (this.state == "free") {
@@ -28,7 +23,11 @@ namespace Endabgabe_Eisdealer {
       
       crc2.fillRect(0, 0, 150, 70);
       crc2.restore();
-  }
+    }
+
+    public reset(): void {
+      this.state = "free";
+    }
   }
 }
 

@@ -6,7 +6,7 @@ var Endabgabe_Eisdealer;
     // Arrays
     Endabgabe_Eisdealer.sortiment = [];
     let customers = [];
-    let tables = [];
+    Endabgabe_Eisdealer.tables = [];
     function handleLoad(_event) {
         let canvas = document.querySelector("canvas");
         if (!canvas)
@@ -18,10 +18,10 @@ var Endabgabe_Eisdealer;
         imgData = Endabgabe_Eisdealer.crc2.getImageData(0, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
         customers.push(new Endabgabe_Eisdealer.Customer(200, 400, "green"));
         Endabgabe_Eisdealer.sortiment.push(new Endabgabe_Eisdealer.Cone(900, 270, "brown"));
-        tables.push(new Endabgabe_Eisdealer.Table(400, 80));
-        tables.push(new Endabgabe_Eisdealer.Table(600, 200));
-        tables.push(new Endabgabe_Eisdealer.Table(400, 320));
-        tables.push(new Endabgabe_Eisdealer.Table(600, 440));
+        Endabgabe_Eisdealer.tables.push(new Endabgabe_Eisdealer.Table(400, 80));
+        Endabgabe_Eisdealer.tables.push(new Endabgabe_Eisdealer.Table(600, 200));
+        Endabgabe_Eisdealer.tables.push(new Endabgabe_Eisdealer.Table(400, 320));
+        Endabgabe_Eisdealer.tables.push(new Endabgabe_Eisdealer.Table(600, 440));
         window.addEventListener("keydown", changeMood);
         canvas.addEventListener("pointerdown", tableClicked);
         // canvas.addEventListener("pointerdown", checkOrder);
@@ -55,7 +55,7 @@ var Endabgabe_Eisdealer;
     function tableClicked(_event) {
         let clickX = _event.clientX;
         let clickY = _event.clientY;
-        for (let table of tables) {
+        for (let table of Endabgabe_Eisdealer.tables) {
             if (table instanceof Endabgabe_Eisdealer.Table && table.state == "free") {
                 // Check if the click is within the bounds of the table
                 if (table.positionX < clickX && clickX < table.positionX + 150 && table.positionY < clickY && clickY < table.positionY + 70) {
@@ -96,7 +96,7 @@ var Endabgabe_Eisdealer;
         for (let customer of customers) {
             customer.move();
         }
-        for (let table of tables) {
+        for (let table of Endabgabe_Eisdealer.tables) {
             table.draw();
         }
     }
@@ -179,11 +179,12 @@ var Endabgabe_Eisdealer;
                     customerOrderDiv.style.position = "absolute";
                     customerOrderDiv.style.left = `${customer.positionX - 170}px`;
                     customerOrderDiv.style.top = `${customer.positionY}px`;
+                    customerOrderDiv.setAttribute("data-customer-id", customer.id.toString()); // Set customer ID
                     // Append the new order div to the customerOrderDiv
                     customerOrderDiv.appendChild(order);
                     // Add click event listener to the customerOrderDiv
-                    customerOrderDiv.addEventListener("click", () => {
-                        checkOrder(); // Call checkOrder when this div is clicked
+                    customerOrderDiv.addEventListener("click", (event) => {
+                        checkOrder(event); // Pass event to checkOrder
                     });
                     // Append the customerOrderDiv to the document body or another appropriate parent element
                     document.body.appendChild(customerOrderDiv);
@@ -194,12 +195,41 @@ var Endabgabe_Eisdealer;
         });
     }
     Endabgabe_Eisdealer.displayCustomerOrder = displayCustomerOrder;
-    function checkOrder() {
-        console.log("checkOrder was called");
-        // for (let customer of customers) {
-        //   // customer.state = "eating";
-        //   break;
-        // }
+    function checkOrder(event) {
+        // Get the customer ID from the clicked div
+        let customerOrderDiv = event.currentTarget;
+        let customerIdStr = customerOrderDiv.getAttribute("data-customer-id");
+        // Ensure customerIdStr is not null before parsing
+        if (customerIdStr !== null) {
+            let customerId = parseInt(customerIdStr);
+            // Find the customer by ID and change their state to "eating"
+            let customer = customers.find(c => c.id === customerId);
+            if (customer) {
+                customer.state = "eating";
+            }
+        }
+        else {
+            console.error("Customer ID not found on the clicked element.");
+        }
     }
+    function removeCustomer(customer) {
+        // Remove the customer from the array
+        let index = customers.indexOf(customer);
+        if (index !== -1) {
+            customers.splice(index, 1);
+            // Remove the corresponding customerOrderDiv from the DOM
+            let customerOrderDivs = document.querySelectorAll(".customerOrder");
+            customerOrderDivs.forEach((div) => {
+                let customerIdStr = div.getAttribute("data-customer-id");
+                if (customerIdStr !== null) {
+                    let customerId = parseInt(customerIdStr);
+                    if (customerId === customer.id) {
+                        div.remove(); // Remove the div from the DOM
+                    }
+                }
+            });
+        }
+    }
+    Endabgabe_Eisdealer.removeCustomer = removeCustomer;
 })(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
 //# sourceMappingURL=Main.js.map

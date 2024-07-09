@@ -8,7 +8,7 @@ namespace Endabgabe_Eisdealer {
   // Arrays
   export let sortiment: Sortiment[] = [];
   let customers: Customer[] = [];
-  let tables: Table[] = [];
+  export let tables: Table[] = [];
 
 
   function handleLoad(_event: Event): void {
@@ -176,7 +176,6 @@ namespace Endabgabe_Eisdealer {
 
 
 
-
   let displayedCustomers = new Set(); // To track customers with displayed orders
 
   function getRandomInt(min: number, max: number) {
@@ -198,9 +197,6 @@ namespace Endabgabe_Eisdealer {
       sprinkle: { item: sprinkle, quantity: sprinkleQty }
     };
   }
-
-
-
 
   export function displayCustomerOrder() {
     // Filter customers who are currently ordering
@@ -233,13 +229,14 @@ namespace Endabgabe_Eisdealer {
           customerOrderDiv.style.position = "absolute";
           customerOrderDiv.style.left = `${customer.positionX - 170}px`;
           customerOrderDiv.style.top = `${customer.positionY}px`;
+          customerOrderDiv.setAttribute("data-customer-id", customer.id.toString()); // Set customer ID
 
           // Append the new order div to the customerOrderDiv
           customerOrderDiv.appendChild(order);
 
           // Add click event listener to the customerOrderDiv
-          customerOrderDiv.addEventListener("click", () => {
-            checkOrder(); // Call checkOrder when this div is clicked
+          customerOrderDiv.addEventListener("click", (event) => {
+            checkOrder(event); // Pass event to checkOrder
           });
 
           // Append the customerOrderDiv to the document body or another appropriate parent element
@@ -252,12 +249,44 @@ namespace Endabgabe_Eisdealer {
     });
   }
 
-  function checkOrder() {
-    console.log("checkOrder was called");
-    // for (let customer of customers) {
-    //   // customer.state = "eating";
-    //   break;
-    // }
+  function checkOrder(event: Event) {
+    // Get the customer ID from the clicked div
+    let customerOrderDiv = event.currentTarget as HTMLElement;
+    let customerIdStr = customerOrderDiv.getAttribute("data-customer-id");
+
+    // Ensure customerIdStr is not null before parsing
+    if (customerIdStr !== null) {
+      let customerId = parseInt(customerIdStr);
+
+      // Find the customer by ID and change their state to "eating"
+      let customer = customers.find(c => c.id === customerId);
+      if (customer) {
+        customer.state = "eating";
+      }
+    } else {
+      console.error("Customer ID not found on the clicked element.");
+    }
+  }
+
+  
+  export function removeCustomer(customer: Customer): void {
+    // Remove the customer from the array
+    let index = customers.indexOf(customer);
+    if (index !== -1) {
+      customers.splice(index, 1);
+  
+      // Remove the corresponding customerOrderDiv from the DOM
+      let customerOrderDivs = document.querySelectorAll(".customerOrder");
+      customerOrderDivs.forEach((div) => {
+        let customerIdStr = div.getAttribute("data-customer-id");
+        if (customerIdStr !== null) {
+          let customerId = parseInt(customerIdStr);
+          if (customerId === customer.id) {
+            div.remove(); // Remove the div from the DOM
+          }
+        }
+      });
+    }
   }
 
 }

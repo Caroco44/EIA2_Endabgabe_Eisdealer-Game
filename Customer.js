@@ -9,8 +9,8 @@ var Endabgabe_Eisdealer;
         state;
         targetPositionX;
         targetPositionY;
-        id; // Unique identifier for each customer
-        static nextId = 1; // Static variable to keep track of the next ID
+        id;
+        static nextId = 1;
         constructor(_positionX, _positionY, _color) {
             this.positionX = _positionX;
             this.positionY = _positionY;
@@ -19,7 +19,7 @@ var Endabgabe_Eisdealer;
             this.state = "waiting";
             this.targetPositionX = undefined;
             this.targetPositionY = undefined;
-            this.id = Customer.nextId++; // Assign a unique ID to this customer
+            this.id = Customer.nextId++;
         }
         move() {
             if (this.state == "coming" && this.targetPositionX !== undefined && this.targetPositionY !== undefined) {
@@ -47,14 +47,11 @@ var Endabgabe_Eisdealer;
                     this.positionY += dy / distance * 2;
                 }
                 else {
-                    // Perform actions when customer reaches the Cone
                     console.log("Customer reached the Cone.");
-                    // Change state to "leaving" or perform further actions
                     this.state = "leaving";
                 }
             }
             else if (this.state == "leaving") {
-                // Move towards position (0, 0)
                 let dx = 0 - this.positionX;
                 let dy = 0 - this.positionY;
                 let distance = Math.sqrt(dx * dx + dy * dy);
@@ -63,12 +60,14 @@ var Endabgabe_Eisdealer;
                     this.positionY += dy / distance * 2;
                 }
                 else {
-                    // Once the customer reaches (0, 0), you might want to reset or perform additional actions
                     console.log("Customer reached (0, 0).");
-                    // Example: Reset the customer or remove them from the scene
-                    // Resetting position for reuse (assuming it's necessary)
-                    this.positionX = 0;
-                    this.positionY = 0;
+                    // Reset the corresponding table state to "free"
+                    let table = Endabgabe_Eisdealer.tables.find(t => t.positionX === this.targetPositionX && t.positionY === this.targetPositionY);
+                    if (table) {
+                        table.state = "free"; // Ensure table state is set to "free"
+                    }
+                    // Remove the customer from the scene
+                    Endabgabe_Eisdealer.removeCustomer(this);
                 }
             }
             this.draw(); // Draw the customer at its current position
@@ -81,7 +80,6 @@ var Endabgabe_Eisdealer;
         draw() {
             Endabgabe_Eisdealer.crc2.save();
             Endabgabe_Eisdealer.crc2.beginPath();
-            // Draw the face
             Endabgabe_Eisdealer.crc2.translate(this.positionX, this.positionY);
             if (this.mood == "happy") {
                 Endabgabe_Eisdealer.crc2.fillStyle = this.color;
@@ -92,7 +90,6 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.arc(0, 0, 40, 0, 2 * Math.PI);
             Endabgabe_Eisdealer.crc2.fill();
             Endabgabe_Eisdealer.crc2.closePath();
-            // Draw the pupils
             Endabgabe_Eisdealer.crc2.beginPath();
             Endabgabe_Eisdealer.crc2.fillStyle = 'black';
             Endabgabe_Eisdealer.crc2.arc(-20, -10, 4, 0, 2 * Math.PI);
@@ -102,7 +99,6 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.arc(15, -15, 4, 0, 2 * Math.PI);
             Endabgabe_Eisdealer.crc2.fill();
             Endabgabe_Eisdealer.crc2.closePath();
-            // Draw the mouth based on mood
             Endabgabe_Eisdealer.crc2.beginPath();
             Endabgabe_Eisdealer.crc2.strokeStyle = 'black';
             Endabgabe_Eisdealer.crc2.lineWidth = 5;
@@ -116,7 +112,6 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.closePath();
             Endabgabe_Eisdealer.crc2.restore();
         }
-        // Toggle between moods
         changeMood() {
             if (this.mood == "happy") {
                 this.mood = "sad";
