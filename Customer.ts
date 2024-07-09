@@ -9,6 +9,9 @@ namespace Endabgabe_Eisdealer {
     public targetPositionX: number | undefined;
     public targetPositionY: number | undefined;
 
+    public id: number; // Unique identifier for each customer
+    private static nextId: number = 1; // Static variable to keep track of the next ID
+
     constructor(_positionX: number, _positionY: number, _color: string) {
       this.positionX = _positionX;
       this.positionY = _positionY;
@@ -17,6 +20,8 @@ namespace Endabgabe_Eisdealer {
       this.state = "waiting";
       this.targetPositionX = undefined;
       this.targetPositionY = undefined;
+      
+      this.id = Customer.nextId++; // Assign a unique ID to this customer
     }
 
     public move(): void {
@@ -37,16 +42,12 @@ namespace Endabgabe_Eisdealer {
       this.draw();
     }
 
-
     public order(): void {
       this.state = "ordering";
       console.log("I want to order now");
 
       displayCustomerOrder();
     }
-
-
-
 
     public draw(): void {
       crc2.save();

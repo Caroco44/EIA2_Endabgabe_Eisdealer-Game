@@ -9,6 +9,8 @@ var Endabgabe_Eisdealer;
         state;
         targetPositionX;
         targetPositionY;
+        id; // Unique identifier for each customer
+        static nextId = 1; // Static variable to keep track of the next ID
         constructor(_positionX, _positionY, _color) {
             this.positionX = _positionX;
             this.positionY = _positionY;
@@ -17,6 +19,7 @@ var Endabgabe_Eisdealer;
             this.state = "waiting";
             this.targetPositionX = undefined;
             this.targetPositionY = undefined;
+            this.id = Customer.nextId++; // Assign a unique ID to this customer
         }
         move() {
             if (this.state == "coming" && this.targetPositionX !== undefined && this.targetPositionY !== undefined) {

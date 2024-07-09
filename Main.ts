@@ -34,6 +34,7 @@ namespace Endabgabe_Eisdealer {
 
     window.addEventListener("keydown", changeMood);
     canvas.addEventListener("pointerdown", tableClicked);
+    canvas.addEventListener("pointerdown", checkOrder);
 
     createData();
 
@@ -176,36 +177,94 @@ namespace Endabgabe_Eisdealer {
 
 
 
-  
+  let displayedCustomers = new Set(); // To track customers with displayed orders
+
+  function getRandomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function getRandomOrder(data: any) {
+    const iceCream = data.IceCream[getRandomInt(0, data.IceCream.length - 1)];
+    const sauce = data.Sauce[getRandomInt(0, data.Sauce.length - 1)];
+    const sprinkle = data.Sprinkles[getRandomInt(0, data.Sprinkles.length - 1)];
+
+    const iceCreamQty = getRandomInt(1, 3);  // Random quantity between 1 and 3
+    const sauceQty = getRandomInt(1, 2);     // Random quantity between 1 and 2
+    const sprinkleQty = getRandomInt(1, 2);  // Random quantity between 1 and 2
+
+    return {
+      iceCream: { item: iceCream, quantity: iceCreamQty },
+      sauce: { item: sauce, quantity: sauceQty },
+      sprinkle: { item: sprinkle, quantity: sprinkleQty }
+    };
+  }
+
   export function displayCustomerOrder() {
     // Filter customers who are currently ordering
     let orderingCustomers = customers.filter(customer => customer.state == "ordering");
 
     // Iterate over each ordering customer
     orderingCustomers.forEach(customer => {
-      // Create order display only if the customer has a valid position
-      if (customer.positionX !== undefined && customer.positionY !== undefined) {
+      // Check if the order display has already been created for this customer
+      if (!displayedCustomers.has(customer.id)) { // Assuming customers have a unique 'id'
+        // Create order display only if the customer has a valid position
+        if (customer.positionX !== undefined && customer.positionY !== undefined) {
 
+          // Get random order details
+          const orderDetails = getRandomOrder(data);
 
-        // Create a new div element with the content "hello world"
-        let order = document.createElement("div");
-        order.textContent = "hello world";
-        order.classList.add("order-item");
+          // Create a new div element with the order details
+          let order = document.createElement("div");
+          order.classList.add("order-item");
 
-        // Calculate position based on customer's coordinates
-        let customerOrderDiv = document.createElement("div");
-        customerOrderDiv.classList.add("customerOrder");
-        customerOrderDiv.style.position = "absolute";
-        customerOrderDiv.style.left = `${customer.positionX - 150}px`;
-        customerOrderDiv.style.top = `${customer.positionY}px`;
+          // Create HTML content for the order
+          order.innerHTML = `
+            <p>${orderDetails.iceCream.item.name} (x${orderDetails.iceCream.quantity})</p>
+            <p>${orderDetails.sauce.item.name} (x${orderDetails.sauce.quantity})</p>
+            <p>${orderDetails.sprinkle.item.name} (x${orderDetails.sprinkle.quantity})</p>
+          `;
 
-        // Append the new order div to the customerOrderDiv
-        customerOrderDiv.appendChild(order);
+          // Calculate position based on customer's coordinates
+          let customerOrderDiv = document.createElement("div");
+          customerOrderDiv.classList.add("customerOrder");
+          customerOrderDiv.style.position = "absolute";
+          customerOrderDiv.style.left = `${customer.positionX - 170}px`;
+          customerOrderDiv.style.top = `${customer.positionY}px`;
 
-        // Append the customerOrderDiv to the document body or another appropriate parent element
-        document.body.appendChild(customerOrderDiv);
+          // Append the new order div to the customerOrderDiv
+          customerOrderDiv.appendChild(order);
+
+          // Append the customerOrderDiv to the document body or another appropriate parent element
+          document.body.appendChild(customerOrderDiv);
+
+          // Add the customer ID to the set of displayed customers
+          displayedCustomers.add(customer.id);
+        }
       }
     });
+  }
+  
+
+  export function checkOrder(_event: PointerEvent) {
+    // let clickX: number = _event.clientX;
+    // let clickY: number = _event.clientY;
+
+    // for (let table of tables) {
+    //   if (table instanceof Table && table.state == "free") {
+    //     // Check if the click is within the bounds of the table
+    //     if (table.positionX < clickX && clickX < table.positionX + 150 && table.positionY < clickY && clickY < table.positionY + 70) {
+    //       for (let customer of customers) {
+    //         if (customer.state == "waiting") {
+    //           customer.state = "coming";
+    //           customer.targetPositionX = table.positionX;
+    //           customer.targetPositionY = table.positionY;
+    //           table.state = "occupied";
+    //           break;
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
   }
 
 
