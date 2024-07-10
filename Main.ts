@@ -186,11 +186,11 @@ namespace Endabgabe_Eisdealer {
     const iceCream = data.IceCream[getRandomInt(0, data.IceCream.length - 1)];
     const sauce = data.Sauce[getRandomInt(0, data.Sauce.length - 1)];
     const sprinkle = data.Sprinkles[getRandomInt(0, data.Sprinkles.length - 1)];
-  
+
     const iceCreamQty = getRandomInt(1, 3);  // Random quantity between 1 and 3
     const sauceQty = getRandomInt(1, 2);     // Random quantity between 1 and 2
     const sprinkleQty = getRandomInt(1, 2);  // Random quantity between 1 and 2
-  
+
     return {
       iceCream: { item: iceCream, quantity: iceCreamQty },
       sauce: { item: sauce, quantity: sauceQty },
@@ -273,15 +273,15 @@ namespace Endabgabe_Eisdealer {
 
     // Function to log checked items and their quantities
     const logCheckedItems = (category: string, items: Item[]) => {
-      items.forEach(item => {
-        let itemCheckbox = document.querySelector<HTMLInputElement>(`input[name="${item.name}"]`);
-        let itemNumber = itemCheckbox?.nextElementSibling as HTMLInputElement;
+        items.forEach(item => {
+            let itemCheckbox = document.querySelector<HTMLInputElement>(`input[name="${item.name}"]`);
+            let itemNumber = itemCheckbox?.nextElementSibling as HTMLInputElement;
 
-        if (itemCheckbox?.checked) {
-          let quantity = parseInt(itemNumber?.value) || 0;
-          console.log(`${category}: ${item.name}, Quantity: ${quantity}`);
-        }
-      });
+            if (itemCheckbox?.checked) {
+                let quantity = parseInt(itemNumber?.value) || 0;
+                console.log(`${category}: ${item.name}, Quantity: ${quantity}`);
+            }
+        });
     };
 
     // Log Ice Cream
@@ -292,7 +292,7 @@ namespace Endabgabe_Eisdealer {
 
     // Log Sprinkles
     logCheckedItems("Sprinkles", data.Sprinkles);
-  }
+}
 
 
 
@@ -301,24 +301,24 @@ namespace Endabgabe_Eisdealer {
 
 
 
-  export function removeCustomer(customer: Customer): void {
-    // Remove the customer from the array
-    let index = customers.indexOf(customer);
-    if (index !== -1) {
-      customers.splice(index, 1);
+export function removeCustomer(customer: Customer): void {
+  // Remove the customer from the array
+  let index = customers.indexOf(customer);
+  if (index !== -1) {
+    customers.splice(index, 1);
 
-      // Remove the corresponding customerOrderDiv from the DOM
-      let customerOrderDivs = document.querySelectorAll(".customerOrder");
-      customerOrderDivs.forEach((div) => {
-        let customerIdStr = div.getAttribute("data-customer-id");
-        if (customerIdStr !== null) {
-          let customerId = parseInt(customerIdStr);
-          if (customerId === customer.id) {
-            div.remove(); // Remove the div from the DOM
-          }
+    // Remove the corresponding customerOrderDiv from the DOM
+    let customerOrderDivs = document.querySelectorAll(".customerOrder");
+    customerOrderDivs.forEach((div) => {
+      let customerIdStr = div.getAttribute("data-customer-id");
+      if (customerIdStr !== null) {
+        let customerId = parseInt(customerIdStr);
+        if (customerId === customer.id) {
+          div.remove(); // Remove the div from the DOM
         }
-      });
-    }
+      }
+    });
   }
+}
 
 }

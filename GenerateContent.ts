@@ -265,6 +265,14 @@ namespace Endabgabe_Eisdealer {
         // Aktualisieren des Sortiments mit den neuen Eiskugeln
         sortiment = [...sortiment.filter(item => !(item instanceof Sprinkles)), ...updatedItems];
       }
+    
+
+
+
+    
+
+
+     
 
     
 }
