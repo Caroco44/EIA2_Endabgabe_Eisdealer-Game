@@ -265,38 +265,6 @@ namespace Endabgabe_Eisdealer {
         // Aktualisieren des Sortiments mit den neuen Eiskugeln
         sortiment = [...sortiment.filter(item => !(item instanceof Sprinkles)), ...updatedItems];
       }
-    
-
-
-
-    
-
-
-      function displaySortiment() {
-        console.clear(); // Clear the console for a fresh display
-    
-        // Function to log checked items and their quantities
-        const logCheckedItems = (category: string, items: Item[]) => {
-            items.forEach(item => {
-                let itemCheckbox = document.querySelector<HTMLInputElement>(`input[name="${item.name}"]`);
-                let itemNumber = itemCheckbox?.nextElementSibling as HTMLInputElement;
-    
-                if (itemCheckbox?.checked) {
-                    let quantity = parseInt(itemNumber?.value) || 0;
-                    console.log(`${category}: ${item.name}, Quantity: ${quantity}`);
-                }
-            });
-        };
-    
-        // Log Ice Cream
-        logCheckedItems("Ice Cream", data.IceCream);
-    
-        // Log Sauce
-        logCheckedItems("Sauce", data.Sauce);
-    
-        // Log Sprinkles
-        logCheckedItems("Sprinkles", data.Sprinkles);
-    }
 
     
 }
