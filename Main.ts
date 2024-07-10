@@ -32,9 +32,7 @@ namespace Endabgabe_Eisdealer {
     tables.push(new Table(400, 320));
     tables.push(new Table(600, 440));
 
-    window.addEventListener("keydown", changeMood);
     canvas.addEventListener("pointerdown", tableClicked);
-    // canvas.addEventListener("pointerdown", checkOrder);
 
     createData();
 
@@ -62,14 +60,6 @@ namespace Endabgabe_Eisdealer {
     crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
   }
 
-  // Change Mood
-  function changeMood(_event: KeyboardEvent): void {
-    if (_event.code == "Space") {
-      for (let customer of customers) {
-        customer.changeMood();
-      }
-    }
-  }
 
   // Table is Clicked
   function tableClicked(_event: PointerEvent) {
@@ -278,7 +268,7 @@ namespace Endabgabe_Eisdealer {
 
                     if (itemCheckbox?.checked) {
                         let quantity = parseInt(itemNumber?.value) || 0;
-                        if (item.name === orderDetails[category].name && quantity === orderDetails[category].quantity) {
+                        if (item.name == orderDetails[category].name && quantity == orderDetails[category].quantity) {
                             return true;
                         }
                     }
@@ -293,8 +283,10 @@ namespace Endabgabe_Eisdealer {
             // Change the customer's state to "eating" only if all parts of the order match
             if (iceCreamMatch && sauceMatch && sprinkleMatch) {
                 customer.state = "eating";
+                customer.mood = "happy";
             } else {
                 console.log("Customer's order does not match the current sortiment.");
+                customer.mood = "sad";
             }
         }
     } else {

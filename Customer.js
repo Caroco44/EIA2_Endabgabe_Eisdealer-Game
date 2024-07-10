@@ -11,6 +11,7 @@ var Endabgabe_Eisdealer;
         targetPositionY;
         id;
         static nextId = 1;
+        orderStartTime;
         constructor(_positionX, _positionY, _color) {
             this.positionX = _positionX;
             this.positionY = _positionY;
@@ -76,6 +77,21 @@ var Endabgabe_Eisdealer;
             this.state = "ordering";
             console.log("I want to order now");
             Endabgabe_Eisdealer.displayCustomerOrder();
+            // Start the order timer when order() is called
+            this.startOrderTimer();
+        }
+        startOrderTimer() {
+            this.orderStartTime = Date.now();
+            setTimeout(() => {
+                if ((this.state === "ordering" || this.state === "waiting") && this.orderStartTime !== undefined) {
+                    let currentTime = Date.now();
+                    let elapsedSeconds = (currentTime - this.orderStartTime) / 1000;
+                    if (elapsedSeconds > 7) {
+                        console.log("Customer has been ordering or waiting for more than 7 seconds. Changing mood to 'sad'.");
+                        this.mood = "sad";
+                    }
+                }
+            }, 7000); // 7000 milliseconds = 7 seconds
         }
         draw() {
             Endabgabe_Eisdealer.crc2.save();
@@ -111,14 +127,6 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.stroke();
             Endabgabe_Eisdealer.crc2.closePath();
             Endabgabe_Eisdealer.crc2.restore();
-        }
-        changeMood() {
-            if (this.mood == "happy") {
-                this.mood = "sad";
-            }
-            else {
-                this.mood = "happy";
-            }
         }
     }
     Endabgabe_Eisdealer.Customer = Customer;

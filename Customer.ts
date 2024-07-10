@@ -10,6 +10,7 @@ namespace Endabgabe_Eisdealer {
     public id: number;
 
     private static nextId: number = 1;
+    private orderStartTime: number | undefined;
 
     constructor(_positionX: number, _positionY: number, _color: string) {
       this.positionX = _positionX;
@@ -80,7 +81,26 @@ namespace Endabgabe_Eisdealer {
       this.state = "ordering";
       console.log("I want to order now");
       displayCustomerOrder();
+      
+      // Start the order timer when order() is called
+      this.startOrderTimer();
     }
+
+    public startOrderTimer(): void {
+  this.orderStartTime = Date.now();
+
+  setTimeout(() => {
+    if ((this.state === "ordering" || this.state === "waiting") && this.orderStartTime !== undefined) {
+      let currentTime = Date.now();
+      let elapsedSeconds = (currentTime - this.orderStartTime) / 1000;
+
+      if (elapsedSeconds > 7) {
+        console.log("Customer has been ordering or waiting for more than 7 seconds. Changing mood to 'sad'.");
+        this.mood = "sad";
+      }
+    }
+  }, 7000); // 7000 milliseconds = 7 seconds
+}
 
     public draw(): void {
       crc2.save();
@@ -121,14 +141,6 @@ namespace Endabgabe_Eisdealer {
       crc2.closePath();
 
       crc2.restore();
-    }
-
-    public changeMood(): void {
-      if (this.mood == "happy") {
-        this.mood = "sad";
-      } else {
-        this.mood = "happy";
-      }
     }
   }
 }
