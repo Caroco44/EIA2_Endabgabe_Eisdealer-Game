@@ -256,17 +256,51 @@ namespace Endabgabe_Eisdealer {
 
     // Ensure customerIdStr is not null before parsing
     if (customerIdStr !== null) {
-      let customerId = parseInt(customerIdStr);
+        let customerId = parseInt(customerIdStr);
 
-      // Find the customer by ID and change their state to "eating"
-      let customer = customers.find(c => c.id === customerId);
-      if (customer) {
-        customer.state = "eating";
-      }
+        // Find the customer by ID
+        let customer = customers.find(c => c.id === customerId);
+        if (customer) {
+            // Get the customer's displayed order details
+            let orderDivs = customerOrderDiv.querySelectorAll('.order-item p');
+
+            let orderDetails = {
+                iceCream: { name: orderDivs[0].textContent!.split(' (x')[0], quantity: parseInt(orderDivs[0].textContent!.split(' (x')[1].split(')')[0]) },
+                sauce: { name: orderDivs[1].textContent!.split(' (x')[0], quantity: parseInt(orderDivs[1].textContent!.split(' (x')[1].split(')')[0]) },
+                sprinkle: { name: orderDivs[2].textContent!.split(' (x')[0], quantity: parseInt(orderDivs[2].textContent!.split(' (x')[1].split(')')[0]) }
+            };
+
+            // Compare the customer's order with the current sortiment
+            const isOrderMatching = (category: string, items: Item[]) => {
+                for (let item of items) {
+                    let itemCheckbox = document.querySelector<HTMLInputElement>(`input[name="${item.name}"]`);
+                    let itemNumber = itemCheckbox?.nextElementSibling as HTMLInputElement;
+
+                    if (itemCheckbox?.checked) {
+                        let quantity = parseInt(itemNumber?.value) || 0;
+                        if (item.name === orderDetails[category].name && quantity === orderDetails[category].quantity) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            };
+
+            let iceCreamMatch = isOrderMatching('iceCream', data.IceCream);
+            let sauceMatch = isOrderMatching('sauce', data.Sauce);
+            let sprinkleMatch = isOrderMatching('sprinkle', data.Sprinkles);
+
+            // Change the customer's state to "eating" only if all parts of the order match
+            if (iceCreamMatch && sauceMatch && sprinkleMatch) {
+                customer.state = "eating";
+            } else {
+                console.log("Customer's order does not match the current sortiment.");
+            }
+        }
     } else {
-      console.error("Customer ID not found on the clicked element.");
+        console.error("Customer ID not found on the clicked element.");
     }
-  }
+}
 
   export function displaySortiment() {
     console.clear(); // Clear the console for a fresh display

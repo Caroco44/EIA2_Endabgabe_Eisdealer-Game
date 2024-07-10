@@ -202,16 +202,68 @@ var Endabgabe_Eisdealer;
         // Ensure customerIdStr is not null before parsing
         if (customerIdStr !== null) {
             let customerId = parseInt(customerIdStr);
-            // Find the customer by ID and change their state to "eating"
+            // Find the customer by ID
             let customer = customers.find(c => c.id === customerId);
             if (customer) {
-                customer.state = "eating";
+                // Get the customer's displayed order details
+                let orderDivs = customerOrderDiv.querySelectorAll('.order-item p');
+                let orderDetails = {
+                    iceCream: { name: orderDivs[0].textContent.split(' (x')[0], quantity: parseInt(orderDivs[0].textContent.split(' (x')[1].split(')')[0]) },
+                    sauce: { name: orderDivs[1].textContent.split(' (x')[0], quantity: parseInt(orderDivs[1].textContent.split(' (x')[1].split(')')[0]) },
+                    sprinkle: { name: orderDivs[2].textContent.split(' (x')[0], quantity: parseInt(orderDivs[2].textContent.split(' (x')[1].split(')')[0]) }
+                };
+                // Compare the customer's order with the current sortiment
+                const isOrderMatching = (category, items) => {
+                    for (let item of items) {
+                        let itemCheckbox = document.querySelector(`input[name="${item.name}"]`);
+                        let itemNumber = itemCheckbox?.nextElementSibling;
+                        if (itemCheckbox?.checked) {
+                            let quantity = parseInt(itemNumber?.value) || 0;
+                            if (item.name === orderDetails[category].name && quantity === orderDetails[category].quantity) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                };
+                let iceCreamMatch = isOrderMatching('iceCream', Endabgabe_Eisdealer.data.IceCream);
+                let sauceMatch = isOrderMatching('sauce', Endabgabe_Eisdealer.data.Sauce);
+                let sprinkleMatch = isOrderMatching('sprinkle', Endabgabe_Eisdealer.data.Sprinkles);
+                // Change the customer's state to "eating" only if all parts of the order match
+                if (iceCreamMatch && sauceMatch && sprinkleMatch) {
+                    customer.state = "eating";
+                }
+                else {
+                    console.log("Customer's order does not match the current sortiment.");
+                }
             }
         }
         else {
             console.error("Customer ID not found on the clicked element.");
         }
     }
+    Endabgabe_Eisdealer.checkOrder = checkOrder;
+    function displaySortiment() {
+        console.clear(); // Clear the console for a fresh display
+        // Function to log checked items and their quantities
+        const logCheckedItems = (category, items) => {
+            items.forEach(item => {
+                let itemCheckbox = document.querySelector(`input[name="${item.name}"]`);
+                let itemNumber = itemCheckbox?.nextElementSibling;
+                if (itemCheckbox?.checked) {
+                    let quantity = parseInt(itemNumber?.value) || 0;
+                    console.log(`${category}: ${item.name}, Quantity: ${quantity}`);
+                }
+            });
+        };
+        // Log Ice Cream
+        logCheckedItems("Ice Cream", Endabgabe_Eisdealer.data.IceCream);
+        // Log Sauce
+        logCheckedItems("Sauce", Endabgabe_Eisdealer.data.Sauce);
+        // Log Sprinkles
+        logCheckedItems("Sprinkles", Endabgabe_Eisdealer.data.Sprinkles);
+    }
+    Endabgabe_Eisdealer.displaySortiment = displaySortiment;
     function removeCustomer(customer) {
         // Remove the customer from the array
         let index = customers.indexOf(customer);

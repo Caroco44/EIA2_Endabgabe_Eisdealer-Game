@@ -51,11 +51,11 @@ var Endabgabe_Eisdealer;
         // Add event listener for changes in checkbox or number input
         IceCreamCheckbox.addEventListener('change', () => {
             updateIceCream();
-            displaySortiment();
+            Endabgabe_Eisdealer.displaySortiment();
         });
         IceCreamNumber.addEventListener('input', () => {
             updateIceCream();
-            displaySortiment();
+            Endabgabe_Eisdealer.displaySortiment();
         });
     }
     Endabgabe_Eisdealer.createIceCreamList = createIceCreamList;
@@ -78,11 +78,11 @@ var Endabgabe_Eisdealer;
         document.getElementById("FieldsetSauce")?.appendChild(SauceLabel);
         SauceCheckbox.addEventListener('change', () => {
             updateSauce();
-            displaySortiment();
+            Endabgabe_Eisdealer.displaySortiment();
         });
         SauceNumber.addEventListener('input', () => {
             updateSauce();
-            displaySortiment();
+            Endabgabe_Eisdealer.displaySortiment();
         });
     }
     Endabgabe_Eisdealer.createSauceList = createSauceList;
@@ -104,11 +104,11 @@ var Endabgabe_Eisdealer;
         document.getElementById("FieldsetSprinkle")?.appendChild(SprinkleLabel);
         SprinkleCheckbox.addEventListener('change', () => {
             updateSprinkle();
-            displaySortiment();
+            Endabgabe_Eisdealer.displaySortiment();
         });
         SprinkleNumber.addEventListener('input', () => {
             updateSprinkle();
-            displaySortiment();
+            Endabgabe_Eisdealer.displaySortiment();
         });
     }
     Endabgabe_Eisdealer.createSprinklesList = createSprinklesList;
@@ -214,25 +214,5 @@ var Endabgabe_Eisdealer;
         Endabgabe_Eisdealer.sortiment = [...Endabgabe_Eisdealer.sortiment.filter(item => !(item instanceof Endabgabe_Eisdealer.Sprinkles)), ...updatedItems];
     }
     Endabgabe_Eisdealer.updateSprinkle = updateSprinkle;
-    function displaySortiment() {
-        console.clear(); // Clear the console for a fresh display
-        // Function to log checked items and their quantities
-        const logCheckedItems = (category, items) => {
-            items.forEach(item => {
-                let itemCheckbox = document.querySelector(`input[name="${item.name}"]`);
-                let itemNumber = itemCheckbox?.nextElementSibling;
-                if (itemCheckbox?.checked) {
-                    let quantity = parseInt(itemNumber?.value) || 0;
-                    console.log(`${category}: ${item.name}, Quantity: ${quantity}`);
-                }
-            });
-        };
-        // Log Ice Cream
-        logCheckedItems("Ice Cream", Endabgabe_Eisdealer.data.IceCream);
-        // Log Sauce
-        logCheckedItems("Sauce", Endabgabe_Eisdealer.data.Sauce);
-        // Log Sprinkles
-        logCheckedItems("Sprinkles", Endabgabe_Eisdealer.data.Sprinkles);
-    }
 })(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
 //# sourceMappingURL=GenerateContent.js.map
