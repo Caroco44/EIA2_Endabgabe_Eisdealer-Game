@@ -267,6 +267,7 @@ var Endabgabe_Eisdealer;
     }
     Endabgabe_Eisdealer.displaySortiment = displaySortiment;
     let displayedPayment = false; // Flag to track if payment info has been displayed
+    let totalEarnings = 0; // Initialize total earnings
     function displayCustomerPayment() {
         // Find the customer who is currently paying
         let customerPaying = customers.find(customer => customer.state === "paying");
@@ -319,10 +320,28 @@ var Endabgabe_Eisdealer;
                 // Remove the payment info div from the document
                 document.body.removeChild(paymentDiv);
                 displayedPayment = false; // Reset displayedPayment flag
+                // Add the totalPrice to totalEarnings
+                totalEarnings += totalPrice;
+                // Update the earnings display div
+                updateEarningsDisplay();
             });
         }
     }
     Endabgabe_Eisdealer.displayCustomerPayment = displayCustomerPayment;
+    function updateEarningsDisplay() {
+        // Find the earnings display div
+        let earningsDisplay = document.querySelector(".earnings-info");
+        if (earningsDisplay) {
+            earningsDisplay.textContent = `Total Earnings: ${totalEarnings.toFixed(2)} €`;
+        }
+        else {
+            // Create the earnings display div if it doesn't exist
+            earningsDisplay = document.createElement("div");
+            earningsDisplay.classList.add("earnings-info");
+            earningsDisplay.textContent = `Total Earnings: ${totalEarnings.toFixed(2)} €`;
+            document.body.appendChild(earningsDisplay);
+        }
+    }
     function removeCustomer(customer) {
         // Remove the customer from the array
         let index = customers.indexOf(customer);

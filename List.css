@@ -26,7 +26,7 @@ fieldset {
   font-family: Arial, sans-serif;
   font-size: 14px;
   color: #333;
-  width: 150px; /* Adjust width as needed */
+  width: 150px;
   text-align: center;
   cursor: pointer;
 }
@@ -44,11 +44,27 @@ fieldset {
   font-family: Arial, sans-serif;
   font-size: 14px;
   color: #333;
-  width: 150px; /* Adjust width as needed */
+  width: 150px;
   text-align: center;
   cursor: pointer;
 }
 
 .payment-info:hover {
   background-color: #e0e0e0;
+}
+
+.earnings-info {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  width: 150px;
+  text-align: center;
 }

@@ -335,74 +335,98 @@ namespace Endabgabe_Eisdealer {
 
   let displayedPayment: boolean = false; // Flag to track if payment info has been displayed
 
-export function displayCustomerPayment() {
-  // Find the customer who is currently paying
-  let customerPaying = customers.find(customer => customer.state === "paying");
+  let totalEarnings = 0; // Initialize total earnings
 
-  if (customerPaying && !displayedPayment) {
-    // Calculate the total price for the customer's order
-    let totalPrice: number = 0;
-
-    // Calculate the price for IceCream
-    for (let iceCream of data.IceCream) {
-      let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
-      let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
-
-      if (iceCreamCheckbox?.checked) {
-        let quantity = parseInt(iceCreamNumber.value) || 0; // Default to 0 if empty
-        totalPrice += iceCream.price * quantity;
+  export function displayCustomerPayment() {
+    // Find the customer who is currently paying
+    let customerPaying = customers.find(customer => customer.state === "paying");
+  
+    if (customerPaying && !displayedPayment) {
+      // Calculate the total price for the customer's order
+      let totalPrice: number = 0;
+  
+      // Calculate the price for IceCream
+      for (let iceCream of data.IceCream) {
+        let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
+        let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
+  
+        if (iceCreamCheckbox?.checked) {
+          let quantity = parseInt(iceCreamNumber.value) || 0; // Default to 0 if empty
+          totalPrice += iceCream.price * quantity;
+        }
       }
-    }
-
-    // Calculate the price for Sauce
-    for (let sauce of data.Sauce) {
-      let sauceCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sauce.name}"]`);
-      let sauceNumber = sauceCheckbox?.nextElementSibling as HTMLInputElement;
-
-      if (sauceCheckbox?.checked) {
-        let quantity = parseInt(sauceNumber.value) || 0; // Default to 0 if empty
-        totalPrice += sauce.price * quantity;
+  
+      // Calculate the price for Sauce
+      for (let sauce of data.Sauce) {
+        let sauceCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sauce.name}"]`);
+        let sauceNumber = sauceCheckbox?.nextElementSibling as HTMLInputElement;
+  
+        if (sauceCheckbox?.checked) {
+          let quantity = parseInt(sauceNumber.value) || 0; // Default to 0 if empty
+          totalPrice += sauce.price * quantity;
+        }
       }
-    }
-
-    // Calculate the price for Sprinkles
-    for (let sprinkle of data.Sprinkles) {
-      let sprinkleCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sprinkle.name}"]`);
-      let sprinkleNumber = sprinkleCheckbox?.nextElementSibling as HTMLInputElement;
-
-      if (sprinkleCheckbox?.checked) {
-        let quantity = parseInt(sprinkleNumber.value) || 0; // Default to 0 if empty
-        totalPrice += sprinkle.price * quantity;
+  
+      // Calculate the price for Sprinkles
+      for (let sprinkle of data.Sprinkles) {
+        let sprinkleCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sprinkle.name}"]`);
+        let sprinkleNumber = sprinkleCheckbox?.nextElementSibling as HTMLInputElement;
+  
+        if (sprinkleCheckbox?.checked) {
+          let quantity = parseInt(sprinkleNumber.value) || 0; // Default to 0 if empty
+          totalPrice += sprinkle.price * quantity;
+        }
       }
+  
+      // Create a div to display the total price
+      let paymentDiv = document.createElement("div");
+      paymentDiv.classList.add("payment-info");
+      paymentDiv.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
+  
+      // Calculate position based on customer's coordinates
+      paymentDiv.style.position = "absolute";
+      paymentDiv.style.left = `${customerPaying.positionX - 80}px`; // Adjust position as needed
+      paymentDiv.style.top = `${customerPaying.positionY + 30}px`;
+  
+      // Append the payment info div to the document body
+      document.body.appendChild(paymentDiv);
+  
+      // Mark payment as displayed
+      displayedPayment = true;
+  
+      // Add event listener for clicks on the payment info div
+      paymentDiv.addEventListener("click", () => {
+        // Change customer's state to "leaving"
+        customerPaying.state = "leaving";
+  
+        // Remove the payment info div from the document
+        document.body.removeChild(paymentDiv);
+        displayedPayment = false; // Reset displayedPayment flag
+        
+        // Add the totalPrice to totalEarnings
+        totalEarnings += totalPrice;
+        
+        // Update the earnings display div
+        updateEarningsDisplay();
+      });
     }
-
-    // Create a div to display the total price
-    let paymentDiv = document.createElement("div");
-    paymentDiv.classList.add("payment-info");
-    paymentDiv.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
-
-    // Calculate position based on customer's coordinates
-    paymentDiv.style.position = "absolute";
-    paymentDiv.style.left = `${customerPaying.positionX - 80}px`; // Adjust position as needed
-    paymentDiv.style.top = `${customerPaying.positionY + 30}px`;
-
-    // Append the payment info div to the document body
-    document.body.appendChild(paymentDiv);
-
-    // Mark payment as displayed
-    displayedPayment = true;
-
-    // Add event listener for clicks on the payment info div
-    paymentDiv.addEventListener("click", () => {
-      // Change customer's state to "leaving"
-      customerPaying.state = "leaving";
-
-      // Remove the payment info div from the document
-      document.body.removeChild(paymentDiv);
-      displayedPayment = false; // Reset displayedPayment flag
-    });
   }
-}
+  
+  function updateEarningsDisplay() {
+    // Find the earnings display div
+    let earningsDisplay = document.querySelector(".earnings-info");
+    
+    if (earningsDisplay) {
+      earningsDisplay.textContent = `Total Earnings: ${totalEarnings.toFixed(2)} €`;
+    } else {
+      // Create the earnings display div if it doesn't exist
+      earningsDisplay = document.createElement("div");
+      earningsDisplay.classList.add("earnings-info");
+      earningsDisplay.textContent = `Total Earnings: ${totalEarnings.toFixed(2)} €`;
+
+      document.body.appendChild(earningsDisplay);
+    }
+  }
 
 
 
