@@ -223,6 +223,8 @@ var Endabgabe_Eisdealer;
                 if (iceCreamMatch && sauceMatch && sprinkleMatch) {
                     customer.state = "eating";
                     customer.mood = "happy";
+                    // Remove the order div from the DOM and update table state
+                    removeOrderDiv(customerOrderDiv, customer);
                 }
                 else {
                     console.log("Customer's order does not match the current sortiment.");
@@ -235,6 +237,14 @@ var Endabgabe_Eisdealer;
         }
     }
     Endabgabe_Eisdealer.checkOrder = checkOrder;
+    function removeOrderDiv(orderDiv, customer) {
+        orderDiv.remove(); // Remove the order div from the DOM
+        // Update table state to "free"
+        let table = Endabgabe_Eisdealer.tables.find(t => t.positionX === customer.targetPositionX && t.positionY === customer.targetPositionY);
+        if (table) {
+            table.state = "free";
+        }
+    }
     function displaySortiment() {
         console.clear(); // Clear the console for a fresh display
         // Function to log checked items and their quantities
@@ -256,6 +266,63 @@ var Endabgabe_Eisdealer;
         logCheckedItems("Sprinkles", Endabgabe_Eisdealer.data.Sprinkles);
     }
     Endabgabe_Eisdealer.displaySortiment = displaySortiment;
+    let displayedPayment = false; // Flag to track if payment info has been displayed
+    function displayCustomerPayment() {
+        // Find the customer who is currently paying
+        let customerPaying = customers.find(customer => customer.state === "paying");
+        if (customerPaying && !displayedPayment) {
+            // Calculate the total price for the customer's order
+            let totalPrice = 0;
+            // Calculate the price for IceCream
+            for (let iceCream of Endabgabe_Eisdealer.data.IceCream) {
+                let iceCreamCheckbox = document.querySelector(`input[name="${iceCream.name}"]`);
+                let iceCreamNumber = iceCreamCheckbox?.nextElementSibling;
+                if (iceCreamCheckbox?.checked) {
+                    let quantity = parseInt(iceCreamNumber.value) || 0; // Default to 0 if empty
+                    totalPrice += iceCream.price * quantity;
+                }
+            }
+            // Calculate the price for Sauce
+            for (let sauce of Endabgabe_Eisdealer.data.Sauce) {
+                let sauceCheckbox = document.querySelector(`input[name="${sauce.name}"]`);
+                let sauceNumber = sauceCheckbox?.nextElementSibling;
+                if (sauceCheckbox?.checked) {
+                    let quantity = parseInt(sauceNumber.value) || 0; // Default to 0 if empty
+                    totalPrice += sauce.price * quantity;
+                }
+            }
+            // Calculate the price for Sprinkles
+            for (let sprinkle of Endabgabe_Eisdealer.data.Sprinkles) {
+                let sprinkleCheckbox = document.querySelector(`input[name="${sprinkle.name}"]`);
+                let sprinkleNumber = sprinkleCheckbox?.nextElementSibling;
+                if (sprinkleCheckbox?.checked) {
+                    let quantity = parseInt(sprinkleNumber.value) || 0; // Default to 0 if empty
+                    totalPrice += sprinkle.price * quantity;
+                }
+            }
+            // Create a div to display the total price
+            let paymentDiv = document.createElement("div");
+            paymentDiv.classList.add("payment-info");
+            paymentDiv.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
+            // Calculate position based on customer's coordinates
+            paymentDiv.style.position = "absolute";
+            paymentDiv.style.left = `${customerPaying.positionX - 80}px`; // Adjust position as needed
+            paymentDiv.style.top = `${customerPaying.positionY + 30}px`;
+            // Append the payment info div to the document body
+            document.body.appendChild(paymentDiv);
+            // Mark payment as displayed
+            displayedPayment = true;
+            // Add event listener for clicks on the payment info div
+            paymentDiv.addEventListener("click", () => {
+                // Change customer's state to "leaving"
+                customerPaying.state = "leaving";
+                // Remove the payment info div from the document
+                document.body.removeChild(paymentDiv);
+                displayedPayment = false; // Reset displayedPayment flag
+            });
+        }
+    }
+    Endabgabe_Eisdealer.displayCustomerPayment = displayCustomerPayment;
     function removeCustomer(customer) {
         // Remove the customer from the array
         let index = customers.indexOf(customer);

@@ -49,7 +49,17 @@ var Endabgabe_Eisdealer;
                 }
                 else {
                     console.log("Customer reached the Cone.");
-                    this.state = "leaving";
+                    this.state = "paying"; // Switch to "paying" state
+                }
+            }
+            else if (this.state == "paying") {
+                Endabgabe_Eisdealer.displayCustomerPayment();
+                // this.state = "leaving"; He can only leave if payment has been clicked
+            }
+            else if (this.state == "waiting" || this.state == "ordering") {
+                // Start the order timer if not already started
+                if (!this.orderStartTime) {
+                    this.startOrderTimer();
                 }
             }
             else if (this.state == "leaving") {
@@ -61,12 +71,6 @@ var Endabgabe_Eisdealer;
                     this.positionY += dy / distance * 2;
                 }
                 else {
-                    console.log("Customer reached (0, 0).");
-                    // Reset the corresponding table state to "free"
-                    let table = Endabgabe_Eisdealer.tables.find(t => t.positionX === this.targetPositionX && t.positionY === this.targetPositionY);
-                    if (table) {
-                        table.state = "free"; // Ensure table state is set to "free"
-                    }
                     // Remove the customer from the scene
                     Endabgabe_Eisdealer.removeCustomer(this);
                 }
@@ -77,21 +81,19 @@ var Endabgabe_Eisdealer;
             this.state = "ordering";
             console.log("I want to order now");
             Endabgabe_Eisdealer.displayCustomerOrder();
-            // Start the order timer when order() is called
-            this.startOrderTimer();
         }
         startOrderTimer() {
             this.orderStartTime = Date.now();
             setTimeout(() => {
-                if ((this.state === "ordering" || this.state === "waiting") && this.orderStartTime !== undefined) {
+                if ((this.state == "waiting" || this.state == "ordering" || this.state == "paying") && this.orderStartTime !== undefined) {
                     let currentTime = Date.now();
                     let elapsedSeconds = (currentTime - this.orderStartTime) / 1000;
-                    if (elapsedSeconds > 7) {
-                        console.log("Customer has been ordering or waiting for more than 7 seconds. Changing mood to 'sad'.");
+                    if (elapsedSeconds > 45) {
+                        console.log("Customer has been ordering, paying, or waiting for more than 45 seconds. Changing mood to 'sad'.");
                         this.mood = "sad";
                     }
                 }
-            }, 7000); // 7000 milliseconds = 7 seconds
+            }, 45000);
         }
         draw() {
             Endabgabe_Eisdealer.crc2.save();

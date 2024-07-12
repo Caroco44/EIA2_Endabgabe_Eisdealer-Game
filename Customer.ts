@@ -4,7 +4,7 @@ namespace Endabgabe_Eisdealer {
     public positionY: number;
     public color: string;
     public mood: "happy" | "sad";
-    public state: "waiting" | "coming" | "ordering" | "leaving" | "eating";
+    public state: "waiting" | "coming" | "ordering" | "eating" | "paying" | "leaving";
     public targetPositionX: number | undefined;
     public targetPositionY: number | undefined;
     public id: number;
@@ -50,7 +50,15 @@ namespace Endabgabe_Eisdealer {
           this.positionY += dy / distance * 2;
         } else {
           console.log("Customer reached the Cone.");
-          this.state = "leaving";
+          this.state = "paying"; // Switch to "paying" state
+        }
+      } else if (this.state == "paying") {
+        displayCustomerPayment();
+        // this.state = "leaving"; He can only leave if payment has been clicked
+      } else if (this.state == "waiting" || this.state == "ordering") {
+        // Start the order timer if not already started
+        if (!this.orderStartTime) {
+          this.startOrderTimer();
         }
       } else if (this.state == "leaving") {
         let dx = 0 - this.positionX;
@@ -61,13 +69,6 @@ namespace Endabgabe_Eisdealer {
           this.positionX += dx / distance * 2;
           this.positionY += dy / distance * 2;
         } else {
-          console.log("Customer reached (0, 0).");
-
-          // Reset the corresponding table state to "free"
-          let table = tables.find(t => t.positionX === this.targetPositionX && t.positionY === this.targetPositionY);
-          if (table) {
-            table.state = "free"; // Ensure table state is set to "free"
-          }
 
           // Remove the customer from the scene
           removeCustomer(this);
@@ -81,26 +82,23 @@ namespace Endabgabe_Eisdealer {
       this.state = "ordering";
       console.log("I want to order now");
       displayCustomerOrder();
-      
-      // Start the order timer when order() is called
-      this.startOrderTimer();
     }
 
     public startOrderTimer(): void {
-  this.orderStartTime = Date.now();
-
-  setTimeout(() => {
-    if ((this.state === "ordering" || this.state === "waiting") && this.orderStartTime !== undefined) {
-      let currentTime = Date.now();
-      let elapsedSeconds = (currentTime - this.orderStartTime) / 1000;
-
-      if (elapsedSeconds > 7) {
-        console.log("Customer has been ordering or waiting for more than 7 seconds. Changing mood to 'sad'.");
-        this.mood = "sad";
-      }
+      this.orderStartTime = Date.now();
+    
+      setTimeout(() => {
+        if ((this.state == "waiting" || this.state == "ordering" || this.state == "paying") && this.orderStartTime !== undefined) {
+          let currentTime = Date.now();
+          let elapsedSeconds = (currentTime - this.orderStartTime) / 1000;
+    
+          if (elapsedSeconds > 45) {
+            console.log("Customer has been ordering, paying, or waiting for more than 45 seconds. Changing mood to 'sad'.");
+            this.mood = "sad";
+          }
+        }
+      }, 45000);
     }
-  }, 7000); // 7000 milliseconds = 7 seconds
-}
 
     public draw(): void {
       crc2.save();

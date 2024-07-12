@@ -18,12 +18,37 @@ fieldset {
 
 
 .customerOrder {
-	width: 130px;
-	padding: 10px;
-	margin: 5px 0;
-	border: 1px solid #4adbdb;
-	border-radius: 5px;
-	background-color: #ffd5fb;
-	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-	font-size: 12px;
+	background-color: #f0f0f0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  width: 150px; /* Adjust width as needed */
+  text-align: center;
+  cursor: pointer;
+}
+
+.customerOrder:hover {
+  background-color: #e0e0e0;
+}
+
+.payment-info {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  width: 150px; /* Adjust width as needed */
+  text-align: center;
+  cursor: pointer;
+}
+
+.payment-info:hover {
+  background-color: #e0e0e0;
 }
