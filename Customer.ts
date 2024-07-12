@@ -38,8 +38,8 @@ namespace Endabgabe_Eisdealer {
         }
       } else if (this.state == "eating") {
         // Move towards the Cone
-        let conePositionX = 900; // Adjust according to your Cone's position
-        let conePositionY = 270; // Adjust according to your Cone's position
+        let conePositionX = 900;
+        let conePositionY = 270;
 
         let dx = conePositionX - this.positionX;
         let dy = conePositionY - this.positionY;
@@ -54,7 +54,7 @@ namespace Endabgabe_Eisdealer {
         }
       } else if (this.state == "paying") {
         displayCustomerPayment();
-        // this.state = "leaving"; He can only leave if payment has been clicked
+
       } else if (this.state == "waiting" || this.state == "ordering") {
         // Start the order timer if not already started
         if (!this.orderStartTime) {
@@ -75,7 +75,7 @@ namespace Endabgabe_Eisdealer {
         }
       }
 
-      this.draw(); // Draw the customer at its current position
+      this.draw();
     }
 
     public order(): void {
