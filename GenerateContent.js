@@ -135,8 +135,8 @@ var Endabgabe_Eisdealer;
             let newCount = Math.max(0, quantity - existingIceCreams.length);
             // Hinzufügen neuer Eiskugeln
             for (let i = 0; i < newCount; i++) {
-                let randomX = Math.random() * 100 + 800; // Zufällige X-Position zwischen 800 und 900
-                let randomY = Math.random() * 20 + 100; // Zufällige Y-Position zwischen 100 und 120
+                let randomX = Math.random() * 90 + 850;
+                let randomY = Math.random() * 20 + 110;
                 existingIceCreams.push(new Endabgabe_Eisdealer.IceCream(randomX, randomY, iceCream.color));
             }
             // Beschränken auf die gewünschte Menge
@@ -169,8 +169,8 @@ var Endabgabe_Eisdealer;
             let newCount = Math.max(0, quantity - existingSauces.length);
             // Hinzufügen neuer Eiskugeln
             for (let i = 0; i < newCount; i++) {
-                let randomX = Math.random() * 100 + 800; // Zufällige X-Position zwischen 800 und 900
-                let randomY = Math.random() * 20 + 100; // Zufällige Y-Position zwischen 100 und 120
+                let randomX = Math.random() * 90 + 850;
+                let randomY = Math.random() * 20 + 110;
                 existingSauces.push(new Endabgabe_Eisdealer.Sauce(randomX, randomY, sauce.color));
             }
             // Beschränken auf die gewünschte Menge
@@ -203,8 +203,8 @@ var Endabgabe_Eisdealer;
             let newCount = Math.max(0, quantity - existingSprinkles.length);
             // Hinzufügen neuer Eiskugeln
             for (let i = 0; i < newCount; i++) {
-                let randomX = Math.random() * 100 + 800; // Zufällige X-Position zwischen 800 und 900
-                let randomY = Math.random() * 20 + 100; // Zufällige Y-Position zwischen 100 und 120
+                let randomX = Math.random() * 90 + 850;
+                let randomY = Math.random() * 20 + 110;
                 existingSprinkles.push(new Endabgabe_Eisdealer.Sprinkles(randomX, randomY, sprinkles.color));
             }
             // Beschränken auf die gewünschte Menge

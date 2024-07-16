@@ -3,7 +3,7 @@ namespace Endabgabe_Eisdealer {
     public positionX: number;
     public positionY: number;
     public color: string;
-    public mood: "happy" | "sad";
+    public mood: "happy" | "sad" | "excited";
     public state: "waiting" | "coming" | "ordering" | "eating" | "paying" | "leaving";
     public targetPositionX: number | undefined;
     public targetPositionY: number | undefined;
@@ -58,7 +58,7 @@ namespace Endabgabe_Eisdealer {
       } else if (this.state == "waiting" || this.state == "ordering") {
         // Start the order timer if not already started
         if (!this.orderStartTime) {
-          this.startOrderTimer();
+          this.startTimer();
         }
       } else if (this.state == "leaving") {
         let dx = 0 - this.positionX;
@@ -84,7 +84,7 @@ namespace Endabgabe_Eisdealer {
       displayCustomerOrder();
     }
 
-    public startOrderTimer(): void {
+    public startTimer(): void {
       this.orderStartTime = Date.now();
     
       setTimeout(() => {
@@ -109,6 +109,8 @@ namespace Endabgabe_Eisdealer {
         crc2.fillStyle = this.color;
       } else if (this.mood == "sad") {
         crc2.fillStyle = "red";
+      } else if (this.mood == "excited") {
+        crc2.fillStyle = "orange";
       }
 
       crc2.arc(0, 0, 40, 0, 2 * Math.PI);

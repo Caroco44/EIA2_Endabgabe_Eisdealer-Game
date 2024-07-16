@@ -14,12 +14,7 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.save();
             Endabgabe_Eisdealer.crc2.beginPath();
             Endabgabe_Eisdealer.crc2.translate(this.positionX, this.positionY);
-            if (this.state == "free") {
-                Endabgabe_Eisdealer.crc2.fillStyle = "brown";
-            }
-            else if (this.state == "occupied") {
-                Endabgabe_Eisdealer.crc2.fillStyle = "purple";
-            }
+            Endabgabe_Eisdealer.crc2.fillStyle = "rgb(125,58,37)";
             Endabgabe_Eisdealer.crc2.fillRect(0, 0, 150, 70);
             Endabgabe_Eisdealer.crc2.restore();
         }

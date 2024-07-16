@@ -16,12 +16,12 @@ var Endabgabe_Eisdealer;
         canvas.height = window.innerHeight;
         drawBackground();
         imgData = Endabgabe_Eisdealer.crc2.getImageData(0, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
-        customers.push(new Endabgabe_Eisdealer.Customer(200, 400, "green"));
-        Endabgabe_Eisdealer.sortiment.push(new Endabgabe_Eisdealer.Cone(900, 270, "brown"));
-        Endabgabe_Eisdealer.tables.push(new Endabgabe_Eisdealer.Table(400, 80));
-        Endabgabe_Eisdealer.tables.push(new Endabgabe_Eisdealer.Table(600, 200));
-        Endabgabe_Eisdealer.tables.push(new Endabgabe_Eisdealer.Table(400, 320));
-        Endabgabe_Eisdealer.tables.push(new Endabgabe_Eisdealer.Table(600, 440));
+        customers.push(new Endabgabe_Eisdealer.Customer(200, 400, "rgb(111,173,11)"));
+        Endabgabe_Eisdealer.sortiment.push(new Endabgabe_Eisdealer.Cone(900, 270, "rgb(190,109,25)"));
+        Endabgabe_Eisdealer.tables.push(new Endabgabe_Eisdealer.Table(410, 100));
+        Endabgabe_Eisdealer.tables.push(new Endabgabe_Eisdealer.Table(610, 220));
+        Endabgabe_Eisdealer.tables.push(new Endabgabe_Eisdealer.Table(410, 340));
+        Endabgabe_Eisdealer.tables.push(new Endabgabe_Eisdealer.Table(610, 460));
         canvas.addEventListener("pointerdown", tableClicked);
         Endabgabe_Eisdealer.createData();
         document.querySelectorAll("input[type='checkbox'], input[type='number']").forEach(input => {
@@ -35,11 +35,21 @@ var Endabgabe_Eisdealer;
     }
     // Draw Background
     function drawBackground() {
-        let gradient = Endabgabe_Eisdealer.crc2.createLinearGradient(0, 0, 0, Endabgabe_Eisdealer.crc2.canvas.height);
-        gradient.addColorStop(0, "lightblue");
-        gradient.addColorStop(1, "lightpink");
-        Endabgabe_Eisdealer.crc2.fillStyle = gradient;
+        // Draw the background
+        Endabgabe_Eisdealer.crc2.fillStyle = "rgb(210,247,254)";
         Endabgabe_Eisdealer.crc2.fillRect(0, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
+        // Draw a big pink circle
+        let circleX = Endabgabe_Eisdealer.crc2.canvas.width / 2;
+        let circleY = Endabgabe_Eisdealer.crc2.canvas.height / 2;
+        let circleRadius = Math.min(Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height) / 1.7;
+        Endabgabe_Eisdealer.crc2.beginPath();
+        Endabgabe_Eisdealer.crc2.arc(circleX, circleY, circleRadius, 0, 2 * Math.PI, false);
+        Endabgabe_Eisdealer.crc2.fillStyle = "rgb(255,137,137)";
+        Endabgabe_Eisdealer.crc2.fill();
+        Endabgabe_Eisdealer.crc2.fillStyle = "rgb(255,137,137)";
+        Endabgabe_Eisdealer.crc2.fillRect(800, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
+        Endabgabe_Eisdealer.crc2.fillStyle = "rgb(125,58,37)";
+        Endabgabe_Eisdealer.crc2.fillRect(825, 0, 150, 300);
     }
     // Table is Clicked
     function tableClicked(_event) {
@@ -68,12 +78,12 @@ var Endabgabe_Eisdealer;
             // Define the range for random positions
             let minX = 50;
             let maxX = 300;
-            let minY = 400;
+            let minY = 100;
             let maxY = 500;
             // Generate random positions within the defined range
             let x = Math.random() * (maxX - minX) + minX;
             let y = Math.random() * (maxY - minY) + minY;
-            customers.push(new Endabgabe_Eisdealer.Customer(x, y, "green"));
+            customers.push(new Endabgabe_Eisdealer.Customer(x, y, "rgb(111,173,11)"));
         }
     }
     // Animation

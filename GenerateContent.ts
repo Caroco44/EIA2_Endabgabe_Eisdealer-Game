@@ -164,8 +164,8 @@ namespace Endabgabe_Eisdealer {
     
           // Hinzufügen neuer Eiskugeln
           for (let i = 0; i < newCount; i++) {
-            let randomX = Math.random() * 100 + 800; // Zufällige X-Position zwischen 800 und 900
-            let randomY = Math.random() * 20 + 100;  // Zufällige Y-Position zwischen 100 und 120
+            let randomX = Math.random() * 90 + 850;
+            let randomY = Math.random() * 20 + 110;
             existingIceCreams.push(new IceCream(randomX, randomY, iceCream.color));
           }
     
@@ -209,8 +209,8 @@ namespace Endabgabe_Eisdealer {
     
           // Hinzufügen neuer Eiskugeln
           for (let i = 0; i < newCount; i++) {
-            let randomX = Math.random() * 100 + 800; // Zufällige X-Position zwischen 800 und 900
-            let randomY = Math.random() * 20 + 100;  // Zufällige Y-Position zwischen 100 und 120
+            let randomX = Math.random() * 90 + 850;
+            let randomY = Math.random() * 20 + 110;
             existingSauces.push(new Sauce(randomX, randomY, sauce.color));
           }
     
@@ -253,8 +253,8 @@ namespace Endabgabe_Eisdealer {
     
           // Hinzufügen neuer Eiskugeln
           for (let i = 0; i < newCount; i++) {
-            let randomX = Math.random() * 100 + 800; // Zufällige X-Position zwischen 800 und 900
-            let randomY = Math.random() * 20 + 100;  // Zufällige Y-Position zwischen 100 und 120
+            let randomX = Math.random() * 90 + 850;
+            let randomY = Math.random() * 20 + 110;
             existingSprinkles.push(new Sprinkles(randomX, randomY, sprinkles.color));
           }
     

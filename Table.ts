@@ -15,12 +15,8 @@ namespace Endabgabe_Eisdealer {
       crc2.beginPath();
       crc2.translate(this.positionX, this.positionY);
 
-      if (this.state == "free") {
-        crc2.fillStyle = "brown";
-      } else if (this.state == "occupied") {
-        crc2.fillStyle = "purple";
-      }
-      
+      crc2.fillStyle = "rgb(125,58,37)";
+
       crc2.fillRect(0, 0, 150, 70);
       crc2.restore();
     }

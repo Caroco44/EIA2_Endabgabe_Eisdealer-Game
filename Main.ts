@@ -24,13 +24,13 @@ namespace Endabgabe_Eisdealer {
 
     imgData = crc2.getImageData(0, 0, crc2.canvas.width, crc2.canvas.height);
 
-    customers.push(new Customer(200, 400, "green"));
-    sortiment.push(new Cone(900, 270, "brown"));
+    customers.push(new Customer(200, 400, "rgb(111,173,11)"));
+    sortiment.push(new Cone(900, 270, "rgb(190,109,25)"));
 
-    tables.push(new Table(400, 80));
-    tables.push(new Table(600, 200));
-    tables.push(new Table(400, 320));
-    tables.push(new Table(600, 440));
+    tables.push(new Table(410, 100));
+    tables.push(new Table(610, 220));
+    tables.push(new Table(410, 340));
+    tables.push(new Table(610, 460));
 
     canvas.addEventListener("pointerdown", tableClicked);
 
@@ -51,14 +51,26 @@ namespace Endabgabe_Eisdealer {
 
   // Draw Background
   function drawBackground(): void {
-
-    let gradient: CanvasGradient = crc2.createLinearGradient(0, 0, 0, crc2.canvas.height);
-    gradient.addColorStop(0, "lightblue");
-    gradient.addColorStop(1, "lightpink");
-
-    crc2.fillStyle = gradient;
+    // Draw the background
+    crc2.fillStyle = "rgb(210,247,254)";
     crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
-  }
+
+    // Draw a big pink circle
+    let circleX = crc2.canvas.width / 2;
+    let circleY = crc2.canvas.height / 2;
+    let circleRadius = Math.min(crc2.canvas.width, crc2.canvas.height) / 1.7;
+
+    crc2.beginPath();
+    crc2.arc(circleX, circleY, circleRadius, 0, 2 * Math.PI, false);
+    crc2.fillStyle = "rgb(255,137,137)";
+    crc2.fill();
+
+    crc2.fillStyle = "rgb(255,137,137)";
+    crc2.fillRect(800, 0, crc2.canvas.width, crc2.canvas.height);
+
+    crc2.fillStyle = "rgb(125,58,37)";
+    crc2.fillRect(825, 0, 150, 300);
+}
 
 
   // Table is Clicked
@@ -91,13 +103,13 @@ namespace Endabgabe_Eisdealer {
       // Define the range for random positions
       let minX = 50;
       let maxX = 300;
-      let minY = 400;
+      let minY = 100;
       let maxY = 500;
 
       // Generate random positions within the defined range
       let x = Math.random() * (maxX - minX) + minX;
       let y = Math.random() * (maxY - minY) + minY;
-      customers.push(new Customer(x, y, "green"));
+      customers.push(new Customer(x, y, "rgb(111,173,11)"));
     }
   }
 

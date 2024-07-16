@@ -58,7 +58,7 @@ var Endabgabe_Eisdealer;
             else if (this.state == "waiting" || this.state == "ordering") {
                 // Start the order timer if not already started
                 if (!this.orderStartTime) {
-                    this.startOrderTimer();
+                    this.startTimer();
                 }
             }
             else if (this.state == "leaving") {
@@ -81,7 +81,7 @@ var Endabgabe_Eisdealer;
             console.log("I want to order now");
             Endabgabe_Eisdealer.displayCustomerOrder();
         }
-        startOrderTimer() {
+        startTimer() {
             this.orderStartTime = Date.now();
             setTimeout(() => {
                 if ((this.state == "waiting" || this.state == "ordering" || this.state == "paying") && this.orderStartTime !== undefined) {
@@ -103,6 +103,9 @@ var Endabgabe_Eisdealer;
             }
             else if (this.mood == "sad") {
                 Endabgabe_Eisdealer.crc2.fillStyle = "red";
+            }
+            else if (this.mood == "excited") {
+                Endabgabe_Eisdealer.crc2.fillStyle = "orange";
             }
             Endabgabe_Eisdealer.crc2.arc(0, 0, 40, 0, 2 * Math.PI);
             Endabgabe_Eisdealer.crc2.fill();
