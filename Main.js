@@ -33,12 +33,12 @@ var Endabgabe_Eisdealer;
             animation();
         }, 24);
     }
-    // Draw Background
+    // DRAW BACKGROUND
     function drawBackground() {
         // Draw the background
         Endabgabe_Eisdealer.crc2.fillStyle = "rgb(210,247,254)";
         Endabgabe_Eisdealer.crc2.fillRect(0, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
-        // Draw a big pink circle
+        // Draw cirlce
         let circleX = Endabgabe_Eisdealer.crc2.canvas.width / 2;
         let circleY = Endabgabe_Eisdealer.crc2.canvas.height / 2;
         let circleRadius = Math.min(Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height) / 1.7;
@@ -46,18 +46,34 @@ var Endabgabe_Eisdealer;
         Endabgabe_Eisdealer.crc2.arc(circleX, circleY, circleRadius, 0, 2 * Math.PI, false);
         Endabgabe_Eisdealer.crc2.fillStyle = "rgb(255,137,137)";
         Endabgabe_Eisdealer.crc2.fill();
+        // Draw rectangle
         Endabgabe_Eisdealer.crc2.fillStyle = "rgb(255,137,137)";
         Endabgabe_Eisdealer.crc2.fillRect(800, 0, Endabgabe_Eisdealer.crc2.canvas.width, Endabgabe_Eisdealer.crc2.canvas.height);
+        // Draw counter
         Endabgabe_Eisdealer.crc2.fillStyle = "rgb(125,58,37)";
         Endabgabe_Eisdealer.crc2.fillRect(825, 0, 150, 300);
     }
-    // Table is Clicked
+    // CREATE NEW CUSTOMER
+    function createCustomer() {
+        if (customers.length < 7) {
+            // Define range for random positions
+            let minX = 50;
+            let maxX = 300;
+            let minY = 100;
+            let maxY = 500;
+            // Generate random positions within defined range
+            let x = Math.random() * (maxX - minX) + minX;
+            let y = Math.random() * (maxY - minY) + minY;
+            customers.push(new Endabgabe_Eisdealer.Customer(x, y, "rgb(111,173,11)"));
+        }
+    }
+    // TABLE IS CLICKED
     function tableClicked(_event) {
         let clickX = _event.clientX;
         let clickY = _event.clientY;
         for (let table of Endabgabe_Eisdealer.tables) {
             if (table instanceof Endabgabe_Eisdealer.Table && table.state == "free") {
-                // Check if the click is within the bounds of the table
+                // Check if click is within bounds of table
                 if (table.positionX < clickX && clickX < table.positionX + 150 && table.positionY < clickY && clickY < table.positionY + 70) {
                     for (let customer of customers) {
                         if (customer.state == "waiting") {
@@ -72,21 +88,7 @@ var Endabgabe_Eisdealer;
             }
         }
     }
-    // Create a new Customer
-    function createCustomer() {
-        if (customers.length < 7) {
-            // Define the range for random positions
-            let minX = 50;
-            let maxX = 300;
-            let minY = 100;
-            let maxY = 500;
-            // Generate random positions within the defined range
-            let x = Math.random() * (maxX - minX) + minX;
-            let y = Math.random() * (maxY - minY) + minY;
-            customers.push(new Endabgabe_Eisdealer.Customer(x, y, "rgb(111,173,11)"));
-        }
-    }
-    // Animation
+    // ANIMATION
     function animation() {
         drawBackground();
         Endabgabe_Eisdealer.crc2.putImageData(imgData, 0, 0);
@@ -100,9 +102,10 @@ var Endabgabe_Eisdealer;
             table.draw();
         }
     }
+    // CALCULATE PRICE
     function calculatePrice() {
         let totalPrice = 0;
-        // Calculate the price for IceCream
+        // Calculate price for IceCream
         for (let iceCream of Endabgabe_Eisdealer.data.IceCream) {
             let iceCreamCheckbox = document.querySelector(`input[name="${iceCream.name}"]`);
             let iceCreamNumber = iceCreamCheckbox?.nextElementSibling;
@@ -111,7 +114,7 @@ var Endabgabe_Eisdealer;
                 totalPrice += iceCream.price * quantity;
             }
         }
-        // Calculate the price for Sauce
+        // Calculate price for Sauce
         for (let sauce of Endabgabe_Eisdealer.data.Sauce) {
             let sauceCheckbox = document.querySelector(`input[name="${sauce.name}"]`);
             let sauceNumber = sauceCheckbox?.nextElementSibling;
@@ -120,7 +123,7 @@ var Endabgabe_Eisdealer;
                 totalPrice += sauce.price * quantity;
             }
         }
-        // Calculate the price for Sprinkles
+        // Calculate price for Sprinkles
         for (let sprinkle of Endabgabe_Eisdealer.data.Sprinkles) {
             let sprinkleCheckbox = document.querySelector(`input[name="${sprinkle.name}"]`);
             let sprinkleNumber = sprinkleCheckbox?.nextElementSibling;
@@ -129,75 +132,73 @@ var Endabgabe_Eisdealer;
                 totalPrice += sprinkle.price * quantity;
             }
         }
-        // Update the total price on the webpage
+        // Update total price
         let totalPriceElement = document.getElementById("totalPrice");
         if (totalPriceElement) {
             totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
         }
     }
     Endabgabe_Eisdealer.calculatePrice = calculatePrice;
-    let displayedCustomers = new Set(); // To track customers with displayed orders
-    function getRandomInt(min, max) {
+    // GENERATE RANDOM CHOICE
+    function getRandomChoice(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+    // GENERATE RANDOM ORDER
     function getRandomOrder(data) {
-        const iceCream = data.IceCream[getRandomInt(0, data.IceCream.length - 1)];
-        const sauce = data.Sauce[getRandomInt(0, data.Sauce.length - 1)];
-        const sprinkle = data.Sprinkles[getRandomInt(0, data.Sprinkles.length - 1)];
-        const iceCreamQty = getRandomInt(1, 3); // Random quantity between 1 and 3
-        const sauceQty = getRandomInt(1, 2); // Random quantity between 1 and 2
-        const sprinkleQty = getRandomInt(1, 2); // Random quantity between 1 and 2
+        const iceCream = data.IceCream[getRandomChoice(0, data.IceCream.length - 1)];
+        const sauce = data.Sauce[getRandomChoice(0, data.Sauce.length - 1)];
+        const sprinkle = data.Sprinkles[getRandomChoice(0, data.Sprinkles.length - 1)];
+        // Generate random quantities between 1 and 3
+        const iceCreamQty = getRandomChoice(1, 3);
+        const sauceQty = getRandomChoice(1, 3);
+        const sprinkleQty = getRandomChoice(1, 3);
         return {
             iceCream: { item: iceCream, quantity: iceCreamQty },
             sauce: { item: sauce, quantity: sauceQty },
             sprinkle: { item: sprinkle, quantity: sprinkleQty }
         };
     }
+    let displayedCustomers = new Set();
+    // DISPLAY ORDER
     function displayCustomerOrder() {
-        // Filter customers who are currently ordering
         let orderingCustomers = customers.filter(customer => customer.state == "ordering");
-        // Iterate over each ordering customer
         orderingCustomers.forEach(customer => {
-            // Check if the order display has already been created for this customer
-            if (!displayedCustomers.has(customer.id)) { // Assuming customers have a unique 'id'
-                // Create order display only if the customer has a valid position
+            // Check if order display has already been created for this customer
+            if (!displayedCustomers.has(customer.id)) {
+                // Create order display only if customer has valid position
                 if (customer.positionX !== undefined && customer.positionY !== undefined) {
-                    // Get random order details
                     const orderDetails = getRandomOrder(Endabgabe_Eisdealer.data);
-                    // Create a new div element with the order details
+                    // Create new div element with order details
                     let order = document.createElement("div");
                     order.classList.add("order-item");
-                    // Create HTML content for the order
                     order.innerHTML = `
             <p>${orderDetails.iceCream.item.name} (x${orderDetails.iceCream.quantity})</p>
             <p>${orderDetails.sauce.item.name} (x${orderDetails.sauce.quantity})</p>
             <p>${orderDetails.sprinkle.item.name} (x${orderDetails.sprinkle.quantity})</p>
           `;
-                    // Calculate position based on customer's coordinates
+                    // Set customerOrderDiv position
                     let customerOrderDiv = document.createElement("div");
                     customerOrderDiv.classList.add("customerOrder");
                     customerOrderDiv.style.position = "absolute";
                     customerOrderDiv.style.left = `${customer.positionX - 170}px`;
                     customerOrderDiv.style.top = `${customer.positionY}px`;
-                    customerOrderDiv.setAttribute("data-customer-id", customer.id.toString()); // Set customer ID
-                    // Append the new order div to the customerOrderDiv
+                    customerOrderDiv.setAttribute("data-customer-id", customer.id.toString());
                     customerOrderDiv.appendChild(order);
-                    // Add click event listener to the customerOrderDiv
-                    customerOrderDiv.addEventListener("click", (event) => {
-                        checkOrder(event); // Pass event to checkOrder
-                    });
-                    // Append the customerOrderDiv to the document body or another appropriate parent element
                     document.body.appendChild(customerOrderDiv);
-                    // Add the customer ID to the set of displayed customers
+                    // Add customer ID to set of displayed customers
                     displayedCustomers.add(customer.id);
+                    // Add click event listener to customerOrderDiv
+                    customerOrderDiv.addEventListener("click", (_event) => {
+                        checkOrder(_event);
+                    });
                 }
             }
         });
     }
     Endabgabe_Eisdealer.displayCustomerOrder = displayCustomerOrder;
-    function checkOrder(event) {
-        // Get the customer ID from the clicked div
-        let customerOrderDiv = event.currentTarget;
+    function checkOrder(_event) {
+        // Get customer ID from clicked div
+        let customerOrderDiv = _event.currentTarget;
         let customerIdStr = customerOrderDiv.getAttribute("data-customer-id");
         // Ensure customerIdStr is not null before parsing
         if (customerIdStr !== null) {

@@ -49,13 +49,13 @@ namespace Endabgabe_Eisdealer {
   }
 
 
-  // Draw Background
+  // DRAW BACKGROUND
   function drawBackground(): void {
     // Draw the background
     crc2.fillStyle = "rgb(210,247,254)";
     crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
 
-    // Draw a big pink circle
+    // Draw cirlce
     let circleX = crc2.canvas.width / 2;
     let circleY = crc2.canvas.height / 2;
     let circleRadius = Math.min(crc2.canvas.width, crc2.canvas.height) / 1.7;
@@ -65,22 +65,43 @@ namespace Endabgabe_Eisdealer {
     crc2.fillStyle = "rgb(255,137,137)";
     crc2.fill();
 
+    // Draw rectangle
     crc2.fillStyle = "rgb(255,137,137)";
     crc2.fillRect(800, 0, crc2.canvas.width, crc2.canvas.height);
 
+    // Draw counter
     crc2.fillStyle = "rgb(125,58,37)";
     crc2.fillRect(825, 0, 150, 300);
-}
+  }
 
 
-  // Table is Clicked
+
+  // CREATE NEW CUSTOMER
+  function createCustomer(): void {
+    if (customers.length < 7) {
+      // Define range for random positions
+      let minX = 50;
+      let maxX = 300;
+      let minY = 100;
+      let maxY = 500;
+
+      // Generate random positions within defined range
+      let x = Math.random() * (maxX - minX) + minX;
+      let y = Math.random() * (maxY - minY) + minY;
+      customers.push(new Customer(x, y, "rgb(111,173,11)"));
+    }
+  }
+
+
+
+  // TABLE IS CLICKED
   function tableClicked(_event: PointerEvent) {
     let clickX: number = _event.clientX;
     let clickY: number = _event.clientY;
 
     for (let table of tables) {
       if (table instanceof Table && table.state == "free") {
-        // Check if the click is within the bounds of the table
+        // Check if click is within bounds of table
         if (table.positionX < clickX && clickX < table.positionX + 150 && table.positionY < clickY && clickY < table.positionY + 70) {
           for (let customer of customers) {
             if (customer.state == "waiting") {
@@ -97,23 +118,8 @@ namespace Endabgabe_Eisdealer {
   }
 
 
-  // Create a new Customer
-  function createCustomer(): void {
-    if (customers.length < 7) {
-      // Define the range for random positions
-      let minX = 50;
-      let maxX = 300;
-      let minY = 100;
-      let maxY = 500;
 
-      // Generate random positions within the defined range
-      let x = Math.random() * (maxX - minX) + minX;
-      let y = Math.random() * (maxY - minY) + minY;
-      customers.push(new Customer(x, y, "rgb(111,173,11)"));
-    }
-  }
-
-  // Animation
+  // ANIMATION
   function animation(): void {
     drawBackground();
     crc2.putImageData(imgData, 0, 0);
@@ -133,10 +139,11 @@ namespace Endabgabe_Eisdealer {
 
 
 
-  export function calculatePrice() {
+  // CALCULATE PRICE
+  export function calculatePrice(): void {
     let totalPrice: number = 0;
 
-    // Calculate the price for IceCream
+    // Calculate price for IceCream
     for (let iceCream of data.IceCream) {
       let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
       let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
@@ -147,7 +154,7 @@ namespace Endabgabe_Eisdealer {
       }
     }
 
-    // Calculate the price for Sauce
+    // Calculate price for Sauce
     for (let sauce of data.Sauce) {
       let sauceCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sauce.name}"]`);
       let sauceNumber = sauceCheckbox?.nextElementSibling as HTMLInputElement;
@@ -158,7 +165,7 @@ namespace Endabgabe_Eisdealer {
       }
     }
 
-    // Calculate the price for Sprinkles
+    // Calculate price for Sprinkles
     for (let sprinkle of data.Sprinkles) {
       let sprinkleCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sprinkle.name}"]`);
       let sprinkleNumber = sprinkleCheckbox?.nextElementSibling as HTMLInputElement;
@@ -169,7 +176,7 @@ namespace Endabgabe_Eisdealer {
       }
     }
 
-    // Update the total price on the webpage
+    // Update total price
     let totalPriceElement = document.getElementById("totalPrice");
     if (totalPriceElement) {
       totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
@@ -178,20 +185,22 @@ namespace Endabgabe_Eisdealer {
 
 
 
-  let displayedCustomers = new Set(); // To track customers with displayed orders
-
-  function getRandomInt(min: number, max: number) {
+  // GENERATE RANDOM CHOICE
+  function getRandomChoice(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  function getRandomOrder(data: any) {
-    const iceCream = data.IceCream[getRandomInt(0, data.IceCream.length - 1)];
-    const sauce = data.Sauce[getRandomInt(0, data.Sauce.length - 1)];
-    const sprinkle = data.Sprinkles[getRandomInt(0, data.Sprinkles.length - 1)];
 
-    const iceCreamQty = getRandomInt(1, 3);  // Random quantity between 1 and 3
-    const sauceQty = getRandomInt(1, 2);     // Random quantity between 1 and 2
-    const sprinkleQty = getRandomInt(1, 2);  // Random quantity between 1 and 2
+  // GENERATE RANDOM ORDER
+  function getRandomOrder(data: any) {
+    const iceCream = data.IceCream[getRandomChoice(0, data.IceCream.length - 1)];
+    const sauce = data.Sauce[getRandomChoice(0, data.Sauce.length - 1)];
+    const sprinkle = data.Sprinkles[getRandomChoice(0, data.Sprinkles.length - 1)];
+
+    // Generate random quantities between 1 and 3
+    const iceCreamQty = getRandomChoice(1, 3);
+    const sauceQty = getRandomChoice(1, 3);
+    const sprinkleQty = getRandomChoice(1, 3);
 
     return {
       iceCream: { item: iceCream, quantity: iceCreamQty },
@@ -200,84 +209,86 @@ namespace Endabgabe_Eisdealer {
     };
   }
 
-  export function displayCustomerOrder() {
-    // Filter customers who are currently ordering
+
+
+  let displayedCustomers = new Set();
+
+  // DISPLAY ORDER
+  export function displayCustomerOrder(): void {
+
     let orderingCustomers = customers.filter(customer => customer.state == "ordering");
 
-    // Iterate over each ordering customer
     orderingCustomers.forEach(customer => {
-      // Check if the order display has already been created for this customer
-      if (!displayedCustomers.has(customer.id)) { // Assuming customers have a unique 'id'
-        // Create order display only if the customer has a valid position
+      // Check if order display has already been created for this customer
+      if (!displayedCustomers.has(customer.id)) {
+        // Create order display only if customer has valid position
         if (customer.positionX !== undefined && customer.positionY !== undefined) {
 
-          // Get random order details
           const orderDetails = getRandomOrder(data);
 
-          // Create a new div element with the order details
+          // Create new div element with order details
           let order = document.createElement("div");
           order.classList.add("order-item");
 
-          // Create HTML content for the order
           order.innerHTML = `
             <p>${orderDetails.iceCream.item.name} (x${orderDetails.iceCream.quantity})</p>
             <p>${orderDetails.sauce.item.name} (x${orderDetails.sauce.quantity})</p>
             <p>${orderDetails.sprinkle.item.name} (x${orderDetails.sprinkle.quantity})</p>
           `;
 
-          // Calculate position based on customer's coordinates
+          // Set customerOrderDiv position
           let customerOrderDiv = document.createElement("div");
           customerOrderDiv.classList.add("customerOrder");
           customerOrderDiv.style.position = "absolute";
           customerOrderDiv.style.left = `${customer.positionX - 170}px`;
           customerOrderDiv.style.top = `${customer.positionY}px`;
-          customerOrderDiv.setAttribute("data-customer-id", customer.id.toString()); // Set customer ID
 
-          // Append the new order div to the customerOrderDiv
+          customerOrderDiv.setAttribute("data-customer-id", customer.id.toString());
+
           customerOrderDiv.appendChild(order);
-
-          // Add click event listener to the customerOrderDiv
-          customerOrderDiv.addEventListener("click", (event) => {
-            checkOrder(event); // Pass event to checkOrder
-          });
-
-          // Append the customerOrderDiv to the document body or another appropriate parent element
           document.body.appendChild(customerOrderDiv);
 
-          // Add the customer ID to the set of displayed customers
+          // Add customer ID to set of displayed customers
           displayedCustomers.add(customer.id);
+
+          // Add click event listener to customerOrderDiv
+          customerOrderDiv.addEventListener("click", (_event) => {
+            checkOrder(_event);
+          });
         }
       }
     });
   }
 
-  export function checkOrder(event: Event) {
-    // Get the customer ID from the clicked div
-    let customerOrderDiv = event.currentTarget as HTMLElement;
+
+
+  export function checkOrder(_event: Event) {
+    // Get customer ID from clicked div
+    let customerOrderDiv = _event.currentTarget as HTMLElement;
     let customerIdStr = customerOrderDiv.getAttribute("data-customer-id");
-  
+
     // Ensure customerIdStr is not null before parsing
     if (customerIdStr !== null) {
       let customerId = parseInt(customerIdStr);
-  
+
       // Find the customer by ID
       let customer = customers.find(c => c.id === customerId);
       if (customer) {
         // Get the customer's displayed order details
         let orderDivs = customerOrderDiv.querySelectorAll('.order-item p');
-  
+
         let orderDetails = {
           iceCream: { name: orderDivs[0].textContent!.split(' (x')[0], quantity: parseInt(orderDivs[0].textContent!.split(' (x')[1].split(')')[0]) },
           sauce: { name: orderDivs[1].textContent!.split(' (x')[0], quantity: parseInt(orderDivs[1].textContent!.split(' (x')[1].split(')')[0]) },
           sprinkle: { name: orderDivs[2].textContent!.split(' (x')[0], quantity: parseInt(orderDivs[2].textContent!.split(' (x')[1].split(')')[0]) }
         };
-  
+
         // Compare the customer's order with the current sortiment
         const isOrderMatching = (category: keyof typeof orderDetails, items: Item[]) => {
           for (let item of items) {
             let itemCheckbox = document.querySelector<HTMLInputElement>(`input[name="${item.name}"]`);
             let itemNumber = itemCheckbox?.nextElementSibling as HTMLInputElement;
-  
+
             if (itemCheckbox?.checked) {
               let quantity = parseInt(itemNumber?.value) || 0;
               if (item.name == orderDetails[category].name && quantity == orderDetails[category].quantity) {
@@ -287,16 +298,16 @@ namespace Endabgabe_Eisdealer {
           }
           return false;
         };
-  
+
         let iceCreamMatch = isOrderMatching('iceCream', data.IceCream);
         let sauceMatch = isOrderMatching('sauce', data.Sauce);
         let sprinkleMatch = isOrderMatching('sprinkle', data.Sprinkles);
-  
+
         // Change the customer's state to "eating" only if all parts of the order match
         if (iceCreamMatch && sauceMatch && sprinkleMatch) {
           customer.state = "eating";
           customer.mood = "happy";
-  
+
           // Remove the order div from the DOM and update table state
           removeOrderDiv(customerOrderDiv, customer);
         } else {
@@ -309,9 +320,11 @@ namespace Endabgabe_Eisdealer {
     }
   }
 
+
+
   function removeOrderDiv(orderDiv: HTMLElement, customer: Customer) {
     orderDiv.remove(); // Remove the order div from the DOM
-  
+
     // Update table state to "free"
     let table = tables.find(t => t.positionX === customer.targetPositionX && t.positionY === customer.targetPositionY);
     if (table) {
@@ -319,7 +332,9 @@ namespace Endabgabe_Eisdealer {
     }
   }
 
-  export function displaySortiment() {
+
+
+  export function displaySortiment(): void {
     console.clear(); // Clear the console for a fresh display
 
     // Function to log checked items and their quantities
@@ -345,89 +360,93 @@ namespace Endabgabe_Eisdealer {
     logCheckedItems("Sprinkles", data.Sprinkles);
   }
 
+
+
   let displayedPayment: boolean = false; // Flag to track if payment info has been displayed
 
   let totalEarnings = 0; // Initialize total earnings
 
-  export function displayCustomerPayment() {
+  export function displayCustomerPayment(): void {
     // Find the customer who is currently paying
     let customerPaying = customers.find(customer => customer.state === "paying");
-  
+
     if (customerPaying && !displayedPayment) {
       // Calculate the total price for the customer's order
       let totalPrice: number = 0;
-  
+
       // Calculate the price for IceCream
       for (let iceCream of data.IceCream) {
         let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
         let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
-  
+
         if (iceCreamCheckbox?.checked) {
           let quantity = parseInt(iceCreamNumber.value) || 0; // Default to 0 if empty
           totalPrice += iceCream.price * quantity;
         }
       }
-  
+
       // Calculate the price for Sauce
       for (let sauce of data.Sauce) {
         let sauceCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sauce.name}"]`);
         let sauceNumber = sauceCheckbox?.nextElementSibling as HTMLInputElement;
-  
+
         if (sauceCheckbox?.checked) {
           let quantity = parseInt(sauceNumber.value) || 0; // Default to 0 if empty
           totalPrice += sauce.price * quantity;
         }
       }
-  
+
       // Calculate the price for Sprinkles
       for (let sprinkle of data.Sprinkles) {
         let sprinkleCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sprinkle.name}"]`);
         let sprinkleNumber = sprinkleCheckbox?.nextElementSibling as HTMLInputElement;
-  
+
         if (sprinkleCheckbox?.checked) {
           let quantity = parseInt(sprinkleNumber.value) || 0; // Default to 0 if empty
           totalPrice += sprinkle.price * quantity;
         }
       }
-  
+
       // Create a div to display the total price
       let paymentDiv = document.createElement("div");
       paymentDiv.classList.add("payment-info");
       paymentDiv.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
-  
+
       // Calculate position based on customer's coordinates
       paymentDiv.style.position = "absolute";
       paymentDiv.style.left = `${customerPaying.positionX - 80}px`; // Adjust position as needed
       paymentDiv.style.top = `${customerPaying.positionY + 30}px`;
-  
+
       // Append the payment info div to the document body
       document.body.appendChild(paymentDiv);
-  
+
       // Mark payment as displayed
       displayedPayment = true;
-  
+
       // Add event listener for clicks on the payment info div
       paymentDiv.addEventListener("click", () => {
         // Change customer's state to "leaving"
         customerPaying.state = "leaving";
-  
+
         // Remove the payment info div from the document
         document.body.removeChild(paymentDiv);
         displayedPayment = false; // Reset displayedPayment flag
-        
+
         // Add the totalPrice to totalEarnings
         totalEarnings += totalPrice;
-        
+
         // Update the earnings display div
         updateEarningsDisplay();
       });
     }
   }
-  
-  function updateEarningsDisplay() {
+
+
+
+  function updateEarningsDisplay(): void {
     // Find the earnings display div
     let earningsDisplay = document.querySelector(".earnings-info");
-    
+
     if (earningsDisplay) {
       earningsDisplay.textContent = `Total Earnings: ${totalEarnings.toFixed(2)} €`;
     } else {
@@ -439,11 +458,6 @@ namespace Endabgabe_Eisdealer {
       document.body.appendChild(earningsDisplay);
     }
   }
-
-
-
-
-
 
 
 

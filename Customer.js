@@ -11,7 +11,7 @@ var Endabgabe_Eisdealer;
         targetPositionY;
         id;
         static nextId = 1;
-        orderStartTime;
+        startTime;
         constructor(_positionX, _positionY, _color) {
             this.positionX = _positionX;
             this.positionY = _positionY;
@@ -57,7 +57,7 @@ var Endabgabe_Eisdealer;
             }
             else if (this.state == "waiting" || this.state == "ordering") {
                 // Start the order timer if not already started
-                if (!this.orderStartTime) {
+                if (!this.startTime) {
                     this.startTimer();
                 }
             }
@@ -82,11 +82,11 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.displayCustomerOrder();
         }
         startTimer() {
-            this.orderStartTime = Date.now();
+            this.startTime = Date.now();
             setTimeout(() => {
-                if ((this.state == "waiting" || this.state == "ordering" || this.state == "paying") && this.orderStartTime !== undefined) {
+                if ((this.state == "waiting" || this.state == "ordering" || this.state == "paying") && this.startTime !== undefined) {
                     let currentTime = Date.now();
-                    let elapsedSeconds = (currentTime - this.orderStartTime) / 1000;
+                    let elapsedSeconds = (currentTime - this.startTime) / 1000;
                     if (elapsedSeconds > 45) {
                         console.log("Customer has been ordering, paying, or waiting for more than 45 seconds. Changing mood to 'sad'.");
                         this.mood = "sad";

@@ -3,13 +3,10 @@ namespace Endabgabe_Eisdealer {
 
     constructor(_positionX: number, _positionY: number, _color: string) {
       super(_positionX, _positionY, _color)
-    }
-
-    public move(): void {
-
       this.draw();
     }
 
+ 
     public draw(): void {
       crc2.save();
       crc2.beginPath();

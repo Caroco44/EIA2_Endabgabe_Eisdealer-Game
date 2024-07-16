@@ -4,8 +4,6 @@ var Endabgabe_Eisdealer;
     class Sauce extends Endabgabe_Eisdealer.Sortiment {
         constructor(_positionX, _positionY, _color) {
             super(_positionX, _positionY, _color);
-        }
-        move() {
             this.draw();
         }
         draw() {
