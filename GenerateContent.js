@@ -1,9 +1,9 @@
 "use strict";
 var Endabgabe_Eisdealer;
 (function (Endabgabe_Eisdealer) {
+    // CREATE DATA
     function createData() {
         for (let category in Endabgabe_Eisdealer.data) {
-            // console.log(category);
             let items = Endabgabe_Eisdealer.data[category];
             switch (category) {
                 case "IceCream":
@@ -27,7 +27,7 @@ var Endabgabe_Eisdealer;
         }
     }
     Endabgabe_Eisdealer.createData = createData;
-    // Add event listener call for displaySortiment
+    // CREATE ICE CREAM LIST
     function createIceCreamList(_iceCream) {
         // Create Elements and Save in Variable
         let IceCreamCheckbox = document.createElement("input");
@@ -51,15 +51,13 @@ var Endabgabe_Eisdealer;
         // Add event listener for changes in checkbox or number input
         IceCreamCheckbox.addEventListener('change', () => {
             updateIceCream();
-            Endabgabe_Eisdealer.displaySortiment();
         });
         IceCreamNumber.addEventListener('input', () => {
             updateIceCream();
-            Endabgabe_Eisdealer.displaySortiment();
         });
     }
     Endabgabe_Eisdealer.createIceCreamList = createIceCreamList;
-    // The other data creation functions should follow the same pattern
+    // CREATE SAUCE LIST
     function createSauceList(_sauce) {
         let SauceCheckbox = document.createElement("input");
         SauceCheckbox.setAttribute("type", "checkbox");
@@ -78,14 +76,13 @@ var Endabgabe_Eisdealer;
         document.getElementById("FieldsetSauce")?.appendChild(SauceLabel);
         SauceCheckbox.addEventListener('change', () => {
             updateSauce();
-            Endabgabe_Eisdealer.displaySortiment();
         });
         SauceNumber.addEventListener('input', () => {
             updateSauce();
-            Endabgabe_Eisdealer.displaySortiment();
         });
     }
     Endabgabe_Eisdealer.createSauceList = createSauceList;
+    // CREATE SPRINKLES LIST
     function createSprinklesList(_sprinkle) {
         let SprinkleCheckbox = document.createElement("input");
         SprinkleCheckbox.setAttribute("type", "checkbox");
@@ -104,16 +101,15 @@ var Endabgabe_Eisdealer;
         document.getElementById("FieldsetSprinkle")?.appendChild(SprinkleLabel);
         SprinkleCheckbox.addEventListener('change', () => {
             updateSprinkle();
-            Endabgabe_Eisdealer.displaySortiment();
         });
         SprinkleNumber.addEventListener('input', () => {
             updateSprinkle();
-            Endabgabe_Eisdealer.displaySortiment();
         });
     }
     Endabgabe_Eisdealer.createSprinklesList = createSprinklesList;
+    // UPDATE ICE CREAM
     function updateIceCream() {
-        let updatedItems = []; // Array für die aktualisierten Elemente
+        let updatedItems = [];
         // Map, um existierende Eiskugeln nach Farbe zu gruppieren
         let existingIceCreamsByColor = new Map();
         // Füllen der Map mit existierenden Eiskugeln
@@ -146,6 +142,7 @@ var Endabgabe_Eisdealer;
         Endabgabe_Eisdealer.sortiment = [...Endabgabe_Eisdealer.sortiment.filter(item => !(item instanceof Endabgabe_Eisdealer.IceCream)), ...updatedItems];
     }
     Endabgabe_Eisdealer.updateIceCream = updateIceCream;
+    // UPDATE SAUCE
     function updateSauce() {
         let updatedItems = []; // Array für die aktualisierten Elemente
         // Map, um existierende Eiskugeln nach Farbe zu gruppieren
@@ -180,6 +177,7 @@ var Endabgabe_Eisdealer;
         Endabgabe_Eisdealer.sortiment = [...Endabgabe_Eisdealer.sortiment.filter(item => !(item instanceof Endabgabe_Eisdealer.Sauce)), ...updatedItems];
     }
     Endabgabe_Eisdealer.updateSauce = updateSauce;
+    // UPDATE SPRINKLES
     function updateSprinkle() {
         let updatedItems = []; // Array für die aktualisierten Elemente
         // Map, um existierende Eiskugeln nach Farbe zu gruppieren

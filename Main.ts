@@ -140,6 +140,10 @@ namespace Endabgabe_Eisdealer {
 
 
   // CALCULATE PRICE
+  let displayedPayment: boolean = false;
+  let totalEarnings = 0;
+  let globalTotalPrice: number = 0;
+
   export function calculatePrice(): void {
     let totalPrice: number = 0;
 
@@ -149,7 +153,7 @@ namespace Endabgabe_Eisdealer {
       let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
 
       if (iceCreamCheckbox?.checked) {
-        let quantity = parseInt(iceCreamNumber.value) || 0; // Default to 0 if empty
+        let quantity = parseInt(iceCreamNumber.value) || 0;
         totalPrice += iceCream.price * quantity;
       }
     }
@@ -160,7 +164,7 @@ namespace Endabgabe_Eisdealer {
       let sauceNumber = sauceCheckbox?.nextElementSibling as HTMLInputElement;
 
       if (sauceCheckbox?.checked) {
-        let quantity = parseInt(sauceNumber.value) || 0; // Default to 0 if empty
+        let quantity = parseInt(sauceNumber.value) || 0;
         totalPrice += sauce.price * quantity;
       }
     }
@@ -171,28 +175,30 @@ namespace Endabgabe_Eisdealer {
       let sprinkleNumber = sprinkleCheckbox?.nextElementSibling as HTMLInputElement;
 
       if (sprinkleCheckbox?.checked) {
-        let quantity = parseInt(sprinkleNumber.value) || 0; // Default to 0 if empty
+        let quantity = parseInt(sprinkleNumber.value) || 0;
         totalPrice += sprinkle.price * quantity;
       }
     }
 
-    // Update total price
+    // Update total price element
     let totalPriceElement = document.getElementById("totalPrice");
     if (totalPriceElement) {
       totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
     }
+
+    globalTotalPrice = totalPrice;
   }
 
 
 
   // GENERATE RANDOM CHOICE
-  function getRandomChoice(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  function getRandomChoice(_min: number, _max: number) {
+    return Math.floor(Math.random() * (_max - _min + 1)) + _min;
   }
 
 
   // GENERATE RANDOM ORDER
-  function getRandomOrder(data: any) {
+  function getRandomOrder(_data: any) {
     const iceCream = data.IceCream[getRandomChoice(0, data.IceCream.length - 1)];
     const sauce = data.Sauce[getRandomChoice(0, data.Sauce.length - 1)];
     const sprinkle = data.Sprinkles[getRandomChoice(0, data.Sprinkles.length - 1)];
@@ -262,56 +268,32 @@ namespace Endabgabe_Eisdealer {
 
 
 
-  export function checkOrder(_event: Event) {
+  // DOES ORDER MATCH ASSORTMENT
+  export function checkOrder(event: Event) {
     // Get customer ID from clicked div
-    let customerOrderDiv = _event.currentTarget as HTMLElement;
-    let customerIdStr = customerOrderDiv.getAttribute("data-customer-id");
+    let customerOrderDiv = event.currentTarget as HTMLElement;
+    let customerOrderDivId = customerOrderDiv.getAttribute("data-customer-id");
 
-    // Ensure customerIdStr is not null before parsing
-    if (customerIdStr !== null) {
-      let customerId = parseInt(customerIdStr);
+    if (customerOrderDivId !== null) {
+      let customerId = parseInt(customerOrderDivId);
 
-      // Find the customer by ID
+      // Find customer by ID
       let customer = customers.find(c => c.id === customerId);
       if (customer) {
-        // Get the customer's displayed order details
-        let orderDivs = customerOrderDiv.querySelectorAll('.order-item p');
+        let orderDetails = getOrderDetails(customerOrderDiv);
 
-        let orderDetails = {
-          iceCream: { name: orderDivs[0].textContent!.split(' (x')[0], quantity: parseInt(orderDivs[0].textContent!.split(' (x')[1].split(')')[0]) },
-          sauce: { name: orderDivs[1].textContent!.split(' (x')[0], quantity: parseInt(orderDivs[1].textContent!.split(' (x')[1].split(')')[0]) },
-          sprinkle: { name: orderDivs[2].textContent!.split(' (x')[0], quantity: parseInt(orderDivs[2].textContent!.split(' (x')[1].split(')')[0]) }
-        };
+        // Compare the customer's order with current assortment
+        let iceCreamMatch = isOrderMatching('iceCream', orderDetails, data.IceCream);
+        let sauceMatch = isOrderMatching('sauce', orderDetails, data.Sauce);
+        let sprinkleMatch = isOrderMatching('sprinkle', orderDetails, data.Sprinkles);
 
-        // Compare the customer's order with the current sortiment
-        const isOrderMatching = (category: keyof typeof orderDetails, items: Item[]) => {
-          for (let item of items) {
-            let itemCheckbox = document.querySelector<HTMLInputElement>(`input[name="${item.name}"]`);
-            let itemNumber = itemCheckbox?.nextElementSibling as HTMLInputElement;
-
-            if (itemCheckbox?.checked) {
-              let quantity = parseInt(itemNumber?.value) || 0;
-              if (item.name == orderDetails[category].name && quantity == orderDetails[category].quantity) {
-                return true;
-              }
-            }
-          }
-          return false;
-        };
-
-        let iceCreamMatch = isOrderMatching('iceCream', data.IceCream);
-        let sauceMatch = isOrderMatching('sauce', data.Sauce);
-        let sprinkleMatch = isOrderMatching('sprinkle', data.Sprinkles);
-
-        // Change the customer's state to "eating" only if all parts of the order match
         if (iceCreamMatch && sauceMatch && sprinkleMatch) {
           customer.state = "eating";
           customer.mood = "happy";
 
-          // Remove the order div from the DOM and update table state
           removeOrderDiv(customerOrderDiv, customer);
         } else {
-          console.log("Customer's order does not match the current sortiment.");
+          console.log("Customer's order does not match the current assortment.");
           customer.mood = "sad";
         }
       }
@@ -322,11 +304,43 @@ namespace Endabgabe_Eisdealer {
 
 
 
-  function removeOrderDiv(orderDiv: HTMLElement, customer: Customer) {
-    orderDiv.remove(); // Remove the order div from the DOM
+  // ACCESS ORDER DETAILS
+  function getOrderDetails(_customerOrderDiv: HTMLElement) {
 
-    // Update table state to "free"
-    let table = tables.find(t => t.positionX === customer.targetPositionX && t.positionY === customer.targetPositionY);
+    let orderDivs = _customerOrderDiv.querySelectorAll('.order-item p');
+
+    return {
+      iceCream: { name: orderDivs[0].textContent!.split(' (x')[0], quantity: parseInt(orderDivs[0].textContent!.split(' (x')[1].split(')')[0]) },
+      sauce: { name: orderDivs[1].textContent!.split(' (x')[0], quantity: parseInt(orderDivs[1].textContent!.split(' (x')[1].split(')')[0]) },
+      sprinkle: { name: orderDivs[2].textContent!.split(' (x')[0], quantity: parseInt(orderDivs[2].textContent!.split(' (x')[1].split(')')[0]) }
+    };
+  }
+
+
+
+  // COMPARE ORDER DETAILS WITH ASSORTMENT
+  function isOrderMatching(_category: keyof typeof _orderDetails, _orderDetails: any, _items: any[]) {
+    for (let item of _items) {
+      let itemCheckbox = document.querySelector<HTMLInputElement>(`input[name="${item.name}"]`);
+      let itemNumber = itemCheckbox?.nextElementSibling as HTMLInputElement;
+
+      if (itemCheckbox?.checked) {
+        let quantity = parseInt(itemNumber?.value) || 0;
+        if (item.name == _orderDetails[_category].name && quantity == _orderDetails[_category].quantity) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+
+
+  // REMOVE DIV
+  function removeOrderDiv(_orderDiv: HTMLElement, _customer: Customer) {
+    _orderDiv.remove();
+
+    let table = tables.find(t => t.positionX == _customer.targetPositionX && t.positionY == _customer.targetPositionY);
     if (table) {
       table.state = "free";
     }
@@ -334,83 +348,16 @@ namespace Endabgabe_Eisdealer {
 
 
 
-  export function displaySortiment(): void {
-    console.clear(); // Clear the console for a fresh display
-
-    // Function to log checked items and their quantities
-    const logCheckedItems = (category: string, items: Item[]) => {
-      items.forEach(item => {
-        let itemCheckbox = document.querySelector<HTMLInputElement>(`input[name="${item.name}"]`);
-        let itemNumber = itemCheckbox?.nextElementSibling as HTMLInputElement;
-
-        if (itemCheckbox?.checked) {
-          let quantity = parseInt(itemNumber?.value) || 0;
-          console.log(`${category}: ${item.name}, Quantity: ${quantity}`);
-        }
-      });
-    };
-
-    // Log Ice Cream
-    logCheckedItems("Ice Cream", data.IceCream);
-
-    // Log Sauce
-    logCheckedItems("Sauce", data.Sauce);
-
-    // Log Sprinkles
-    logCheckedItems("Sprinkles", data.Sprinkles);
-  }
-
-
-
-  let displayedPayment: boolean = false; // Flag to track if payment info has been displayed
-
-  let totalEarnings = 0; // Initialize total earnings
-
+  // DISPLAY PAYMENT OF CUSTOMER
   export function displayCustomerPayment(): void {
     // Find the customer who is currently paying
-    let customerPaying = customers.find(customer => customer.state === "paying");
+    let customerPaying = customers.find(customer => customer.state == "paying");
 
     if (customerPaying && !displayedPayment) {
-      // Calculate the total price for the customer's order
-      let totalPrice: number = 0;
-
-      // Calculate the price for IceCream
-      for (let iceCream of data.IceCream) {
-        let iceCreamCheckbox = document.querySelector<HTMLInputElement>(`input[name="${iceCream.name}"]`);
-        let iceCreamNumber = iceCreamCheckbox?.nextElementSibling as HTMLInputElement;
-
-        if (iceCreamCheckbox?.checked) {
-          let quantity = parseInt(iceCreamNumber.value) || 0; // Default to 0 if empty
-          totalPrice += iceCream.price * quantity;
-        }
-      }
-
-      // Calculate the price for Sauce
-      for (let sauce of data.Sauce) {
-        let sauceCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sauce.name}"]`);
-        let sauceNumber = sauceCheckbox?.nextElementSibling as HTMLInputElement;
-
-        if (sauceCheckbox?.checked) {
-          let quantity = parseInt(sauceNumber.value) || 0; // Default to 0 if empty
-          totalPrice += sauce.price * quantity;
-        }
-      }
-
-      // Calculate the price for Sprinkles
-      for (let sprinkle of data.Sprinkles) {
-        let sprinkleCheckbox = document.querySelector<HTMLInputElement>(`input[name="${sprinkle.name}"]`);
-        let sprinkleNumber = sprinkleCheckbox?.nextElementSibling as HTMLInputElement;
-
-        if (sprinkleCheckbox?.checked) {
-          let quantity = parseInt(sprinkleNumber.value) || 0; // Default to 0 if empty
-          totalPrice += sprinkle.price * quantity;
-        }
-      }
-
       // Create a div to display the total price
       let paymentDiv = document.createElement("div");
       paymentDiv.classList.add("payment-info");
-      paymentDiv.textContent = `Total Price: ${totalPrice.toFixed(2)} €`;
+      paymentDiv.textContent = `Total Price: ${globalTotalPrice.toFixed(2)} €`;
 
       // Calculate position based on customer's coordinates
       paymentDiv.style.position = "absolute";
@@ -432,8 +379,8 @@ namespace Endabgabe_Eisdealer {
         document.body.removeChild(paymentDiv);
         displayedPayment = false; // Reset displayedPayment flag
 
-        // Add the totalPrice to totalEarnings
-        totalEarnings += totalPrice;
+        // Add the globalTotalPrice to totalEarnings
+        totalEarnings += globalTotalPrice;
 
         // Update the earnings display div
         updateEarningsDisplay();
