@@ -119,7 +119,7 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.beginPath();
             Endabgabe_Eisdealer.crc2.strokeStyle = 'black';
             Endabgabe_Eisdealer.crc2.lineWidth = 5;
-            if (this.mood == "happy") {
+            if (this.mood == "happy" || this.mood == "excited") {
                 Endabgabe_Eisdealer.crc2.arc(0, 0, 8, 0, Math.PI, false);
             }
             else if (this.mood == "sad") {

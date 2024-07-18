@@ -246,8 +246,8 @@ namespace Endabgabe_Eisdealer {
           let customerOrderDiv = document.createElement("div");
           customerOrderDiv.classList.add("customerOrder");
           customerOrderDiv.style.position = "absolute";
-          customerOrderDiv.style.left = `${customer.positionX - 170}px`;
-          customerOrderDiv.style.top = `${customer.positionY}px`;
+          customerOrderDiv.style.left = `${customer.positionX - 190}px`;
+          customerOrderDiv.style.top = `${customer.positionY + 5}px`;
 
           customerOrderDiv.setAttribute("data-customer-id", customer.id.toString());
 
@@ -361,7 +361,7 @@ namespace Endabgabe_Eisdealer {
 
       // Calculate position based on customer's coordinates
       paymentDiv.style.position = "absolute";
-      paymentDiv.style.left = `${customerPaying.positionX - 80}px`; // Adjust position as needed
+      paymentDiv.style.left = `${customerPaying.positionX - 80}px`;
       paymentDiv.style.top = `${customerPaying.positionY + 30}px`;
 
       document.body.appendChild(paymentDiv);

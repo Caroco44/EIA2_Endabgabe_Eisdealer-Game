@@ -128,7 +128,7 @@ namespace Endabgabe_Eisdealer {
       crc2.strokeStyle = 'black';
       crc2.lineWidth = 5;
 
-      if (this.mood == "happy") {
+      if (this.mood == "happy" || this.mood == "excited") {
         crc2.arc(0, 0, 8, 0, Math.PI, false);
       } else if (this.mood == "sad") {
         crc2.arc(0, 8, 8, Math.PI, 2 * Math.PI, false);
