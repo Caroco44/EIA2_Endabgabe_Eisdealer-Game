@@ -48,15 +48,14 @@ var Endabgabe_Eisdealer;
                     this.positionY += dy / distance * 2;
                 }
                 else {
-                    console.log("Customer reached the Cone.");
-                    this.state = "paying"; // Switch to "paying" state
+                    this.state = "paying";
                 }
             }
             else if (this.state == "paying") {
                 Endabgabe_Eisdealer.displayCustomerPayment();
             }
             else if (this.state == "waiting" || this.state == "ordering") {
-                // Start the order timer if not already started
+                // Start order timer if not already started
                 if (!this.startTime) {
                     this.startTimer();
                 }
@@ -71,14 +70,13 @@ var Endabgabe_Eisdealer;
                 }
                 else {
                     // Remove the customer from the scene
-                    Endabgabe_Eisdealer.removeCustomer(this);
+                    Endabgabe_Eisdealer.removeElements(this);
                 }
             }
             this.draw();
         }
         order() {
             this.state = "ordering";
-            console.log("I want to order now");
             Endabgabe_Eisdealer.displayCustomerOrder();
         }
         startTimer() {
@@ -88,7 +86,6 @@ var Endabgabe_Eisdealer;
                     let currentTime = Date.now();
                     let elapsedSeconds = (currentTime - this.startTime) / 1000;
                     if (elapsedSeconds > 45) {
-                        console.log("Customer has been ordering, paying, or waiting for more than 45 seconds. Changing mood to 'sad'.");
                         this.mood = "sad";
                     }
                 }

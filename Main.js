@@ -267,7 +267,7 @@ var Endabgabe_Eisdealer;
         // Find the customer who is currently paying
         let customerPaying = customers.find(customer => customer.state == "paying");
         if (customerPaying && !displayedPayment) {
-            // Create a div to display the total price
+            // Create a div to display total price
             let paymentDiv = document.createElement("div");
             paymentDiv.classList.add("payment-info");
             paymentDiv.textContent = `Total Price: ${globalTotalPrice.toFixed(2)} €`;
@@ -275,57 +275,54 @@ var Endabgabe_Eisdealer;
             paymentDiv.style.position = "absolute";
             paymentDiv.style.left = `${customerPaying.positionX - 80}px`; // Adjust position as needed
             paymentDiv.style.top = `${customerPaying.positionY + 30}px`;
-            // Append the payment info div to the document body
             document.body.appendChild(paymentDiv);
-            // Mark payment as displayed
             displayedPayment = true;
-            // Add event listener for clicks on the payment info div
             paymentDiv.addEventListener("click", () => {
-                // Change customer's state to "leaving"
                 customerPaying.state = "leaving";
-                // Remove the payment info div from the document
+                // Remove payment info div from document
                 document.body.removeChild(paymentDiv);
                 displayedPayment = false; // Reset displayedPayment flag
-                // Add the globalTotalPrice to totalEarnings
+                // Add globalTotalPrice to totalEarnings
                 totalEarnings += globalTotalPrice;
-                // Update the earnings display div
                 updateEarningsDisplay();
             });
         }
     }
     Endabgabe_Eisdealer.displayCustomerPayment = displayCustomerPayment;
+    // UPDATE EARNINGS DISPLAY
     function updateEarningsDisplay() {
-        // Find the earnings display div
+        // Find earnings display div
         let earningsDisplay = document.querySelector(".earnings-info");
         if (earningsDisplay) {
             earningsDisplay.textContent = `Total Earnings: ${totalEarnings.toFixed(2)} €`;
         }
         else {
-            // Create the earnings display div if it doesn't exist
+            // Create earnings display div if it doesn't exist
             earningsDisplay = document.createElement("div");
             earningsDisplay.classList.add("earnings-info");
             earningsDisplay.textContent = `Total Earnings: ${totalEarnings.toFixed(2)} €`;
             document.body.appendChild(earningsDisplay);
         }
     }
-    function removeCustomer(customer) {
-        // Remove the customer from the array
+    // REMOVE CUSTOMER AND HIS ORDER
+    function removeElements(customer) {
+        // Remove customer from array
         let index = customers.indexOf(customer);
         if (index !== -1) {
             customers.splice(index, 1);
-            // Remove the corresponding customerOrderDiv from the DOM
+            // Remove corresponding customerOrderDiv
             let customerOrderDivs = document.querySelectorAll(".customerOrder");
             customerOrderDivs.forEach((div) => {
-                let customerIdStr = div.getAttribute("data-customer-id");
-                if (customerIdStr !== null) {
-                    let customerId = parseInt(customerIdStr);
-                    if (customerId === customer.id) {
-                        div.remove(); // Remove the div from the DOM
+                let customerOrderId = div.getAttribute("data-customer-id");
+                if (customerOrderId !== null) {
+                    let customerId = parseInt(customerOrderId);
+                    if (customerId == customer.id) {
+                        div.remove();
                     }
                 }
             });
         }
     }
-    Endabgabe_Eisdealer.removeCustomer = removeCustomer;
+    Endabgabe_Eisdealer.removeElements = removeElements;
 })(Endabgabe_Eisdealer || (Endabgabe_Eisdealer = {}));
 //# sourceMappingURL=Main.js.map
