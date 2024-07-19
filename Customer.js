@@ -102,7 +102,7 @@ var Endabgabe_Eisdealer;
                 Endabgabe_Eisdealer.crc2.fillStyle = "red";
             }
             else if (this.mood == "excited") {
-                Endabgabe_Eisdealer.crc2.fillStyle = "orange";
+                Endabgabe_Eisdealer.crc2.fillStyle = "rgb(81,242,0)";
             }
             Endabgabe_Eisdealer.crc2.arc(0, 0, 40, 0, 2 * Math.PI);
             Endabgabe_Eisdealer.crc2.fill();
@@ -119,11 +119,14 @@ var Endabgabe_Eisdealer;
             Endabgabe_Eisdealer.crc2.beginPath();
             Endabgabe_Eisdealer.crc2.strokeStyle = 'black';
             Endabgabe_Eisdealer.crc2.lineWidth = 5;
-            if (this.mood == "happy" || this.mood == "excited") {
+            if (this.mood == "happy") {
                 Endabgabe_Eisdealer.crc2.arc(0, 0, 8, 0, Math.PI, false);
             }
             else if (this.mood == "sad") {
                 Endabgabe_Eisdealer.crc2.arc(0, 8, 8, Math.PI, 2 * Math.PI, false);
+            }
+            else if (this.mood == "excited") {
+                Endabgabe_Eisdealer.crc2.arc(0, 0, 15, 0, Math.PI, false);
             }
             Endabgabe_Eisdealer.crc2.stroke();
             Endabgabe_Eisdealer.crc2.closePath();

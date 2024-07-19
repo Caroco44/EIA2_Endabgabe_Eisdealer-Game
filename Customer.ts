@@ -84,12 +84,12 @@ namespace Endabgabe_Eisdealer {
 
     public startTimer(): void {
       this.startTime = Date.now();
-    
+
       setTimeout(() => {
         if ((this.state == "waiting" || this.state == "ordering" || this.state == "paying") && this.startTime !== undefined) {
           let currentTime = Date.now();
           let elapsedSeconds = (currentTime - this.startTime) / 1000;
-    
+
           if (elapsedSeconds > 45) {
             this.mood = "sad";
           }
@@ -107,7 +107,7 @@ namespace Endabgabe_Eisdealer {
       } else if (this.mood == "sad") {
         crc2.fillStyle = "red";
       } else if (this.mood == "excited") {
-        crc2.fillStyle = "orange";
+        crc2.fillStyle = "rgb(81,242,0)";
       }
 
       crc2.arc(0, 0, 40, 0, 2 * Math.PI);
@@ -128,10 +128,12 @@ namespace Endabgabe_Eisdealer {
       crc2.strokeStyle = 'black';
       crc2.lineWidth = 5;
 
-      if (this.mood == "happy" || this.mood == "excited") {
+      if (this.mood == "happy") {
         crc2.arc(0, 0, 8, 0, Math.PI, false);
       } else if (this.mood == "sad") {
         crc2.arc(0, 8, 8, Math.PI, 2 * Math.PI, false);
+      } else if (this.mood == "excited") {
+        crc2.arc(0, 0, 15, 0, Math.PI, false);
       }
 
       crc2.stroke();

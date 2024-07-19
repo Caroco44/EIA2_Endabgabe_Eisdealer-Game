@@ -217,7 +217,12 @@ var Endabgabe_Eisdealer;
                 let sprinkleMatch = isOrderMatching('sprinkle', orderDetails, Endabgabe_Eisdealer.data.Sprinkles);
                 if (iceCreamMatch && sauceMatch && sprinkleMatch) {
                     customer.state = "eating";
-                    customer.mood = "happy";
+                    if (customer.mood == "sad") {
+                        customer.mood = "happy";
+                    }
+                    else if (customer.mood == "happy") {
+                        customer.mood = "excited";
+                    }
                     removeOrderDiv(customerOrderDiv, customer);
                 }
                 else {

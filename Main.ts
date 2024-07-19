@@ -289,7 +289,11 @@ namespace Endabgabe_Eisdealer {
 
         if (iceCreamMatch && sauceMatch && sprinkleMatch) {
           customer.state = "eating";
+          if (customer.mood == "sad") {
           customer.mood = "happy";
+        } else if (customer.mood == "happy") {
+          customer.mood = "excited";
+        }
 
           removeOrderDiv(customerOrderDiv, customer);
         } else {
