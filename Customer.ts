@@ -84,12 +84,12 @@ namespace Endabgabe_Eisdealer {
 
     public startTimer(): void {
       this.startTime = Date.now();
-
+    
       setTimeout(() => {
         if ((this.state == "waiting" || this.state == "ordering" || this.state == "paying") && this.startTime !== undefined) {
           let currentTime = Date.now();
           let elapsedSeconds = (currentTime - this.startTime) / 1000;
-
+    
           if (elapsedSeconds > 45) {
             this.mood = "sad";
           }
