@@ -286,7 +286,7 @@ var Endabgabe_Eisdealer;
                 customerPaying.state = "leaving";
                 // Remove payment info div from document
                 document.body.removeChild(paymentDiv);
-                displayedPayment = false; // Reset displayedPayment flag
+                displayedPayment = false;
                 // Add globalTotalPrice to totalEarnings
                 totalEarnings += globalTotalPrice;
                 updateEarningsDisplay();
