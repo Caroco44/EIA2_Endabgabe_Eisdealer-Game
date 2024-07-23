@@ -280,12 +280,4 @@ namespace Endabgabe_Eisdealer {
   }
 
 
-
-
-
-
-
-
-
-
 }
