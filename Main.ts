@@ -379,7 +379,7 @@ namespace Endabgabe_Eisdealer {
 
         // Remove payment info div from document
         document.body.removeChild(paymentDiv);
-        displayedPayment = false; // Reset displayedPayment flag
+        displayedPayment = false;
 
         // Add globalTotalPrice to totalEarnings
         totalEarnings += globalTotalPrice;
